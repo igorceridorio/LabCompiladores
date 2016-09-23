@@ -55,7 +55,7 @@ public class KraClass extends Type {
    }
    
    public InstanceVariable searchInstanceVariable(String variableName) {
-	   Iterator<InstanceVariable> it = this.instanceVariableList.iterator();
+	   Iterator<InstanceVariable> it = this.instanceVariableList.elements();
 	   InstanceVariable instanceVarAux = null;
 	   
 	   // nao precisamos buscar na superclasse pois todas as variaveis sao privadas
@@ -92,9 +92,9 @@ public class KraClass extends Type {
 	   
 	   // primeiramente define em qual lista realizara a busca
 	   if(isPublic) {
-		   it = this.publicMethodList.iterator();
+		   it = this.publicMethodList.elements();
 	   } else {
-		   it = this.privateMethodList.iterator();
+		   it = this.privateMethodList.elements();
 	   }
 	   
 	   // em seguida realiza a busca na lista desejada
