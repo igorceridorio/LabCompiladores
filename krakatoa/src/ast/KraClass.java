@@ -1,21 +1,132 @@
 package ast;
-/*
- * Krakatoa Class
- */
+
+import java.util.Iterator;
+
 public class KraClass extends Type {
-	
-   public KraClass( String name ) {
-      super(name);
+	 
+   private String name;
+   private KraClass superclass;
+   private MemberList memberList;
+   private InstanceVariableList instanceVariableList;
+   private MethodDecList publicMethodList;
+   private MethodDecList privateMethodList;
+   private boolean isFinal;
+   
+   public KraClass(String name) {
+	   super(name);
+	   this.superclass = null;
+	   this.memberList = new MemberList();
+	   this.instanceVariableList = new InstanceVariableList();
+	   this.publicMethodList = new MethodDecList();
+	   this.privateMethodList = new MethodDecList();
+	   this.isFinal = false;	   
    }
    
    public String getCname() {
       return getName();
    }
    
-   private String name;
-   private KraClass superclass;
-   private InstanceVariableList instanceVariableList;
-   // private MethodList publicMethodList, privateMethodList;
-   // métodos públicos get e set para obter e iniciar as variáveis acima,
-   // entre outros métodos
+   public String getName() {
+	   return super.getName();
+   }
+   
+   public KraClass getSuperclass() {
+	   return superclass;
+   }
+   
+   public void setSuperClass(KraClass superclass) {
+	   this.superclass = superclass;
+   }
+   
+   public MemberList getMemberList() {
+	   return memberList;
+   }
+   
+   public void setMemberList(MemberList memberList) {
+	   this.memberList = memberList;
+   }
+   
+   public InstanceVariableList getInstanceVariableList() {
+	   return instanceVariableList;
+   }
+   
+   public void addInstanceVariable(InstanceVariable instanceVariable) {
+	   this.instanceVariableList.addElement(instanceVariable);
+   }
+   
+   public InstanceVariable searchInstanceVariable(String variableName) {
+	   Iterator<InstanceVariable> it = this.instanceVariableList.iterator();
+	   InstanceVariable instanceVarAux = null;
+	   
+	   // nao precisamos buscar na superclasse pois todas as variaveis sao privadas
+	   while(it.hasNext()) {
+		   instanceVarAux = it.next();
+		   if(instanceVarAux.getName().equals(variableName)) {
+			   return instanceVarAux;
+		   }
+	   }
+	   
+	   //caso nao encontre, nao ha variavel com esse nome disponivel
+	   return null;
+   }
+   
+   public MethodDecList getPublicMethodList() {
+	   return publicMethodList;
+   }
+   
+   public void addPublicMethod(MethodDec methodDec) {
+	   this.publicMethodList.addElement(methodDec);
+   }
+   
+   public MethodDecList getPrivateMethodList() {
+	   return privateMethodList;
+   }
+   
+   public void addPrivateMethod(MethodDec methodDec) {
+	   this.privateMethodList.addElement(methodDec);
+   }
+   
+   public MethodDec searchMethod(String methodName, boolean isPublic, boolean searchInSuper) {
+	   Iterator<MethodDec> it = null;
+	   MethodDec methodDecAux = null;
+	   
+	   // primeiramente define em qual lista realizara a busca
+	   if(isPublic) {
+		   it = this.publicMethodList.iterator();
+	   } else {
+		   it = this.privateMethodList.iterator();
+	   }
+	   
+	   // em seguida realiza a busca na lista desejada
+	   while (it.hasNext()) {
+		   methodDecAux = it.next();
+		   if(!methodDecAux.isFinal && methodDecAux.getName().equals(name)) {
+			   return methodDecAux;
+		   }
+	   }
+	   
+	   // caso nao encontre o metodo na classe atual procura em sua superclasse (caso exista)
+	   if(this.getSuperclass() != null && searchInSuper && isPublic) {
+		   return this.getSuperclass().searchMethod(methodName, isPublic, searchInSuper);
+	   }
+	   
+	   // caso nao encontre, nao ha metodos com esse nome disponiveis
+	   return null;
+   }
+   
+   public genKra(PW pw) {
+	   if(isFinal) {
+		   pw.print("final ");
+	   }
+	   pw.print("class " + getName());
+	   if(superclass != null) {
+		   pw.print("extends " + superclass.getName());
+	   }
+	   pw.println(" {\n");
+	   pw.add();
+	   memberList.genKra(pw);
+	   pw.println("");
+	   pw.sub();
+	   pw.println("}\n\n");
+   }
 }
