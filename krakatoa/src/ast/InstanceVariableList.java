@@ -26,17 +26,10 @@ public class InstanceVariableList {
     	return instanceVariableList.get(0).isFinal();
     }
     
-    public boolean isStatic() {
-    	return instanceVariableList.get(0).isStatic();
-    }
-    
     public void genKra(PW pw) {
     	pw.printIdent("");
     	if(isFinal()) {
     		pw.print("final ");
-    	}
-    	if(isStatic()) {
-    		pw.print("static: ");
     	}
     	pw.print("private");
     	for(InstanceVariable v: instanceVariableList) {

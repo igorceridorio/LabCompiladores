@@ -10,7 +10,6 @@ public class KraClass extends Type {
    private InstanceVariableList instanceVariableList;
    private MethodDecList publicMethodList;
    private MethodDecList privateMethodList;
-   private boolean isFinal;
    
    public KraClass(String name) {
 	   super(name);
@@ -19,7 +18,6 @@ public class KraClass extends Type {
 	   this.instanceVariableList = new InstanceVariableList();
 	   this.publicMethodList = new MethodDecList();
 	   this.privateMethodList = new MethodDecList();
-	   this.isFinal = false;	   
    }
    
    public String getCname() {
@@ -100,7 +98,7 @@ public class KraClass extends Type {
 	   // em seguida realiza a busca na lista desejada
 	   while (it.hasNext()) {
 		   methodDecAux = it.next();
-		   if(!methodDecAux.isFinal && methodDecAux.getName().equals(name)) {
+		   if(methodDecAux.getName().equals(name)) {
 			   return methodDecAux;
 		   }
 	   }
@@ -114,10 +112,7 @@ public class KraClass extends Type {
 	   return null;
    }
    
-   public genKra(PW pw) {
-	   if(isFinal) {
-		   pw.print("final ");
-	   }
+   public void genKra(PW pw) {
 	   pw.print("class " + getName());
 	   if(superclass != null) {
 		   pw.print("extends " + superclass.getName());
