@@ -24,11 +24,14 @@ public class Compiler {
 		return program;
 	}
 
+	// Program ::= { MOCall } ClassDec { ClassDec }
 	private Program program(ArrayList<CompilationError> compilationErrorList) {
-		// Program ::= KraClass { KraClass }
+
 		ArrayList<MetaobjectCall> metaobjectCallList = new ArrayList<>();
 		ArrayList<KraClass> kraClassList = new ArrayList<>();
+		
 		Program program = new Program(kraClassList, metaobjectCallList, compilationErrorList);
+		
 		try {
 			while ( lexer.token == Symbol.MOCall ) {
 				metaobjectCallList.add(metaobjectCall());

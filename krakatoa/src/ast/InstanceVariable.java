@@ -12,5 +12,9 @@ public class InstanceVariable extends Variable {
     public boolean isFinal(){
     	return this.isFinal;
     }
+    
+    public void genKra(PW pw) {
+    	
+    }
 
 }

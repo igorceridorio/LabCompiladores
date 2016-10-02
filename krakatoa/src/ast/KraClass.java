@@ -14,7 +14,7 @@ public class KraClass extends Type {
    public KraClass(String name) {
 	   super(name);
 	   this.superclass = null;
-	   this.memberList = new MemberList();
+	   this.memberList = null;
 	   this.instanceVariableList = new InstanceVariableList();
 	   this.publicMethodList = new MethodDecList();
 	   this.privateMethodList = new MethodDecList();
