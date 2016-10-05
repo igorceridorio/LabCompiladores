@@ -11,6 +11,12 @@ public class MessageSendStatement extends Statement {
 
    private MessageSend  messageSend;
 
+@Override
+public void genKra(PW pw) {
+	// TODO Auto-generated method stub
+	
+}
+
 }
 
 

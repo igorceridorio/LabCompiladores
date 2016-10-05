@@ -4,6 +4,8 @@ import java.util.*;
 
 public class ExprList {
 
+    private ArrayList<Expr> exprList;
+	
     public ExprList() {
         exprList = new ArrayList<Expr>();
     }
@@ -22,6 +24,16 @@ public class ExprList {
         }
     }
 
-    private ArrayList<Expr> exprList;
+    public void genKra(PW pw, boolean ident) {
+    	int s = exprList.size();
+    	for(Expr e : exprList) {
+    		if(e != null) {
+    			e.genKra(pw, ident);
+    		}
+    		if(--s > 0) {
+    			pw.print(", ");
+    		}
+    	}
+    }
 
 }
