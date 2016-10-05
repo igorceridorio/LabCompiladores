@@ -3,6 +3,8 @@ package ast;
 import java.util.*;
 
 public class ParamList {
+	
+	private ArrayList<Variable> paramList;
 
     public ParamList() {
        paramList = new ArrayList<Variable>();
@@ -20,6 +22,13 @@ public class ParamList {
         return paramList.size();
     }
 
-    private ArrayList<Variable> paramList;
+    public void genKra(PW pw) {
+    	for(Variable v: paramList) {
+    		pw.print(v.getType().getName() + " " + v.getName());
+			if ( v != paramList.get(getSize() - 1) ) {
+				pw.print(", ");
+			}
+    	}
+    }
 
 }

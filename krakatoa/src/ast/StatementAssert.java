@@ -33,4 +33,11 @@ public class StatementAssert extends Statement {
 	private Expr expr;
 	private int lineNumber;
 	private String message;
+
+	@Override
+	public void genKra(PW pw) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

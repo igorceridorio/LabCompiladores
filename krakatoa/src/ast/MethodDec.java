@@ -9,10 +9,10 @@ public class MethodDec {
 	private Symbol qualifier;
 	private Type returnType;
 	private String methodName;
-	private FormalParamDec formalParamDec;
+	private ParamList formalParamDec;
 	private StatementList statementList;
 	
-	public MethodDec(Symbol qualifier, Type returnType, String methodName, FormalParamDec formalParamDec, StatementList statementList) {
+	public MethodDec(Symbol qualifier, Type returnType, String methodName, ParamList formalParamDec, StatementList statementList) {
 		this.qualifier = qualifier;
 		this.returnType = returnType;
 		this.formalParamDec = null;
@@ -31,11 +31,11 @@ public class MethodDec {
 		return this.methodName;
 	}
 	
-	public void setFormalParamDec(FormalParamDec formalParamDec) {
+	public void setFormalParamDec(ParamList formalParamDec) {
 		this.formalParamDec = formalParamDec;
 	}
 	
-	public FormalParamDec getFormalParamDec() {
+	public ParamList getFormalParamDec() {
 		return this.formalParamDec;
 	}
 	
