@@ -13,6 +13,9 @@ public class LiteralInt extends Expr {
         pw.printIdent("" + value);
     }
     
+    public void genKra(PW pw, boolean ident) {	
+    }
+    
     public Type getType() {
         return Type.intType;
     }

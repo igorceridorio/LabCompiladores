@@ -10,4 +10,7 @@ public class MessageSendToSuper extends MessageSend {
         
     }
     
+    public void genKra(PW pw, boolean ident) {	
+    }
+    
 }

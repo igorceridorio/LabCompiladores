@@ -10,6 +10,9 @@ public class LiteralString extends Expr {
         pw.print(literalString);
     }
     
+    public void genKra(PW pw, boolean ident) {	
+    }
+    
     public Type getType() {
         return Type.stringType;
     }

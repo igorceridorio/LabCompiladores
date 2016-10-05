@@ -27,6 +27,9 @@ public class CompositeExpr extends Expr {
         if ( putParenthesis )
           pw.print(")");
     }
+    
+    public void genKra(PW pw, boolean ident) {	
+    }
 
     @Override
 	public Type getType() {
