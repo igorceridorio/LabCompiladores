@@ -139,7 +139,7 @@ public class Compiler {
 			lexer.nextToken();
 		}
 		if ( lexer.token != Symbol.LEFTCURBRACKET )
-			signalError.showError("{ expected", true);
+			signalError.showError("'{' expected", true);
 		lexer.nextToken();
 
 		while (lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC) {
@@ -202,11 +202,11 @@ public class Compiler {
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTCURBRACKET ) signalError.showError("{ expected");
+		if ( lexer.token != Symbol.LEFTCURBRACKET ) signalError.showError("'{' expected");
 
 		lexer.nextToken();
 		statementList();
-		if ( lexer.token != Symbol.RIGHTCURBRACKET ) signalError.showError("} expected");
+		if ( lexer.token != Symbol.RIGHTCURBRACKET ) signalError.showError("'}' expected");
 
 		lexer.nextToken();
 
@@ -226,6 +226,8 @@ public class Compiler {
 			v = new Variable(lexer.getStringValue(), type);
 			lexer.nextToken();
 		}
+		if (lexer.token != Symbol.SEMICOLON)	signalError.showError(("Missing ';'"));
+		lexer.nextToken(); //le o token ";"
 	}
 
 	private void formalParamDec() {
@@ -335,6 +337,9 @@ public class Compiler {
 		case WHILE:
 			whileStatement();
 			break;
+		case DO:
+			doWhileStatement();
+			break;
 		case SEMICOLON:
 			nullStatement();
 			break;
@@ -422,7 +427,8 @@ public class Compiler {
 	}
 
 	private void whileStatement() {
-
+		//WhileStat ::= “while” “(” Expression “)” Statement
+		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
@@ -430,6 +436,20 @@ public class Compiler {
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken();
 		statement();
+	}
+	
+	private void doWhileStatement() {
+		//DoWhileStat ::= “do” CompStatement “while” “(” Expression “)”
+
+		lexer.nextToken(); //le o token "do"
+		compositeStatement();
+		if ( lexer.token != Symbol.WHILE ) signalError.showError("'while' expected");
+		lexer.nextToken(); //le o token "while"
+		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
+		lexer.nextToken(); // le o token "("
+		expr();
+		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
+		lexer.nextToken(); // le o token ")"
 	}
 
 	private void ifStatement() {

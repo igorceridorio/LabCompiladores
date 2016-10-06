@@ -11,6 +11,7 @@ public enum Symbol {
     COLON(":"),
     COMMA(","),
     DIV("/"),
+    DO("do"),
     DOT("."),
     ELSE("else"),
     EOF("~eof"),
