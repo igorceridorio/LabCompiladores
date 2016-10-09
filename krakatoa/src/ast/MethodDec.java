@@ -12,9 +12,10 @@ public class MethodDec {
 	private ParamList formalParamDec;
 	private StatementList statementList;
 	
-	public MethodDec(Symbol qualifier, Type returnType, String methodName, ParamList formalParamDec, StatementList statementList) {
+	public MethodDec(Symbol qualifier, Type returnType, String methodName) {
 		this.qualifier = qualifier;
 		this.returnType = returnType;
+		this.methodName = methodName;
 		this.formalParamDec = null;
 		this.statementList = null;
 	}

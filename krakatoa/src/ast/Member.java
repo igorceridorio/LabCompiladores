@@ -7,7 +7,7 @@ public class Member {
 	private InstanceVariableList instanceVariableList;
 	private MethodDec methodDec;
 	
-	public Member() {
+	public Member(InstanceVariableList instanceVariableList, MethodDec methodDec) {
 		this.instanceVariableList = instanceVariableList;
 		this.methodDec = methodDec;
 	}
