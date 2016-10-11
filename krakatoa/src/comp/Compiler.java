@@ -134,13 +134,10 @@ public class Compiler {
 	 * ClassDec ::= ``class'' Id [ ``extends'' Id ] "{" MemberList "}"
 	 * MemberList ::= { Qualifier Member } 
 	 * Member ::= InstVarDec | MethodDec
-	 * InstVarDec ::= Type IdList ";" 
-	 * MethodDec ::= Qualifier Type Id "("[ FormalParamDec ] ")" "{" StatementList "}" 
 	 * Qualifier ::= [ "static" ]  ( "private" | "public" )
 	 */
 	private KraClass classDec() {
 		
-		KraClass kraClass;
 		String className = null;
 		
 		if ( lexer.token != Symbol.CLASS ) 
@@ -152,13 +149,15 @@ public class Compiler {
 			signalError.show(ErrorSignaller.ident_expected);
 		
 		className = lexer.getStringValue();
-		kraClass = new KraClass(className);
-		
+		KraClass kraClass = new KraClass(className);
 		symbolTable.putInGlobal(className, kraClass);
+		currentClass = kraClass;
+		
 		lexer.nextToken();
 		
 		if ( lexer.token == Symbol.EXTENDS ) {
 			lexer.nextToken();
+			
 			if ( lexer.token != Symbol.IDENT )
 				signalError.show(ErrorSignaller.ident_expected);
 			
@@ -179,6 +178,7 @@ public class Compiler {
 			
 			// caso passe pela analise a superclasse eh definida
 			kraClass.setSuperClass(superClass);
+			currentClass.setSuperClass(superClass);
 
 			lexer.nextToken();
 		}
@@ -190,13 +190,10 @@ public class Compiler {
 		// MemberList ::= { Qualifier Member } 
 		ArrayList<Member> memberArray = null;
 		
-		while (lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC || lexer.token == Symbol.STATIC) {
+		while (lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC) {
 
 			Symbol qualifier;
 			switch (lexer.token) {
-			case STATIC:
-				lexer.nextToken();
-				qualifier = Symbol.STATIC;
 			case PRIVATE:
 				lexer.nextToken();
 				qualifier = Symbol.PRIVATE;
@@ -206,7 +203,7 @@ public class Compiler {
 				qualifier = Symbol.PUBLIC;
 				break;
 			default:
-				signalError.showError("private, or public expected");
+				signalError.showError("'private' or 'public' expected");
 				qualifier = Symbol.PUBLIC;
 			}
 			
@@ -222,15 +219,22 @@ public class Compiler {
 			String name = lexer.getStringValue();
 			lexer.nextToken();
 			
+			// ANALISE SEMANTICA: caso name seja 'run' e pertenca a Program verifica se o tipo de retorno eh void
+			if(currentClass.getName().equals("Program") && name.equals("run") && t != Type.voidType) {
+				signalError.showError("Method 'run' from class 'Program' must be 'void'");
+			}
+			
 			InstanceVariableList instanceVariableList = null;
 			MethodDec methodDec = null;
 			
 			if ( lexer.token == Symbol.LEFTPAR )
 				methodDec = methodDec(t, name, qualifier);
-			else if ( qualifier != Symbol.PRIVATE )
+			else if ( qualifier != Symbol.PRIVATE ) {
+				// ANALISE SEMANTICA: apenas variaveis de instancia privadas podem ser declaradas em uma classe 
 				signalError.showError("Attempt to declare a public instance variable");
-			else
-				instanceVariableList = instanceVarDec(t, name);
+			} else {
+				instanceVariableList = instVarDec(t, name);
+			}
 			
 			memberArray.add(new Member(instanceVariableList, methodDec));
 			
@@ -239,13 +243,16 @@ public class Compiler {
 		// define o memberList para esta kraClass
 		MemberList memberList = new MemberList(memberArray);
 		kraClass.setMemberList(memberList);
+		currentClass.setMemberList(memberList);
 		
-		if ( lexer.token != Symbol.RIGHTCURBRACKET )
-			signalError.showError("public/private or \"}\" expected");
+		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
+			signalError.showError("'public', 'private' or '}' expected");
+		}
+		
 		lexer.nextToken();
 		
 		// ANALISE SEMANTICA: caso a classe seja 'Program', verifica se possui o metodo 'run()'
-		if((kraClass.getName().equals("Program")) && (kraClass.searchMethod("run", true, false) == null)) {
+		if ((currentClass.getName().equals("Program")) && (currentClass.searchMethod("run", true, false) == null)) {
 			signalError.showError("Class 'Program' must have a 'run'");
 		}
 
@@ -253,17 +260,40 @@ public class Compiler {
 	
 	}
 
-	private InstanceVariableList instanceVarDec(Type type, String name) {
-		// InstVarDec ::= [ "static" ] "private" Type IdList ";"
+	private InstanceVariableList instVarDec(Type type, String name) {
+		// InstVarDec ::= "private" Type IdList ";"
+		// IdList = Id {"," Id}
+		
+		InstanceVariableList instanceVariableList = new InstanceVariableList();
 
-		InstanceVariableList instanceVariableList = null;
+		// ANALISE SEMANTICA: verifica se nao ha a redeclaracao da variavel de instancia
+		if(currentClass.searchInstanceVariable(name) != null) {
+			signalError.showError("Instance variable " + name + " has already been declared");
+		}
+		
+		// primeira variavel eh adicionada a currentClass e a instanceVariableList
+		currentClass.addInstanceVariable(new InstanceVariable(name, type));
+		instanceVariableList.addElement(new InstanceVariable(name, type));
 		
 		while (lexer.token == Symbol.COMMA) {
 			lexer.nextToken();
+			
 			if ( lexer.token != Symbol.IDENT )
 				signalError.showError("Identifier expected");
+			
 			String variableName = lexer.getStringValue();
+			
+			// ANALISE SEMANTICA: verifica se nao ha a redeclaracao da variavel de instancia
+			if (currentClass.searchInstanceVariable(variableName) != null) {
+				signalError.showError("Instance variable " + name + " has already been declared");
+			}
+			
+			//adiciona a variavel corrente a currentClass e a instanceVariableList
+			currentClass.addInstanceVariable(new InstanceVariable(variableName, type));
+			instanceVariableList.addElement(new InstanceVariable(variableName, type));
+			
 			lexer.nextToken();
+			
 		}
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);

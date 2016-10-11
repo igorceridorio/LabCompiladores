@@ -22,15 +22,15 @@ public class InstanceVariableList {
         return instanceVariableList.size();
     }
     
-    public boolean isFinal() {
-    	return instanceVariableList.get(0).isFinal();
-    }
+//    public boolean isFinal() {
+//    	return instanceVariableList.get(0).isFinal();
+//    }
     
     public void genKra(PW pw) {
     	pw.printIdent("");
-    	if(isFinal()) {
-    		pw.print("final ");
-    	}
+//    	if(isFinal()) {
+//    		pw.print("final ");
+//    	}
     	pw.print("private");
     	for(InstanceVariable v: instanceVariableList) {
     		pw.println(" " + v.getType().getName() + " " + v.getName() + ";");

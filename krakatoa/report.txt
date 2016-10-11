@@ -1,8 +1,8 @@
 Relatório do Compilador
 
-0 de um total de 129 erros que deveriam ser sinalizados não o foram (0%)
-61 erros foram sinalizados na linha errada (47%)
-61 erros foram sinalizados em 89 arquivos sem erro (68%)
+0 de um total de 126 erros que deveriam ser sinalizados não o foram (0%)
+63 erros foram sinalizados na linha errada (50%)
+60 erros foram sinalizados em 92 arquivos sem erro (65%)
 Todos os erros que deveriam ter sido sinalizados o foram
 ######################################################
 Erros que foram sinalizados na linha errada:
@@ -74,10 +74,6 @@ ER-SEM19.KRA
 ER-SEM26.KRA
     correto:    9, 'break' statement found outside a 'while' statement (comp.Compiler.statement()))
     sinalizado: 15, Class 'Program' must have a 'run'
-
-ER-SEM28.KRA
-    correto:    10, Variable 'i' is being redeclared (comp.Compiler.localDec())
-    sinalizado: 30, Class 'Program' must have a 'run'
 
 ER-SEM30.KRA
     correto:    16, Method 'put' of subclass 'B' has a signature different from method inherited from superclass 'A' (comp.Compiler.methodDec())
@@ -183,9 +179,33 @@ ER-SEM62.KRA
     correto:    15, Identifier 'a' was not found (comp.Compiler.factor())
     sinalizado: 20, Class 'Program' must have a 'run'
 
+ER-SEM63.KRA
+    correto:    12, '.' or '=' expected after an identifier OR statement expected (comp.Compiler.factor())
+    sinalizado: 8, 'public', 'private' or '}' expected
+
+ER-SEM64.KRA
+    correto:    11, '.' or '=' expected after an identifier OR statement expected (comp.Compiler.factor())
+    sinalizado: 7, 'public', 'private' or '}' expected
+
+ER-SEM65.KRA
+    correto:    9, Static method 'p' was not found in class 'Program' (comp.Compiler.factor())
+    sinalizado: 8, 'public', 'private' or '}' expected
+
+ER-SEM66.KRA
+    correto:    9, Static method 'p' was not found in class 'Program' (comp.Compiler.factor())
+    sinalizado: 8, 'public', 'private' or '}' expected
+
+ER-SEM67.KRA
+    correto:    12, '.' or '=' expected after an identifier OR statement expected (comp.Compiler.factor())
+    sinalizado: 11, 'public', 'private' or '}' expected
+
 ER-SEM68.KRA
     correto:    12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
     sinalizado: 20, Class 'Program' must have a 'run'
+
+ER-SEM69.KRA
+    correto:    11, '.' or '=' expected after identifier OR statement expected (comp.Compiler.factor())
+    sinalizado: 7, 'public', 'private' or '}' expected
 
 ER-SEM70.KRA
     correto:    10, Method 'm' is being redefined (comp.Compiler.methodDec())
@@ -193,19 +213,15 @@ ER-SEM70.KRA
 
 ER-SEM71.KRA
     correto:    9, Attempt to access an instance variable using 'this' in a static method (comp.Compiler.factor())
-    sinalizado: 16, Class 'Program' must have a 'run'
+    sinalizado: 8, 'public', 'private' or '}' expected
 
 ER-SEM72.KRA
     correto:    11, Call to 'this' in a static method (comp.Compiler.factor())
-    sinalizado: 18, Class 'Program' must have a 'run'
+    sinalizado: 10, 'public', 'private' or '}' expected
 
 ER-SEM73.KRA
     correto:    10, Redefinition of static method 'm' (comp.Compiler.methodDec())
-    sinalizado: 17, Class 'Program' must have a 'run'
-
-ER-SEM76.KRA
-    correto:    16, Method 'm' was not found in class 'A' or its superclasses (comp.Compiler.factor())
-    sinalizado: 20, Class 'Program' must have a 'run'
+    sinalizado: 7, 'public', 'private' or '}' expected
 
 ER-SEM77.KRA
     correto:    10, Method 'run' was not found in class 'Program' (comp.Compiler.classDec())
@@ -215,17 +231,9 @@ ER-SEM79.KRA
     correto:    5, Method 'run' of class 'Program' cannot take parameters 
     sinalizado: 8, Class 'Program' must have a 'run'
 
-ER-SEM80.KRA
-    correto:    7, Method 'run' of class 'Program' with a return value type different from 'void' (comp.Compiler.methodDec())
-    sinalizado: 10, Class 'Program' must have a 'run'
-
 ER-SEM81.KRA
     correto:    7, Method 'run' of class 'Program' cannot be private (comp.Compiler.methodDec())
     sinalizado: 10, Class 'Program' must have a 'run'
-
-ER-SEM82.KRA
-    correto:    5, Method 'run' cannot be static 
-    sinalizado: 8, Class 'Program' must have a 'run'
 
 ER-SEM86.KRA
     correto:    8, Class 'A' was not found (comp.Compiler.factor())
@@ -233,7 +241,7 @@ ER-SEM86.KRA
 
 ER-SEM87.KRA
     correto:    11, Call to 'this' in a static method (comp.Compiler.factor())
-    sinalizado: 18, Class 'Program' must have a 'run'
+    sinalizado: 10, 'public', 'private' or '}' expected
 
 ER-SEM88.KRA
     correto:    13, boolean expression expected in a do-while statement (comp.Compiler.doWhileStatement())
@@ -299,8 +307,6 @@ OK-GER14.KRA, 102, Class 'Program' must have a 'run'
 OK-GER15.KRA, 159, Class 'Program' must have a 'run'
 
 OK-GER16.KRA, 92, Class 'Program' must have a 'run'
-
-OK-GER17.KRA, 44, Identifier expected
 
 OK-GER21.KRA, 36, Class 'Program' must have a 'run'
 
@@ -451,39 +457,14 @@ The compiler message was: "Identifier expected"
 The 'ce' message is:      "Identifier expected"
 
 
-ER-SEM63.KRA
-The compiler message was: "Statement expected"
-The 'ce' message is:      "'.' or '=' expected after an identifier OR statement expected"
+ER-SEM80.KRA
+The compiler message was: "Method 'run' from class 'Program' must be 'void'"
+The 'ce' message is:      "Method 'run' of class 'Program' with a return value type different from 'void'"
 
 
-ER-SEM64.KRA
-The compiler message was: "Statement expected"
-The 'ce' message is:      "'.' or '=' expected after an identifier OR statement expected"
-
-
-ER-SEM65.KRA
-The compiler message was: "Identifier expected"
-The 'ce' message is:      "Static method 'p' was not found in class 'Program'"
-
-
-ER-SEM66.KRA
-The compiler message was: "Identifier expected"
-The 'ce' message is:      "Static method 'p' was not found in class 'Program'"
-
-
-ER-SEM67.KRA
-The compiler message was: "Statement expected"
-The 'ce' message is:      "'.' or '=' expected after an identifier OR statement expected"
-
-
-ER-SEM69.KRA
-The compiler message was: "Statement expected"
-The 'ce' message is:      "'.' or '=' expected after identifier OR statement expected"
-
-
-ER-SEM75.KRA
-The compiler message was: "Identifier expected"
-The 'ce' message is:      "Static method 'm' was not found in class 'A'"
+ER-SEM82.KRA
+The compiler message was: "'public', 'private' or '}' expected"
+The 'ce' message is:      "Method 'run' cannot be static"
 
 
 ER-SIN01.KRA
@@ -612,7 +593,7 @@ The 'ce' message is:      "Unknown character '#'"
 
 
 ER-SIN31.KRA
-The compiler message was: "public/private or "}" expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'public', 'private', or '}' expected"
 
 
@@ -647,17 +628,17 @@ The 'ce' message is:      "Expression expected"
 
 
 ER-SIN38.KRA
-The compiler message was: "public/private or "}" expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'}' expected"
 
 
 ER-SIN43.KRA
-The compiler message was: "public/private or "}" expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'public', 'private', or '}' expected"
 
 
 ER-SIN44.KRA
-The compiler message was: "public/private or "}" expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'public', 'private', or '}' expected"
 
 
@@ -667,12 +648,12 @@ The 'ce' message is:      "Identifier expected"
 
 
 ER-SIN52.KRA
-The compiler message was: "Identifier expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'public' or 'private' expected"
 
 
 ER-SIN53.KRA
-The compiler message was: "Identifier expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'private' expected"
 
 
@@ -687,12 +668,12 @@ The 'ce' message is:      "Identifier expected"
 
 
 ER-SIN56.KRA
-The compiler message was: "Identifier expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "Identifier expected"
 
 
 ER-SIN57.KRA
-The compiler message was: "public/private or "}" expected"
+The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'public', 'private' or '}' expected"
 
 
