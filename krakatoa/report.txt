@@ -1,0 +1,723 @@
+Relatório do Compilador
+
+0 de um total de 129 erros que deveriam ser sinalizados não o foram (0%)
+61 erros foram sinalizados na linha errada (47%)
+61 erros foram sinalizados em 89 arquivos sem erro (68%)
+Todos os erros que deveriam ter sido sinalizados o foram
+######################################################
+Erros que foram sinalizados na linha errada:
+
+ER-SEM01.KRA
+    correto:    16, Missing 'return' statement in method 'm' (comp.Compiler.methodDec())
+    sinalizado: 22, Class 'Program' must have a 'run'
+
+ER-SEM02.KRA
+    correto:    9, Variable 'I' was not declared (comp.Compiler.assignExprLocalDec())
+    sinalizado: 15, Class 'Program' must have a 'run'
+
+ER-SEM03.KRA
+    correto:    10, Variable 'i' is being redeclared (comp.Compiler.localDec())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SEM04.KRA
+    correto:    11, Type error: value of the right-hand side is not subtype of the variable of the left-hand side. (comp.Compiler.assignExprLocalDec())
+    sinalizado: 18, Class 'Program' must have a 'run'
+
+ER-SEM05.KRA
+    correto:    10, 'int' cannot be assigned to 'boolean' (comp.Compiler.assignExprLocalDec())
+    sinalizado: 16, Class 'Program' must have a 'run'
+
+ER-SEM07.KRA
+    correto:    10, Message send to a non-object receiver (comp.Compiler.factor())
+    sinalizado: 15, Class 'Program' must have a 'run'
+
+ER-SEM08.KRA
+    correto:    8, type boolean does not support operation '+' (comp.Compiler.simpleExpr())
+    sinalizado: 14, Class 'Program' must have a 'run'
+
+ER-SEM09.KRA
+    correto:    10, type 'int' does not support operator '&&' (comp.Compiler.term())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SEM11.KRA
+    correto:    10, non-boolean expression in 'while' command (comp.Compiler.whileStatement())
+    sinalizado: 18, Class 'Program' must have a 'run'
+
+ER-SEM12.KRA
+    correto:    9, operator '+' of 'int' expects an 'int' value (comp.Compiler.simpleExpr())
+    sinalizado: 15, Class 'Program' must have a 'run'
+
+ER-SEM13.KRA
+    correto:    11, Command 'read' does not accept 'boolean' variables (comp.Compiler.readStatement())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SEM14.KRA
+    correto:    12, Command 'write' does not accept 'boolean' expressions (comp.Compiler.writeStatement())
+    sinalizado: 18, Class 'Program' must have a 'run'
+
+ER-SEM15.KRA
+    correto:    9, Operator '!' does not accepts 'int' values (comp.Compiler.factor())
+    sinalizado: 18, Class 'Program' must have a 'run'
+
+ER-SEM16.KRA
+    correto:    11, Operator '-' does not accepts 'boolean' expressions (comp.Compiler.signalFactor())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SEM18.KRA
+    correto:    9, Type 'k' was not found (comp.Compiler.localDec())
+    sinalizado: 13, Class 'Program' must have a 'run'
+
+ER-SEM19.KRA
+    correto:    8, Type 'Program' was not found (comp.Compiler.localDec())
+    sinalizado: 23, Class 'Program' must have a 'run'
+
+ER-SEM26.KRA
+    correto:    9, 'break' statement found outside a 'while' statement (comp.Compiler.statement()))
+    sinalizado: 15, Class 'Program' must have a 'run'
+
+ER-SEM28.KRA
+    correto:    10, Variable 'i' is being redeclared (comp.Compiler.localDec())
+    sinalizado: 30, Class 'Program' must have a 'run'
+
+ER-SEM30.KRA
+    correto:    16, Method 'put' of subclass 'B' has a signature different from method inherited from superclass 'A' (comp.Compiler.methodDec())
+    sinalizado: 35, Class 'Program' must have a 'run'
+
+ER-SEM31.KRA
+    correto:    10, Method 'i' has name equal to an instance variable (comp.Compiler.methodDec())
+    sinalizado: 28, Class 'Program' must have a 'run'
+
+ER-SEM32.KRA
+    correto:    11, Method 'm' is being redeclared (comp.Compiler.methodDec())
+    sinalizado: 28, Class 'Program' must have a 'run'
+
+ER-SEM33.KRA
+    correto:    11, Method 'm' is being redeclared (comp.Compiler.methodDec())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SEM34.KRA
+    correto:    19, Message send 'a.m()' returns a value that is not used (comp.Compiler.statement())
+    sinalizado: 25, Class 'Program' must have a 'run'
+
+ER-SEM35.KRA
+    correto:    9, Illegal 'return' statement. Method returns 'void' (comp.Compiler.returnStatement())
+    sinalizado: 27, Class 'Program' must have a 'run'
+
+ER-SEM36.KRA
+    correto:    20, Expression expected in the right-hand side of assignment (comp.Compiler.assignExprLocalDec())
+    sinalizado: 26, Class 'Program' must have a 'run'
+
+ER-SEM37.KRA
+    correto:    20, Method 'set' was not found in class 'A' or its superclasses (comp.Compiler.factor())
+    sinalizado: 24, Class 'Program' must have a 'run'
+
+ER-SEM38.KRA
+    correto:    20, Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side (comp.Compiler.assignExprLocalDec())
+    sinalizado: 26, Class 'Program' must have a 'run'
+
+ER-SEM39.KRA
+    correto:    16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
+    sinalizado: 25, Class 'Program' must have a 'run'
+
+ER-SEM40.KRA
+    correto:    40, Type error: the type of the real parameter is not subclass of the type of the formal parameter (comp.Compiler.factor())
+    sinalizado: 46, Class 'Program' must have a 'run'
+
+ER-SEM41.KRA
+    correto:    14, Type error: the type of the expression of the right-hand side is a basic type and the type of the variable of the left-hand side is a class (comp.Compiler.assignExprLocalDec())
+    sinalizado: 20, Class 'Program' must have a 'run'
+
+ER-SEM42.KRA
+    correto:    14, Type error: type of the left-hand side of the assignment is a basic type and the type of the right-hand side is a class (comp.Compiler.assignExprLocalDec())
+    sinalizado: 20, Class 'Program' must have a 'run'
+
+ER-SEM43.KRA
+    correto:    10, Type error: 'null' cannot be assigned to a variable of a basic type (comp.Compiler.assignExprLocalDec())
+    sinalizado: 16, Class 'Program' must have a 'run'
+
+ER-SEM44.KRA
+    correto:    26, Command 'write' does not accept objects (comp.Compiler.writeStatement())
+    sinalizado: 32, Class 'Program' must have a 'run'
+
+ER-SEM45.KRA
+    correto:    13, 'int' or 'String' expression expected (comp.Compiler.readStatement())
+    sinalizado: 19, Class 'Program' must have a 'run'
+
+ER-SEM46.KRA
+    correto:    9, 'super' used in class 'Program' that does not have a superclass (comp.Compiler.factor())
+    sinalizado: 13, Class 'Program' must have a 'run'
+
+ER-SEM47.KRA
+    correto:    24, Method 'm' was not found in superclass 'B' or its superclasses (comp.Compiler.factor())
+    sinalizado: 39, Class 'Program' must have a 'run'
+
+ER-SEM50.KRA
+    correto:    17, Command 'break' outside a command 'while' (comp.Compiler.breakStatement())
+    sinalizado: 23, Class 'Program' must have a 'run'
+
+ER-SEM51.KRA
+    correto:    17, Method 'put' is being redefined in subclass 'B' with a signature different from the method of superclass 'A' (comp.Compiler.methodDec())
+    sinalizado: 35, Class 'Program' must have a 'run'
+
+ER-SEM57.KRA
+    correto:    21, Incompatible types cannot be compared with '==' because the result will always be 'false' (comp.Compiler.expr())
+    sinalizado: 26, Class 'Program' must have a 'run'
+
+ER-SEM58.KRA
+    correto:    21, Incompatible types cannot be compared with '!=' because the result will always be 'false' (comp.Compiler.expr())
+    sinalizado: 26, Class 'Program' must have a 'run'
+
+ER-SEM59.KRA
+    correto:    25, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
+    sinalizado: 29, Class 'Program' must have a 'run'
+
+ER-SEM60.KRA
+    correto:    21, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
+    sinalizado: 35, Class 'Program' must have a 'run'
+
+ER-SEM61.KRA
+    correto:    33, Method 's' was not found in class 'C' or its superclasses (comp.Compiler.factor())
+    sinalizado: 38, Class 'Program' must have a 'run'
+
+ER-SEM62.KRA
+    correto:    15, Identifier 'a' was not found (comp.Compiler.factor())
+    sinalizado: 20, Class 'Program' must have a 'run'
+
+ER-SEM68.KRA
+    correto:    12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
+    sinalizado: 20, Class 'Program' must have a 'run'
+
+ER-SEM70.KRA
+    correto:    10, Method 'm' is being redefined (comp.Compiler.methodDec())
+    sinalizado: 27, Class 'Program' must have a 'run'
+
+ER-SEM71.KRA
+    correto:    9, Attempt to access an instance variable using 'this' in a static method (comp.Compiler.factor())
+    sinalizado: 16, Class 'Program' must have a 'run'
+
+ER-SEM72.KRA
+    correto:    11, Call to 'this' in a static method (comp.Compiler.factor())
+    sinalizado: 18, Class 'Program' must have a 'run'
+
+ER-SEM73.KRA
+    correto:    10, Redefinition of static method 'm' (comp.Compiler.methodDec())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SEM76.KRA
+    correto:    16, Method 'm' was not found in class 'A' or its superclasses (comp.Compiler.factor())
+    sinalizado: 20, Class 'Program' must have a 'run'
+
+ER-SEM77.KRA
+    correto:    10, Method 'run' was not found in class 'Program' (comp.Compiler.classDec())
+    sinalizado: 11, Class 'Program' must have a 'run'
+
+ER-SEM79.KRA
+    correto:    5, Method 'run' of class 'Program' cannot take parameters 
+    sinalizado: 8, Class 'Program' must have a 'run'
+
+ER-SEM80.KRA
+    correto:    7, Method 'run' of class 'Program' with a return value type different from 'void' (comp.Compiler.methodDec())
+    sinalizado: 10, Class 'Program' must have a 'run'
+
+ER-SEM81.KRA
+    correto:    7, Method 'run' of class 'Program' cannot be private (comp.Compiler.methodDec())
+    sinalizado: 10, Class 'Program' must have a 'run'
+
+ER-SEM82.KRA
+    correto:    5, Method 'run' cannot be static 
+    sinalizado: 8, Class 'Program' must have a 'run'
+
+ER-SEM86.KRA
+    correto:    8, Class 'A' was not found (comp.Compiler.factor())
+    sinalizado: 12, Class 'Program' must have a 'run'
+
+ER-SEM87.KRA
+    correto:    11, Call to 'this' in a static method (comp.Compiler.factor())
+    sinalizado: 18, Class 'Program' must have a 'run'
+
+ER-SEM88.KRA
+    correto:    13, boolean expression expected in a do-while statement (comp.Compiler.doWhileStatement())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SEM89.KRA
+    correto:    13, boolean expression expected in a do-while statement (comp.Compiler.doWhileStatement())
+    sinalizado: 17, Class 'Program' must have a 'run'
+
+ER-SIN04.KRA
+    correto:    8, Statement expected (comp.Compiler.assignExprLocalDec())
+    sinalizado: 13, Class 'Program' must have a 'run'
+
+ER-SIN17.KRA
+    correto:    7, Missing ';' (comp.Compiler.localDec())
+    sinalizado: 8, Missing ';'
+
+######################################################
+Erros que foram sinalizados mas não deveriam ter sido:
+
+OK-CHK01.KRA, 103, Class 'Program' must have a 'run'
+
+OK-CHK02.KRA, 131, Class 'Program' must have a 'run'
+
+OK-CHK03.KRA, 46, Class 'Program' must have a 'run'
+
+OK-CHK04.KRA, 46, Class 'Program' must have a 'run'
+
+OK-CHK05.KRA, 46, Class 'Program' must have a 'run'
+
+OK-CHK06.KRA, 60, Class 'Program' must have a 'run'
+
+OK-CHK07.KRA, 132, Class 'Program' must have a 'run'
+
+OK-GER01.KRA, 105, Class 'Program' must have a 'run'
+
+OK-GER02.KRA, 41, Class 'Program' must have a 'run'
+
+OK-GER03.KRA, 70, Class 'Program' must have a 'run'
+
+OK-GER04.KRA, 47, Class 'Program' must have a 'run'
+
+OK-GER05.KRA, 43, Class 'Program' must have a 'run'
+
+OK-GER06.KRA, 55, Class 'Program' must have a 'run'
+
+OK-GER07.KRA, 34, Class 'Program' must have a 'run'
+
+OK-GER08.KRA, 48, Class 'Program' must have a 'run'
+
+OK-GER09.KRA, 62, Class 'Program' must have a 'run'
+
+OK-GER10.KRA, 76, Class 'Program' must have a 'run'
+
+OK-GER11.KRA, 55, Class 'Program' must have a 'run'
+
+OK-GER12.KRA, 70, Class 'Program' must have a 'run'
+
+OK-GER13.KRA, 68, Class 'Program' must have a 'run'
+
+OK-GER14.KRA, 102, Class 'Program' must have a 'run'
+
+OK-GER15.KRA, 159, Class 'Program' must have a 'run'
+
+OK-GER16.KRA, 92, Class 'Program' must have a 'run'
+
+OK-GER17.KRA, 44, Identifier expected
+
+OK-GER21.KRA, 36, Class 'Program' must have a 'run'
+
+OK-GER23.KRA, 24, Missing ';'
+
+OK-LEX02.KRA, 33, Class 'Program' must have a 'run'
+
+OK-LEX03.KRA, 32, Class 'Program' must have a 'run'
+
+OK-LEX04.KRA, 18, Class 'Program' must have a 'run'
+
+OK-LEX05.KRA, 20, Class 'Program' must have a 'run'
+
+OK-LEX06.KRA, 11, Class 'Program' must have a 'run'
+
+OK-LEX07.KRA, 20, Class 'Program' must have a 'run'
+
+OK-LEX08.KRA, 22, Class 'Program' must have a 'run'
+
+OK-LEX10.KRA, 30, Class 'Program' must have a 'run'
+
+OK-SEM03.KRA, 27, Class 'Program' must have a 'run'
+
+OK-SEM04.KRA, 30, Class 'Program' must have a 'run'
+
+OK-SEM05.KRA, 69, Class 'Program' must have a 'run'
+
+OK-SEM06.KRA, 42, Class 'Program' must have a 'run'
+
+OK-SEM07.KRA, 27, Class 'Program' must have a 'run'
+
+OK-SEM08.KRA, 57, Class 'Program' must have a 'run'
+
+OK-SEM09.KRA, 36, Class 'Program' must have a 'run'
+
+OK-SEM10.KRA, 58, Class 'Program' must have a 'run'
+
+OK-SEM11.KRA, 30, Class 'Program' must have a 'run'
+
+OK-SEM13.KRA, 34, Class 'Program' must have a 'run'
+
+OK-SEM14.KRA, 41, Class 'Program' must have a 'run'
+
+OK-SEM15.KRA, 43, Class 'Program' must have a 'run'
+
+OK-SIN02.KRA, 63, Class 'Program' must have a 'run'
+
+OK-SIN03.KRA, 26, Class 'Program' must have a 'run'
+
+OK-SIN04.KRA, 31, Class 'Program' must have a 'run'
+
+OK-SIN05.KRA, 185, Class 'Program' must have a 'run'
+
+OK-SIN06.KRA, 38, Class 'Program' must have a 'run'
+
+OK-SIN07.KRA, 117, Class 'Program' must have a 'run'
+
+OK-SIN08.KRA, 30, Class 'Program' must have a 'run'
+
+OK-SIN09.KRA, 49, Class 'Program' must have a 'run'
+
+OK-SIN10.KRA, 56, Class 'Program' must have a 'run'
+
+OK-SIN11.KRA, 31, Class 'Program' must have a 'run'
+
+OK-SIN12.KRA, 21, Class 'Program' must have a 'run'
+
+OK-SIN13.KRA, 18, Class 'Program' must have a 'run'
+
+OK-SIN14.KRA, 49, Class 'Program' must have a 'run'
+
+OK-SIN15.KRA, 40, Class 'Program' must have a 'run'
+
+OK-SIN16.KRA, 26, Statement expected
+
+######################################################
+Em todos os testes abaixo, o compilador sinalizou o erro na linha correta (quando o teste tinha erros) ou não sinalizou o erro (quando o teste NÃO tinha erros). Mas é necessário conferir se as mensagens emitidas pelo compilador são compatíveis com as mensagens de erro sugeridas pelas chamadas aos metaobjetos dos testes. 
+
+A lista abaixo contém o nome do arquivo de teste, a mensagem que ele sinalizou e a mensagem sugerida pelo arquivo de teste
+
+ER-LEX02.KRA
+The compiler message was: "Invalid Character: '\'"
+The 'ce' message is:      "Unknown character '\'"
+
+
+ER-LEX03.KRA
+The compiler message was: "Number out of limits"
+The 'ce' message is:      "literal int out of limits"
+
+
+ER-LEX04.KRA
+The compiler message was: "Number out of limits"
+The 'ce' message is:      "literal int out of limits"
+
+
+ER-LEX06.KRA
+The compiler message was: "'_' cannot start an indentifier"
+The 'ce' message is:      "Identifier starting with underscore"
+
+
+ER-LEX07.KRA
+The compiler message was: "Missing ';'"
+The 'ce' message is:      "Unknown character"
+
+
+ER-LEX09.KRA
+The compiler message was: "Number out of limits"
+The 'ce' message is:      "literal int out of limits"
+
+
+ER-SEM06.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'operator expected' or 'variable expected at the left-hand side of a assignment'"
+
+
+ER-SEM17.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Command 'read' expects a variable"
+
+
+ER-SEM20.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM21.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM22.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM23.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM24.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM25.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM63.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'.' or '=' expected after an identifier OR statement expected"
+
+
+ER-SEM64.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'.' or '=' expected after an identifier OR statement expected"
+
+
+ER-SEM65.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Static method 'p' was not found in class 'Program'"
+
+
+ER-SEM66.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Static method 'p' was not found in class 'Program'"
+
+
+ER-SEM67.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'.' or '=' expected after an identifier OR statement expected"
+
+
+ER-SEM69.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'.' or '=' expected after identifier OR statement expected"
+
+
+ER-SEM75.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Static method 'm' was not found in class 'A'"
+
+
+ER-SIN01.KRA
+The compiler message was: "'{' expected"
+The 'ce' message is:      "'{' expected"
+
+
+ER-SIN02.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Missing identifier"
+
+
+ER-SIN03.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN05.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Expression expected"
+
+
+ER-SIN06.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected"
+
+
+ER-SIN07.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Command 'read' without arguments"
+
+
+ER-SIN08.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Command 'write' without arguments"
+
+
+ER-SIN09.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN10.KRA
+The compiler message was: "( expected"
+The 'ce' message is:      "'(' expected after 'read' command"
+
+
+ER-SIN11.KRA
+The compiler message was: "( expected"
+The 'ce' message is:      "Missing '('"
+
+
+ER-SIN12.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected"
+
+
+ER-SIN14.KRA
+The compiler message was: "Class 'Program' must have a 'run'"
+The 'ce' message is:      "'class' expected"
+
+
+ER-SIN15.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN16.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN18.KRA
+The compiler message was: "';' expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN19.KRA
+The compiler message was: "; expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN20.KRA
+The compiler message was: "; expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN21.KRA
+The compiler message was: "';' expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN22.KRA
+The compiler message was: "';' expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN23.KRA
+The compiler message was: "'}' expected"
+The 'ce' message is:      "Statement expected"
+
+
+ER-SIN24.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected OR Unknown sequence of symbols"
+
+
+ER-SIN25.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected OR invalid sequence of symbols"
+
+
+ER-SIN26.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "Expression expected OR invalid sequence of symbols"
+
+
+ER-SIN27.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected OR Unknown sequence of symbols"
+
+
+ER-SIN30.KRA
+The compiler message was: "Invalid Character: '#'"
+The 'ce' message is:      "Unknown character '#'"
+
+
+ER-SIN31.KRA
+The compiler message was: "public/private or "}" expected"
+The 'ce' message is:      "'public', 'private', or '}' expected"
+
+
+ER-SIN32.KRA
+The compiler message was: "Type expected"
+The 'ce' message is:      "Type expected"
+
+
+ER-SIN33.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN34.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN35.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN36.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN37.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected"
+
+
+ER-SIN38.KRA
+The compiler message was: "public/private or "}" expected"
+The 'ce' message is:      "'}' expected"
+
+
+ER-SIN43.KRA
+The compiler message was: "public/private or "}" expected"
+The 'ce' message is:      "'public', 'private', or '}' expected"
+
+
+ER-SIN44.KRA
+The compiler message was: "public/private or "}" expected"
+The 'ce' message is:      "'public', 'private', or '}' expected"
+
+
+ER-SIN51.KRA
+The compiler message was: "Type expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN52.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "'public' or 'private' expected"
+
+
+ER-SIN53.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "'private' expected"
+
+
+ER-SIN54.KRA
+The compiler message was: "Type expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN55.KRA
+The compiler message was: "Type expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN56.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN57.KRA
+The compiler message was: "public/private or "}" expected"
+The 'ce' message is:      "'public', 'private' or '}' expected"
+
+
+ER-SIN58.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN59.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'{' expected after 'do'"
+
+
+ER-SIN60.KRA
+The compiler message was: "( expected"
+The 'ce' message is:      "'(' expected after 'while'"
+
+
+ER-SIN61.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected after 'while' expression"
+
+
+ER-SIN62.KRA
+The compiler message was: "'while' expected"
+The 'ce' message is:      "'while' expected"
+
+

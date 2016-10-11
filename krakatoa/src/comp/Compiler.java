@@ -11,6 +11,8 @@ public class Compiler {
 	private SymbolTable		symbolTable;
 	private Lexer			lexer;
 	private ErrorSignaller	signalError;
+	private KraClass		currentClass;
+	private MethodDec		currentMethod;
 
 	// compile must receive an input with an character less than p_input.lenght
 	public Program compile(char[] input, PrintWriter outError) {
@@ -35,28 +37,22 @@ public class Compiler {
 		
 		try {
 			while ( lexer.token == Symbol.MOCall ) {
-				try {
-					metaobjectCallList.add(metaobjectCall());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				metaobjectCallList.add(metaobjectCall());
 			}
 			
-			try {
+			kraClassList.add(classDec());
+			
+			while (lexer.token != Symbol.EOF) {
+				if (lexer.token != Symbol.CLASS) {
+					signalError.showError("Expected class declaration");
+				} 
 				kraClassList.add(classDec());
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 			
-			while ( lexer.token == Symbol.CLASS )
-				try {
-					kraClassList.add(classDec());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			if ( lexer.token != Symbol.EOF ) {
 				signalError.showError("End of file expected");
 			}
+			
 		}
 		catch( RuntimeException e) {
 			// if there was an exception, there is a compilation signalError
@@ -145,7 +141,7 @@ public class Compiler {
 	private KraClass classDec() {
 		
 		KraClass kraClass;
-		String className;
+		String className = null;
 		
 		if ( lexer.token != Symbol.CLASS ) 
 			signalError.showError("'class' expected");
