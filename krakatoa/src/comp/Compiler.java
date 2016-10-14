@@ -392,22 +392,56 @@ public class Compiler {
 		return methodDec;
 	}
 
-	private void localDec() {
+	private LocalVariableList localDec() {
 		// LocalDec ::= Type IdList ";"
 
-		Type type = type();
-		if ( lexer.token != Symbol.IDENT ) signalError.showError("Identifier expected");
-		Variable v = new Variable(lexer.getStringValue(), type);
+		LocalVariableList localVariableList = new LocalVariableList();
+		Type t = type();
+		
+		if ( lexer.token != Symbol.IDENT ) {
+			signalError.showError("Identifier expected");
+		}
+		
+		String name = lexer.getStringValue();
+		Variable v = new Variable(name, t);
 		lexer.nextToken();
+		
+		// ANALISE SEMANTICA: checa se a variavel local esta sendo redeclarada
+		if(symbolTable.getInLocal(name) != null) {
+			signalError.showError("Variable '" + name + "' is being redeclared");
+		}
+		
+		// caso nao esteja eh entao adicionada a lista de variaveis locais
+		symbolTable.putInLocal(name, v);
+		localVariableList.addElement(v);
+		
 		while (lexer.token == Symbol.COMMA) {
 			lexer.nextToken();
-			if ( lexer.token != Symbol.IDENT )
+			if ( lexer.token != Symbol.IDENT ) {
 				signalError.showError("Identifier expected");
-			v = new Variable(lexer.getStringValue(), type);
+			}
+			
+			name = lexer.getStringValue();
+			v = new Variable(name, t);
 			lexer.nextToken();
+			
+			// ANALISE SEMANTICA: checa se a variavel local esta sendo redeclarada
+			if(symbolTable.getInLocal(name) != null) {
+				signalError.showError("Variable '" + name + "' is being redeclared");
+			}
+			
+			// caso nao esteja eh entao adicionada a lista de variaveis locais
+			symbolTable.putInLocal(name, v);
+			localVariableList.addElement(v);	
 		}
-		if (lexer.token != Symbol.SEMICOLON)	signalError.showError(("Missing ';'"));
+		
+		if (lexer.token != Symbol.SEMICOLON) {
+			signalError.showError(("Missing ';'"));
+		}
+		
 		lexer.nextToken(); //le o token ";"
+		
+		return localVariableList;
 	}
 
 	private ParamList formalParamDec() {
@@ -449,6 +483,7 @@ public class Compiler {
 
 	private Type type() {
 		// Type ::= BasicType | Id
+		
 		Type result;
 
 		switch (lexer.token) {
@@ -465,9 +500,12 @@ public class Compiler {
 			result = Type.stringType;
 			break;
 		case IDENT:
-			// # corrija: faça uma busca na TS para buscar a classe
-			// IDENT deve ser uma classe.
-			result = null;
+			String name = lexer.getStringValue();
+			if (symbolTable.getInGlobal(name) == null) {
+				signalError.showError("Type '" + name + "' has not been defined");
+				result = Type.undefinedType;
+			}
+			result = symbolTable.getInGlobal(name);
 			break;
 		default:
 			signalError.showError("Type expected");
@@ -489,16 +527,18 @@ public class Compiler {
 
 	private StatementList statementList() {
 		// CompStatement ::= "{" { Statement } "}"
-		Symbol tk;
-		// statements always begin with an identifier, if, read, write, ...
-		while ((tk = lexer.token) != Symbol.RIGHTCURBRACKET
-				&& tk != Symbol.ELSE)
-			statement();
 		
-		return null;
+		Symbol tk;
+		StatementList statementList = new StatementList();
+		
+		while ((tk = lexer.token) != Symbol.RIGHTCURBRACKET && tk != Symbol.ELSE) {
+			statementList.addElement(statement());
+		}
+			
+		return statementList;
 	}
 
-	private void statement() {
+	private Statement statement() {
 		/*
 		 * Statement ::= Assignment ``;'' | IfStat |WhileStat | MessageSend
 		 *                ``;'' | ReturnStat ``;'' | ReadStat ``;'' | WriteStat ``;'' |
@@ -550,6 +590,8 @@ public class Compiler {
 		default:
 			signalError.showError("Statement expected");
 		}
+		
+		return null;
 	}
 
 	private Statement assertStatement() {

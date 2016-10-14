@@ -1,6 +1,6 @@
 Relatório do Compilador
 
-89 de um total de 120 erros que deveriam ser sinalizados não o foram (74%)
+88 de um total de 120 erros que deveriam ser sinalizados não o foram (73%)
 12 erros foram sinalizados na linha errada (10%)
 0 erros foram sinalizados em 98 arquivos sem erro (0%)
 
@@ -107,8 +107,6 @@ ER-SEM62.KRA, 15, Identifier 'a' was not found (comp.Compiler.factor())
 ER-SEM68.KRA, 12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
 
 ER-SEM70.KRA, 10, Method 'm' is being redefined (comp.Compiler.methodDec())
-
-ER-SEM79.KRA, 5, Method 'run' of class 'Program' cannot take parameters
 
 ER-SEM86.KRA, 8, Class 'A' was not found (comp.Compiler.factor())
 
@@ -246,13 +244,18 @@ The compiler message was: "Missing 'return' in method 'm'"
 The 'ce' message is:      "Missing 'return' statement in method 'm'"
 
 
+ER-SEM79.KRA
+The compiler message was: "Method 'run' of class 'Program' must be parameterless"
+The 'ce' message is:      "Method 'run' of class 'Program' cannot take parameters"
+
+
 ER-SEM80.KRA
 The compiler message was: "Method 'run' from class 'Program' must be 'void'"
 The 'ce' message is:      "Method 'run' of class 'Program' with a return value type different from 'void'"
 
 
 ER-SEM81.KRA
-The compiler message was: "Method 'run'of class 'Program' must be public"
+The compiler message was: "Method 'run' of class 'Program' must be public"
 The 'ce' message is:      "Method 'run' of class 'Program' cannot be private"
 
 
@@ -272,7 +275,7 @@ The 'ce' message is:      "Type expected"
 
 
 ER-SIN33.KRA
-The compiler message was: "Identifier expected"
+The compiler message was: "Type 'x' has not been defined"
 The 'ce' message is:      "Identifier expected"
 
 
@@ -287,7 +290,7 @@ The 'ce' message is:      "')' expected"
 
 
 ER-SIN36.KRA
-The compiler message was: "Identifier expected"
+The compiler message was: "Type 'm' has not been defined"
 The 'ce' message is:      "Identifier expected"
 
 

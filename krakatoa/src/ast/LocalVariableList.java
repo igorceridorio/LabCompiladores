@@ -4,6 +4,8 @@ import java.util.*;
 
 public class LocalVariableList {
 
+    private ArrayList<Variable> localList;
+	
     public LocalVariableList() {
        localList = new ArrayList<Variable>();
     }
@@ -20,6 +22,12 @@ public class LocalVariableList {
         return localList.size();
     }
 
-    private ArrayList<Variable> localList;
-
+    public void genKra(PW pw) {
+    	for (Variable var : localList) {
+    		if (var != null) {
+    			pw.printIdent(var.getType().getName() + " " + var.getName() + ";");
+    		}
+    	}
+    }
+    
 }

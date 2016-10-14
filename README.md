@@ -9,7 +9,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 ### Grammar rules:
 
 - [ ] AssignExprLocalDec ::= Expression [ “=” Expression ] | LocalDec
-- [ ] BasicType ::= “void” | “int” | “boolean” | “String”
+- [x] BasicType ::= “void” | “int” | “boolean” | “String”
 - [ ] BasicValue ::= IntValue | BooleanValue | StringValue
 - [ ] BooleanValue ::= “true” | “false”
 - [x] ClassDec ::= “class” Id [ “extends” Id ] “{” MemberList “}”
@@ -21,14 +21,14 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [ ] Factor ::= BasicValue | “(” Expression “)” | “!” Factor | “null” | ObjectCreation | PrimaryExpr
 - [x] FormalParamDec ::= ParamDec { “,” ParamDec }
 - [ ] HighOperator ::= “∗” | “/” | “&&”
-- [ ] Id ::= Letter { Letter | Digit | “ ” }
+- [x] Id ::= Letter { Letter | Digit | “ ” }
 - [x] IdList ::= Id { “,” Id }
 - [ ] IfStat ::= “if” “(” Expression “)” Statement [ “else” Statement ]
 - [x] InstVarDec ::= Type IdList “;”
 - [ ] IntValue ::= Digit { Digit }
 - [ ] LeftValue ::= [ (“this” | Id ) “.” ] Id
 - [ ] Letter ::= “A” | ... | “Z” | “a” | ... | “z”
-- [ ] LocalDec ::= Type IdList “;”
+- [x] LocalDec ::= Type IdList “;”
 - [ ] LowOperator ::= “+” | “−” | “||”
 - [x] MemberList ::= { Qualifier Member }
 - [x] Member ::= InstVarDec | MethodDec
@@ -38,7 +38,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [ ] ObjectCreation ::= “new” Id “(” “)”
 - [x] ParamDec ::= Type Id
 - [x] Program ::= { MOCall } ClassDec { ClassDec }
-- [x] Qualifier ::= [ “final” ] [ “static” ] ( “private” | “public”)
+- [x] Qualifier ::= [ “final” | "static"] ( “private” | “public”)
 - [ ] ReadStat ::= “read” “(” LeftValue { “,” LeftValue } “)”
 - [ ] PrimaryExpr ::= “super” “.” Id “(” [ ExpressionList ] “)” | Id | Id “.” Id | Id “.” Id “(” [ ExpressionList ] ”)” | Id “.” Id “.” Id “(” [ ExpressionList ] “)” | “this” | “this” “.” Id | “this” ”.” Id “(” [ ExpressionList ] “)” | “this” ”.” Id “.” Id “(” [ ExpressionList ] “)”
 - [ ] Relation ::= “==” | “<” | “>” | “<=” | “>=” | “! =”
@@ -48,8 +48,8 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [ ] SignalFactor ::= [ Signal ] Factor
 - [ ] SimpleExpression ::= Term { LowOperator Term }
 - [ ] Statement ::= AssignExprLocalDec “;” | IfStat | WhileStat | ReturnStat “;” | ReadStat “;” | WriteStat “;” | “break” “;” | “;” | CompStatement DoWhileStat
-- [ ] StatementList ::= { Statement }
+- [x] StatementList ::= { Statement }
 - [ ] Term ::= SignalFactor { HighOperator SignalFactor }
-- [ ] Type ::= BasicType | Id
+- [x] Type ::= BasicType | Id
 - [ ] WriteStat ::= “write” “(” ExpressionList “)”
 - [ ] WhileStat ::= “while” “(” Expression “)” Statement
