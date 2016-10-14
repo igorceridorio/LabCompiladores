@@ -11,6 +11,7 @@ public class MethodDec {
 	private String methodName;
 	private ParamList formalParamDec;
 	private StatementList statementList;
+	private boolean hasReturn;
 	
 	public MethodDec(Symbol qualifier, Type returnType, String methodName) {
 		this.qualifier = qualifier;
@@ -18,6 +19,7 @@ public class MethodDec {
 		this.methodName = methodName;
 		this.formalParamDec = null;
 		this.statementList = null;
+		this.hasReturn = false;
 	}
 	
 	public Symbol getQualifier() {
@@ -46,6 +48,14 @@ public class MethodDec {
 	
 	public StatementList getStatementList() {
 		return this.statementList;
+	}
+	
+	public void setHasReturn(boolean hasReturn) {
+		this.hasReturn = hasReturn;
+	}
+	
+	public boolean getHasReturn() {
+		return this.hasReturn;
 	}
 	
 	public void genKra(PW pw) {

@@ -303,28 +303,93 @@ public class Compiler {
 	}
 
 	private MethodDec methodDec(Type type, String name, Symbol qualifier) {
-		/*
-		 * MethodDec ::= Qualifier Return Id "("[ FormalParamDec ] ")" "{"
-		 *                StatementList "}"
-		 */
+		// MethodDec ::= Qualifier Return Id "("[ FormalParamDec ] ")" "{" StatementList "}"
 
-		MethodDec methodDec = null;
+		// ANALISE SEMANTICA: 
+
+		// o metodo 'run' de 'Program' deve ser publico
+		if(currentClass.getName().equals("Program") && name.equals("run") && qualifier != Symbol.PUBLIC) {
+			signalError.showError("Method 'run' of class 'Program' must be public");
+		}
+		
+		// verifica se o metodo nao possui o mesmo nome de uma variavel previamente declarada
+		if(currentClass.searchInstanceVariable(name) != null) {
+			signalError.showError("Method '" + name + "' cannot have the same name as an instance variable");
+		}
+		
+		// verifica se o metodo nao esta sendo redeclarado
+		if(currentClass.searchMethod(name, false, false) != null || currentClass.searchMethod(name, true, false) != null) {
+			signalError.showError("Method '" + name + "' is being redeclared");
+		}
+		
+		MethodDec methodDec = new MethodDec(qualifier, type, name);
+		currentMethod = methodDec;
 		
 		lexer.nextToken();
-		if ( lexer.token != Symbol.RIGHTPAR ) formalParamDec();
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
+		if ( lexer.token != Symbol.RIGHTPAR ) {
+			methodDec.setFormalParamDec(formalParamDec());
+		}
+		
+		// ANALISE SEMANTICA
+		
+		// metodo 'run' 'program' nao deve conter parametros
+		if(name.equals("run") && currentClass.getName().equals("Program") && methodDec.getFormalParamDec().getSize() > 0) {
+			signalError.showError("Method 'run' of class 'Program' must be parameterless");
+		}
+		
+		// em caso de metodo publico redefinido verifica a validade desta redefinicao
+		MethodDec inherited = currentClass.searchMethod(name, true, true);
+		if(inherited != null) {
+			// verifica se a assinatura dos metodos eh equivalente
+			boolean sameParameters = true;
+			
+			if(currentMethod.getFormalParamDec().getSize() != inherited.getFormalParamDec().getSize()) {
+				sameParameters = false;
+			} else if(currentMethod.getType() != inherited.getType()) {
+				sameParameters = false;
+			} else {
+				Iterator<Variable> itCurrentMethod = currentMethod.getFormalParamDec().elements();
+				Iterator<Variable> itInherited = inherited.getFormalParamDec().elements();
+				
+				while(itCurrentMethod.hasNext()) {
+					if(itCurrentMethod.next().getType() != itInherited.next().getType()) {
+						sameParameters = false;
+						break;
+					}
+				}
+			}
+			
+			if(!sameParameters) {
+				signalError.showError("Inherited method '" + name + "' of '" + currentClass.getName() + "' has a different signature from its superclass inherited method");
+			}
+		}
+		
+		if ( lexer.token != Symbol.RIGHTPAR ) { 
+			signalError.showError(") expected");
+		}
 
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTCURBRACKET ) signalError.showError("'{' expected");
+		if ( lexer.token != Symbol.LEFTCURBRACKET ) {
+			signalError.showError("'{' expected");
+		}
 
 		lexer.nextToken();
-		statementList();
-		if ( lexer.token != Symbol.RIGHTCURBRACKET ) signalError.showError("'}' expected");
+		methodDec.setStatementList(statementList());
+		
+		// ANALISE SEMANTICA: verifica se um metodo nao void possui de fato retorno
+		if(type != Type.voidType && !methodDec.getHasReturn()) {
+			signalError.showError("Missing 'return' in method '" + name + "'");
+		}
+		
+		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
+			signalError.showError("'}' expected");
+		}
 
+		// remove todos os identificadores locais da tabela
+		symbolTable.removeLocalIdent();
 		lexer.nextToken();
 		
 		return methodDec;
-
 	}
 
 	private void localDec() {
@@ -345,22 +410,41 @@ public class Compiler {
 		lexer.nextToken(); //le o token ";"
 	}
 
-	private void formalParamDec() {
+	private ParamList formalParamDec() {
 		// FormalParamDec ::= ParamDec { "," ParamDec }
 
-		paramDec();
+		ParamList paramList = new ParamList();
+		paramList.addElement(paramDec());
+
 		while (lexer.token == Symbol.COMMA) {
 			lexer.nextToken();
-			paramDec();
+			paramList.addElement(paramDec());
 		}
+		
+		return paramList;
 	}
 
-	private void paramDec() {
+	private Parameter paramDec() {
 		// ParamDec ::= Type Id
 
-		type();
-		if ( lexer.token != Symbol.IDENT ) signalError.showError("Identifier expected");
+		Type t= type();
+		
+		if ( lexer.token != Symbol.IDENT ) {
+			signalError.showError("Identifier expected");
+		}
+		
+		// ANALISE SEMANTICA: verifica se a variavel nao esta sendo redeclarada
+		String name = lexer.getStringValue();
 		lexer.nextToken();
+		
+		if (symbolTable.getInLocal(name) != null) {
+			signalError.showError("Parameter '" + name + "' has already been declared");
+		}
+		
+		Parameter parameter = new Parameter(name, t);
+		symbolTable.putInLocal(name, parameter);
+			
+		return parameter;
 	}
 
 	private Type type() {
@@ -403,13 +487,15 @@ public class Compiler {
 			lexer.nextToken();
 	}
 
-	private void statementList() {
+	private StatementList statementList() {
 		// CompStatement ::= "{" { Statement } "}"
 		Symbol tk;
 		// statements always begin with an identifier, if, read, write, ...
 		while ((tk = lexer.token) != Symbol.RIGHTCURBRACKET
 				&& tk != Symbol.ELSE)
 			statement();
+		
+		return null;
 	}
 
 	private void statement() {
