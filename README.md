@@ -8,6 +8,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 
 ### Grammar rules:
 
+```
 - [ ] AssignExprLocalDec ::= Expression [ “=” Expression ] | LocalDec
 - [x] BasicType ::= “void” | “int” | “boolean” | “String”
 - [ ] BasicValue ::= IntValue | BooleanValue | StringValue
@@ -38,7 +39,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [ ] ObjectCreation ::= “new” Id “(” “)”
 - [x] ParamDec ::= Type Id
 - [x] Program ::= { MOCall } ClassDec { ClassDec }
-- [x] Qualifier ::= [ “final” | "static"] ( “private” | “public”)
+- [x] Qualifier ::= [ "final" ] [ "static" ] ( “private” | “public”)
 - [ ] ReadStat ::= “read” “(” LeftValue { “,” LeftValue } “)”
 - [ ] PrimaryExpr ::= “super” “.” Id “(” [ ExpressionList ] “)” | Id | Id “.” Id | Id “.” Id “(” [ ExpressionList ] ”)” | Id “.” Id “.” Id “(” [ ExpressionList ] “)” | “this” | “this” “.” Id | “this” ”.” Id “(” [ ExpressionList ] “)” | “this” ”.” Id “.” Id “(” [ ExpressionList ] “)”
 - [ ] Relation ::= “==” | “<” | “>” | “<=” | “>=” | “! =”
@@ -53,3 +54,4 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [x] Type ::= BasicType | Id
 - [ ] WriteStat ::= “write” “(” ExpressionList “)”
 - [ ] WhileStat ::= “while” “(” Expression “)” Statement
+```
