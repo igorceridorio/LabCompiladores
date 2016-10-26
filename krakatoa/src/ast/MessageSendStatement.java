@@ -2,20 +2,25 @@ package ast;
 
 public class MessageSendStatement extends Statement { 
 
-
-   public void genC( PW pw ) {
-      pw.printIdent("");
-      // messageSend.genC(pw);
-      pw.println(";");
-   }
-
-   private MessageSend  messageSend;
-
-@Override
-public void genKra(PW pw) {
-	// TODO Auto-generated method stub
+	private Expr  messageSend;
 	
-}
+	public MessageSendStatement(Expr messageSend) {
+		this.messageSend = messageSend;
+	}
+
+	@Override
+	public void genC( PW pw ) {
+		pw.printIdent("");
+		// messageSend.genC(pw);
+		pw.println(";");
+	}
+
+	@Override
+	public void genKra(PW pw) {
+		pw.printIdent("");
+		messageSend.genKra(pw, false);
+		pw.println(";");
+	}
 
 }
 

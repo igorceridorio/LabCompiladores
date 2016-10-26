@@ -13,6 +13,7 @@ public class Compiler {
 	private ErrorSignaller	signalError;
 	private KraClass		currentClass;
 	private MethodDec		currentMethod;
+	private int				whileCounter = 0;
 
 	// compile must receive an input with an character less than p_input.lenght
 	public Program compile(char[] input, PrintWriter outError) {
@@ -515,7 +516,7 @@ public class Compiler {
 		return result;
 	}
 
-	private void compositeStatement() {
+	private Statement compositeStatement() {
 
 		lexer.nextToken();
 		statementList();
@@ -523,6 +524,8 @@ public class Compiler {
 			signalError.showError("} expected");
 		else
 			lexer.nextToken();
+		
+		return null;
 	}
 
 	private StatementList statementList() {
@@ -540,9 +543,9 @@ public class Compiler {
 
 	private Statement statement() {
 		/*
-		 * Statement ::= Assignment ``;'' | IfStat |WhileStat | MessageSend
-		 *                ``;'' | ReturnStat ``;'' | ReadStat ``;'' | WriteStat ``;'' |
-		 *               ``break'' ``;'' | ``;'' | CompStatement | LocalDec
+		 * Statement ::= AssignExprLocalDec “;” | IfStat | WhileStat | ReturnStat “;” 
+		 * | ReadStat “;” | WriteStat “;” | “break” “;” | “;” | CompStatement DoWhileStat
+		 * 
 		 */
 
 		switch (lexer.token) {
@@ -552,41 +555,29 @@ public class Compiler {
 		case INT:
 		case BOOLEAN:
 		case STRING:
-			assignExprLocalDec();
-			break;
+			return assignExprLocalDec();
 		case ASSERT:
-			assertStatement();
-			break;
+			return assertStatement();
 		case RETURN:
-			returnStatement();
-			break;
+			return returnStatement();
 		case READ:
-			readStatement();
-			break;
+			return readStatement();
 		case WRITE:
-			writeStatement();
-			break;
+			return writeStatement();
 		case WRITELN:
-			writelnStatement();
-			break;
+			return writelnStatement();
 		case IF:
-			ifStatement();
-			break;
+			return ifStatement();
 		case BREAK:
-			breakStatement();
-			break;
+			return breakStatement();
 		case WHILE:
-			whileStatement();
-			break;
+			return whileStatement();
 		case DO:
-			doWhileStatement();
-			break;
+			return doWhileStatement();
 		case SEMICOLON:
-			nullStatement();
-			break;
+			return nullStatement();
 		case LEFTCURBRACKET:
-			compositeStatement();
-			break;
+			return compositeStatement();
 		default:
 			signalError.showError("Statement expected");
 		}
@@ -623,39 +614,50 @@ public class Compiler {
 		return this.symbolTable.getInGlobal(name) != null;
 	}
 
-	/*
-	 * AssignExprLocalDec ::= Expression [ ``$=$'' Expression ] | LocalDec
-	 */
-	private Expr assignExprLocalDec() {
-
-		if ( lexer.token == Symbol.INT || lexer.token == Symbol.BOOLEAN
-				|| lexer.token == Symbol.STRING ||
-				// token é uma classe declarada textualmente antes desta
-				// instrução
-				(lexer.token == Symbol.IDENT && isType(lexer.getStringValue())) ) {
-			/*
-			 * uma declaração de variável. 'lexer.token' é o tipo da variável
-			 * 
-			 * AssignExprLocalDec ::= Expression [ ``$=$'' Expression ] | LocalDec 
-			 * LocalDec ::= Type IdList ``;''
-			 */
-			localDec();
+	private Statement assignExprLocalDec() {
+		
+		Expr left = null;
+		Expr right = null;
+		
+		// AssignExprLocalDec ::= Expression [ “=” Expression ] | LocalDec
+		
+		if ( lexer.token == Symbol.INT || lexer.token == Symbol.BOOLEAN || lexer.token == Symbol.STRING || (lexer.token == Symbol.IDENT && isType(lexer.getStringValue())) ) {
+			 // AssignExprLocalDec ::=  LocalDec 
+			return localDec();
 		}
 		else {
-			/*
-			 * AssignExprLocalDec ::= Expression [ ``$=$'' Expression ]
-			 */
-			expr();
+			// AssignExprLocalDec ::= Expression [ “=” Expression ]
+			left = expr();
+			
 			if ( lexer.token == Symbol.ASSIGN ) {
 				lexer.nextToken();
-				expr();
+				
+				right = expr();
+				
+				// ANALISE SEMANTICA:
+				
+				// uma expressao nao pode receber tipo void
+				if (right.getType() == Type.voidType) {
+					signalError.showError("Expression expected in the right side of assignment");
+				}
+				
+				// verifica se o tipo de uma expressao pode ser convertido no tipo da outra
+				if (!isConvertible(left.getType(), right.getType())) {
+					signalError.showError("Cannot assign '" + right.getType().getName() + "' type to '" + left.getType().getName() + "'");
+				}
+				
 				if ( lexer.token != Symbol.SEMICOLON )
 					signalError.showError("';' expected", true);
 				else
 					lexer.nextToken();
 			}
 		}
-		return null;
+		
+		if (right != null) {
+			return new AssignmentStatement(left, right);
+		}
+		
+		return new MessageSendStatement(left);
 	}
 
 	private ExprList realParameters() {
@@ -669,19 +671,33 @@ public class Compiler {
 		return anExprList;
 	}
 
-	private void whileStatement() {
-		//WhileStat ::= “while” “(” Expression “)” Statement
+	private WhileStatement whileStatement() {
+		// WhileStat ::= “while” “(” Expression “)” Statement
+		
+		// contem o numero de whiles que estao abertos no momento
+		whileCounter++;
+		
+		Expr expr = null;
+		Statement statement = null;
 		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
-		expr();
+		expr = expr();
+		
+		// ANALISE SEMANTICA: while deve analisar somente expressoes booleanas
+		if (expr.getType() != Type.booleanType) signalError.showError("Boolean expression is expected in a 'while' statement");
+		
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken();
-		statement();
+		statement = statement();
+		
+		whileCounter--;
+		
+		return  null;
 	}
 	
-	private void doWhileStatement() {
+	private Statement doWhileStatement() {
 		//DoWhileStat ::= “do” CompStatement “while” “(” Expression “)”
 
 		lexer.nextToken(); //le o token "do"
@@ -693,33 +709,44 @@ public class Compiler {
 		expr();
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken(); // le o token ")"
+		
+		return null;
 	}
 
-	private void ifStatement() {
-
+	private IfStatement ifStatement() {
+		// IfStat ::= “if” “(” Expression “)” Statement [ “else” Statement ]
+		
+		Expr expr = null;
+		Statement thenPart = null;
+		Statement elsePart = null;
+		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
-		expr();
+		expr = expr();
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken();
-		statement();
+		thenPart = statement();
 		if ( lexer.token == Symbol.ELSE ) {
 			lexer.nextToken();
-			statement();
+			elsePart = statement();
 		}
+		
+		return new IfStatement(expr, thenPart, elsePart);
 	}
 
-	private void returnStatement() {
+	private Statement returnStatement() {
 
 		lexer.nextToken();
 		expr();
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
+		
+		return null;
 	}
 
-	private void readStatement() {
+	private Statement readStatement() {
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
@@ -745,9 +772,11 @@ public class Compiler {
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
+		
+		return null;
 	}
 
-	private void writeStatement() {
+	private Statement writeStatement() {
 
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
@@ -758,9 +787,11 @@ public class Compiler {
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
+		
+		return null;
 	}
 
-	private void writelnStatement() {
+	private Statement writelnStatement() {
 
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
@@ -771,17 +802,23 @@ public class Compiler {
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
+		
+		return null;
 	}
 
-	private void breakStatement() {
+	private Statement breakStatement() {
 		lexer.nextToken();
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
+		
+		return null;
 	}
 
-	private void nullStatement() {
+	private Statement nullStatement() {
 		lexer.nextToken();
+		
+		return null;
 	}
 
 	private ExprList exprList() {
@@ -1084,6 +1121,47 @@ public class Compiler {
 				|| token == Symbol.LEFTPAR || token == Symbol.NULL
 				|| token == Symbol.IDENT || token == Symbol.LITERALSTRING;
 
+	}
+	
+	
+	// ==========================================================================================
+	// FUNCOES AUXILIARES
+	// ==========================================================================================
+	
+	// verifica se um tipo pode ser convertido para outro
+	private boolean isConvertible(Type left, Type right) {
+		
+		// caso left for int, boolean ou String verifica se right possui o mesmo tipo
+		if (left == Type.intType || left == Type.booleanType || left == Type.stringType) {
+			if (left == right) return true;
+			else return false;
+		}
+		
+		KraClass leftClass = null, rightClass = null;
+		
+		// caso right seja subclasse de left
+		if (left instanceof KraClass) leftClass = (KraClass) left;
+		else return false;
+		
+		if (right instanceof KraClass) rightClass = (KraClass) right;
+		else return false;
+		
+		// uma classe eh considerada subclasse de si mesma
+		if (leftClass.getName().equals(rightClass.getName())) return true;
+		
+		if (rightClass.getSuperclass() == null) {
+			return false;
+		}
+		else {
+			while (rightClass.getSuperclass() != null) {
+				if (leftClass.getName().equals(rightClass.getSuperclass().getName())) return true;
+			}
+		}
+		
+		// caso left seja uma classe mas right seja null
+		if (left instanceof KraClass && right == Type.nullType) return true;
+		
+		return false;
 	}
 
 }

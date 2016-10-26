@@ -2,7 +2,7 @@ package ast;
 
 import java.util.*;
 
-public class LocalVariableList {
+public class LocalVariableList extends Statement {
 
     private ArrayList<Variable> localList;
 	
@@ -22,6 +22,7 @@ public class LocalVariableList {
         return localList.size();
     }
 
+    @Override
     public void genKra(PW pw) {
     	for (Variable var : localList) {
     		if (var != null) {
@@ -29,5 +30,9 @@ public class LocalVariableList {
     		}
     	}
     }
+
+	@Override
+	public void genC(PW pw) {
+	}
     
 }

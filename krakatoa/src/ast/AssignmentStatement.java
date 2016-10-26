@@ -25,19 +25,6 @@ public class AssignmentStatement extends Statement{
 	public void setRightExpr(Expr expr) {
 		this.rightExpr = expr;
 	}
-	
-	public boolean validateAssignment() {
-	
-		// TODO: ha mais duas condicoes nas instrucoes no pdf que talvez precisem ser feitas
-		
-		//  LeftType is a basic type (int, boolean, or String) and LeftType is RightType
-		String leftType = this.leftExpr.getType().getName();
-		if((leftType.equals("int") || leftType.equals("boolean") || leftType.equals("String")) && (leftType.equals(this.rightExpr.getType().getName()))) {
-			return true;
-		}
-		
-		return false;
-	}
 
 	@Override
 	public void genC(PW pw) {

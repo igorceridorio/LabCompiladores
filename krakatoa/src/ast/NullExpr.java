@@ -6,8 +6,13 @@ public class NullExpr extends Expr {
       pw.printIdent("NULL");
    }
    
-   public void genKra(PW pw, boolean ident) {	
-   }
+	@Override
+	public void genKra(PW pw, boolean ident) {
+		if (ident) {
+			pw.printIdent("");
+		}
+		pw.print("null");
+	}
    
    public Type getType() {
       return new TypeNull();
