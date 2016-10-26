@@ -9,7 +9,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 ### Grammar rules:
 
 ```
-- [ ] AssignExprLocalDec ::= Expression [ “=” Expression ] | LocalDec
+- [x] AssignExprLocalDec ::= Expression [ “=” Expression ] | LocalDec
 - [x] BasicType ::= “void” | “int” | “boolean” | “String”
 - [ ] BasicValue ::= IntValue | BooleanValue | StringValue
 - [ ] BooleanValue ::= “true” | “false”
@@ -24,7 +24,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [ ] HighOperator ::= “∗” | “/” | “&&”
 - [x] Id ::= Letter { Letter | Digit | “ ” }
 - [x] IdList ::= Id { “,” Id }
-- [ ] IfStat ::= “if” “(” Expression “)” Statement [ “else” Statement ]
+- [x] IfStat ::= “if” “(” Expression “)” Statement [ “else” Statement ]
 - [x] InstVarDec ::= Type IdList “;”
 - [ ] IntValue ::= Digit { Digit }
 - [ ] LeftValue ::= [ (“this” | Id ) “.” ] Id
@@ -48,10 +48,10 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [ ] Signal ::= “+” | “−”
 - [ ] SignalFactor ::= [ Signal ] Factor
 - [ ] SimpleExpression ::= Term { LowOperator Term }
-- [ ] Statement ::= AssignExprLocalDec “;” | IfStat | WhileStat | ReturnStat “;” | ReadStat “;” | WriteStat “;” | “break” “;” | “;” | CompStatement DoWhileStat
+- [x] Statement ::= AssignExprLocalDec “;” | IfStat | WhileStat | ReturnStat “;” | ReadStat “;” | WriteStat “;” | “break” “;” | “;” | CompStatement DoWhileStat
 - [x] StatementList ::= { Statement }
 - [ ] Term ::= SignalFactor { HighOperator SignalFactor }
 - [x] Type ::= BasicType | Id
 - [ ] WriteStat ::= “write” “(” ExpressionList “)”
-- [ ] WhileStat ::= “while” “(” Expression “)” Statement
+- [x] WhileStat ::= “while” “(” Expression “)” Statement
 ```
