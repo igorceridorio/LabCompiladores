@@ -1,12 +1,18 @@
 package ast;
 
-import java.util.ArrayList;
-
 public class ReadStatement extends Statement{
 
-	private ArrayList<String> leftValues;
+	private VariableList leftValues;
 	
-	public ReadStatement(ArrayList<String> leftValues) {
+	public ReadStatement(VariableList leftValues) {
+		this.leftValues = leftValues;
+	}
+	
+	public VariableList getVariableList() {
+		return this.leftValues;
+	}
+
+	public void setVariableList(VariableList leftValues) {
 		this.leftValues = leftValues;
 	}
 
@@ -16,16 +22,15 @@ public class ReadStatement extends Statement{
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printIdent("read(");
-		int s = leftValues.size();
-		for(String v : leftValues) {
-			if(v != null) {
-				pw.print(v);
-			}
-			if(s-- > 0) {
-				pw.print(", ");
-			}
+		pw.printIdent("read( ");
+
+		int size = leftValues.getSize();
+		
+		for (int i = 0; i < size; i++) {
+			pw.print(leftValues.get(i).getName());
+			if (i < (size - 1)) pw.print(", ");
 		}
+		
 		pw.println(");");
 	}
 	

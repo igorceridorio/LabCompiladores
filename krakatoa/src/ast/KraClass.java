@@ -48,6 +48,18 @@ public class KraClass extends Type {
 	   return instanceVariableList;
    }
    
+   public InstanceVariable getInstanceVariable(String name) {
+	   Iterator<InstanceVariable> it = this.instanceVariableList.elements();
+		InstanceVariable variable = null;
+		
+		while (it.hasNext()) {
+			variable = it.next();
+			if (variable.getName().equals(name)) return variable;
+		}
+		
+		return null;
+   }
+   
    public void addInstanceVariable(InstanceVariable instanceVariable) {
 	   this.instanceVariableList.addElement(instanceVariable);
    }

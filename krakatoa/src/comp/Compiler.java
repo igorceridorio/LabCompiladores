@@ -735,36 +735,130 @@ public class Compiler {
 		return new IfStatement(expr, thenPart, elsePart);
 	}
 
-	private Statement returnStatement() {
+	private ReturnStatement returnStatement() {
+		// ReturnStat ::= “return” Expression
 
+		// ANALISE SEMANTICA: caso o metodo atual seja void nao pode existir um return statement
+		if (currentMethod.getType() == Type.voidType) {
+			signalError.showError("Method '" + currentMethod.getName() + "' is 'void', hence shouldn't have a return");
+		}
+		
 		lexer.nextToken();
-		expr();
+		
+		Expr expr = expr();
+		
+		// ANALISE SEMANTICA: verifica se o tipo da expressao eh equivalente ao tipo do retorno
+		if (!isConvertible(expr.getType(), currentMethod.getType())) {
+			signalError.showError("Statement type is '" + expr.getType().getName() + "' and return type is '" + currentMethod.getType().getName() + "'");
+		}
+		
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
 		
-		return null;
+		return new ReturnStatement(expr);
 	}
 
-	private Statement readStatement() {
+	private ReadStatement readStatement() {
+		// ReadStat ::= “read” “(” LeftValue { “,” LeftValue } “)”
+		// LeftValue ::= [ (“this” | Id ) “.” ] Id
+		
+		VariableList readList = new VariableList();
+		Variable v = null;
+		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
+		
 		while (true) {
-			if ( lexer.token == Symbol.THIS ) {
+		
+			if (lexer.token == Symbol.THIS) {
+				// this.Id
+				
 				lexer.nextToken();
 				if ( lexer.token != Symbol.DOT ) signalError.showError(". expected");
 				lexer.nextToken();
-			}
-			if ( lexer.token != Symbol.IDENT )
-				signalError.show(ErrorSignaller.ident_expected);
-
-			String name = lexer.getStringValue();
-			lexer.nextToken();
-			if ( lexer.token == Symbol.COMMA )
+				
+				if (lexer.token != Symbol.IDENT) signalError.show(ErrorSignaller.ident_expected);
+				
+				// caso onde temos uma variavel de instancia (acessada por this.Id)
+				v = currentClass.getInstanceVariable(lexer.getStringValue());
+				if (v == null) {
+					signalError.showError("Instance variable '" + lexer.getStringValue() + "' has not been declared");
+				}
+				
+				if ( v.getType() == Type.booleanType ) {
+					signalError.showError("command 'read' does not accept 'boolean' variables");
+				} else {
+					readList.addElement(v);
+				}
 				lexer.nextToken();
-			else
+				
+			} else if (lexer.token == Symbol.IDENT) {
+				
+				// Id.Id || Id
+				
+				String n = lexer.getStringValue();
+				lexer.nextToken();
+				
+				if (lexer.token == Symbol.DOT) {
+					
+					// caso onde a variavel eh do tipo de uma classe (Id.Id)
+					
+					// checa se a variavel foi previmente declarada
+					v = symbolTable.getInLocal(n);
+					if (v == null) {
+						signalError.showError("Variable '" + n + "' has not been declared");
+					}
+					
+					lexer.nextToken();
+					if (lexer.token != Symbol.IDENT) signalError.show(ErrorSignaller.ident_expected);
+					
+					// verifica se a variavel n esta presente na classe v em questao
+					n = lexer.getStringValue();
+					
+					// checa se a classe contem uma variavel n
+					KraClass readClass = symbolTable.getInGlobal(v.getType().getName());
+					if (readClass == null) {
+						signalError.showError("Variable '" + n + "' does not have a class associated to it");
+					}
+					
+					v = readClass.getInstanceVariable(n);
+					if (v == null) {
+						signalError.showError("Instance variable '" + n + "' has not been found in type '" + readClass.getName() + "'");
+					}
+					
+					if ( v.getType() == Type.booleanType ) {
+						signalError.showError("command 'read' does not accept 'boolean' variables");
+					} else {
+						readList.addElement(v);
+					}
+					lexer.nextToken();
+					
+				} else {
+					
+					// caso onde a variavel eh acessada diretamente (Id)
+					v = symbolTable.getInLocal(n);
+					if (v == null) {
+						signalError.showError("Variable '" + n + "' has not been declared");
+					}
+					
+					if ( v.getType() == Type.booleanType ) {
+						signalError.showError("command 'read' does not accept 'boolean' variables");
+					} else {
+						readList.addElement(v);
+					}
+					lexer.nextToken();
+					
+				}
+				
+			} else if (lexer.token == Symbol.COMMA) {
+				// le o proximo leftValue
+				lexer.nextToken();
+			} else {
 				break;
+			}
+			
 		}
 
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
@@ -773,10 +867,16 @@ public class Compiler {
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
 		
-		return null;
+		// o comando read deve conter a entrada de ao menos uma variavel
+		if (readList.getSize() == 0) {
+			signalError.showError("command 'read' should take at least one argument");
+		}
+
+		return new ReadStatement(readList);
 	}
 
-	private Statement writeStatement() {
+	private WriteStatement writeStatement() {
+		// WriteStat ::= “write” “(” ExpressionList “)”
 
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");

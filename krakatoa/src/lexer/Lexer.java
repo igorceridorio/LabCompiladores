@@ -28,7 +28,6 @@ public class Lexer {
 	static {
 		keywordsTable = new Hashtable<String, Symbol>();
 
-		/*
 		keywordsTable.put( "true", Symbol.TRUE );
 		keywordsTable.put( "false", Symbol.FALSE );
 		keywordsTable.put( "final", Symbol.FINAL );
@@ -54,7 +53,6 @@ public class Lexer {
 		keywordsTable.put( "String", Symbol.STRING );
 		keywordsTable.put( "extends", Symbol.EXTENDS );
 		keywordsTable.put( "assert", Symbol.ASSERT);
-		*/
 		
 		for ( Symbol s : Symbol.values() ) {
 			String kw = s.toString();

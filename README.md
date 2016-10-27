@@ -27,7 +27,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [x] IfStat ::= “if” “(” Expression “)” Statement [ “else” Statement ]
 - [x] InstVarDec ::= Type IdList “;”
 - [ ] IntValue ::= Digit { Digit }
-- [ ] LeftValue ::= [ (“this” | Id ) “.” ] Id
+- [x] LeftValue ::= [ (“this” | Id ) “.” ] Id
 - [ ] Letter ::= “A” | ... | “Z” | “a” | ... | “z”
 - [x] LocalDec ::= Type IdList “;”
 - [ ] LowOperator ::= “+” | “−” | “||”
@@ -40,10 +40,10 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [x] ParamDec ::= Type Id
 - [x] Program ::= { MOCall } ClassDec { ClassDec }
 - [x] Qualifier ::= [ "final" ] [ "static" ] ( “private” | “public”)
-- [ ] ReadStat ::= “read” “(” LeftValue { “,” LeftValue } “)”
+- [x] ReadStat ::= “read” “(” LeftValue { “,” LeftValue } “)”
 - [ ] PrimaryExpr ::= “super” “.” Id “(” [ ExpressionList ] “)” | Id | Id “.” Id | Id “.” Id “(” [ ExpressionList ] ”)” | Id “.” Id “.” Id “(” [ ExpressionList ] “)” | “this” | “this” “.” Id | “this” ”.” Id “(” [ ExpressionList ] “)” | “this” ”.” Id “.” Id “(” [ ExpressionList ] “)”
 - [ ] Relation ::= “==” | “<” | “>” | “<=” | “>=” | “! =”
-- [ ] ReturnStat ::= “return” Expression
+- [x] ReturnStat ::= “return” Expression
 - [ ] RightValue ::= “this” [ “.” Id ] | Id [ “.” Id ]
 - [ ] Signal ::= “+” | “−”
 - [ ] SignalFactor ::= [ Signal ] Factor
