@@ -29,7 +29,16 @@ public class UnaryExpr extends Expr {
 		expr.genC(pw, false);
 	}
 	
-    public void genKra(PW pw, boolean ident) {	
+    public void genKra(PW pw, boolean ident) {
+    	if (ident) {
+    		pw.printIdent(op.toString());
+    	} else {
+    		pw.print(op.toString());
+    	}
+		if ( expr != null ) {
+			expr.genKra(pw, ident);
+		}
+		
     }
 
 	@Override

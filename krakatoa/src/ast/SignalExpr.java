@@ -20,6 +20,14 @@ public class SignalExpr extends Expr {
     }
     
     public void genKra(PW pw, boolean ident) {	
+    	if (ident) {
+    		pw.printIdent(oper.toString() + " ");
+    	} else {
+    		pw.print(oper.toString() + " ");
+    	}
+    	if (expr != null) {
+    		expr.genKra(pw, ident);
+    	}
     }
 
     @Override

@@ -16,11 +16,11 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [x] ```CompStatement ::= “{” { Statement } “}”```
 - [ ] ```Digit ::= “0” | ... | “9”```
 - [x] ```DoWhileStat ::= “do” CompStatement “while” “(” Expression “)”```
-- [ ] ```Expression ::= SimpleExpression [ Relation SimpleExpression ]```
-- [ ] ```ExpressionList ::= Expression { “,” Expression }```
+- [x] ```Expression ::= SimpleExpression [ Relation SimpleExpression ]```
+- [x] ```ExpressionList ::= Expression { “,” Expression }```
 - [ ] ```Factor ::= BasicValue | “(” Expression “)” | “!” Factor | “null” | ObjectCreation | PrimaryExpr```
 - [x] ```FormalParamDec ::= ParamDec { “,” ParamDec }```
-- [ ] ```HighOperator ::= “∗” | “/” | “&&”```
+- [x] ```HighOperator ::= “∗” | “/” | “&&”```
 - [x] ```Id ::= Letter { Letter | Digit | “ ” }```
 - [x] ```IdList ::= Id { “,” Id }```
 - [x] ```IfStat ::= “if” “(” Expression “)” Statement [ “else” Statement ]```
@@ -29,7 +29,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [x] ```LeftValue ::= [ (“this” | Id ) “.” ] Id```
 - [ ] ```Letter ::= “A” | ... | “Z” | “a” | ... | “z”```
 - [x] ```LocalDec ::= Type IdList “;”```
-- [ ] ```LowOperator ::= “+” | “−” | “||”```
+- [x] ```LowOperator ::= “+” | “−” | “||”```
 - [x] ```MemberList ::= { Qualifier Member }```
 - [x] ```Member ::= InstVarDec | MethodDec```
 - [x] ```MethodDec ::= Type Id “(” [ FormalParamDec ] “)” “{” StatementList “}”```
@@ -41,15 +41,15 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [x] ```Qualifier ::= [ "final" ] [ "static" ] ( “private” | “public”)```
 - [x] ```ReadStat ::= “read” “(” LeftValue { “,” LeftValue } “)”```
 - [ ] ```PrimaryExpr ::= “super” “.” Id “(” [ ExpressionList ] “)” | Id | Id “.” Id | Id “.” Id “(” [ ExpressionList ] ”)” | Id “.” Id “.” Id “(” [ ExpressionList ] “)” | “this” | “this” “.” Id | “this” ”.” Id “(” [ ExpressionList ] “)” | ```“this” ”.” I ``` “.” Id “(” [ ExpressionList ] “)”```
-- [ ] ```Relation ::= “==” | “<” | “>” | “<=” | “>=” | “! =”```
+- [x] ```Relation ::= “==” | “<” | “>” | “<=” | “>=” | “! =”```
 - [x] ```ReturnStat ::= “return” Expression```
 - [ ] ```RightValue ::= “this” [ “.” Id ] | Id [ “.” Id ]```
-- [ ] ```Signal ::= “+” | “−”```
-- [ ] ```SignalFactor ::= [ Signal ] Factor```
-- [ ] ```SimpleExpression ::= Term { LowOperator Term }```
+- [x] ```Signal ::= “+” | “−”```
+- [x] ```SignalFactor ::= [ Signal ] Factor```
+- [x] ```SimpleExpression ::= Term { LowOperator Term }```
 - [x] ```Statement ::= AssignExprLocalDec “;” | IfStat | WhileStat | ReturnStat “;” | ReadStat “;” | WriteStat “;” | “break” “;” | “;” | CompStatement DoWhileStat```
 - [x] ```StatementList ::= { Statement }```
-- [ ] ```Term ::= SignalFactor { HighOperator SignalFactor }```
+- [x] ```Term ::= SignalFactor { HighOperator SignalFactor }```
 - [x] ```Type ::= BasicType | Id```
 - [x] ```WriteStat ::= “write” “(” ExpressionList “)”```
 - [x] ```WhileStat ::= “while” “(” Expression “)” Statement```

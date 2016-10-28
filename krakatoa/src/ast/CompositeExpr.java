@@ -28,7 +28,14 @@ public class CompositeExpr extends Expr {
           pw.print(")");
     }
     
-    public void genKra(PW pw, boolean ident) {	
+    public void genKra(PW pw, boolean ident) {
+    	if (left != null) {
+    		left.genKra(pw, ident);
+    	}
+    	pw.print(" " + oper.toString() + " ");
+    	if (right != null) {
+    		right.genKra(pw, ident);
+    	}
     }
 
     @Override

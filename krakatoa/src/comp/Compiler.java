@@ -957,8 +957,6 @@ public class Compiler {
 		}
 		return anExprList;
 	}
-
-	//TODO - working here
 	
 	private Expr expr() {
 		// Expression ::= SimpleExpression [ Relation SimpleExpression ]
@@ -970,38 +968,94 @@ public class Compiler {
 		if ( op == Symbol.EQ || op == Symbol.NEQ || op == Symbol.LE || op == Symbol.LT || op == Symbol.GE || op == Symbol.GT ) {
 			lexer.nextToken();
 			Expr right = simpleExpr();
+			
+			// ANALISE SEMANTICA: testa os tipos das expressoes dado os operadores
+			
+			// apenas podem ser aplicados a valores inteiros
+			if (op == Symbol.LT || op == Symbol.LE || op == Symbol.GT || op == Symbol.GE) {
+				if (left.getType() == right.getType() && left.getType() != Type.intType) {
+					signalError.showError("'" + op.toString() + "' can only be applied to int values");
+				}
+			}
+			
+			// podem ser aplicados a booleanos, inteiros ou classes que herdam uma da outra
+			if (op == Symbol.EQ || op == Symbol.NEQ) {
+				if (!isConvertible(left.getType(), right.getType())) {
+					if (!isConvertible(right.getType(), left.getType())) {
+						signalError.showError("incompatible type comparation between'" + left.getType().toString() + "' and '" + right.getType().toString() + "'");
+					}
+				}
+			}
+			
 			left = new CompositeExpr(left, op, right);
 		}
+		
 		return left;
 	}
 
 	private Expr simpleExpr() {
+		// SimpleExpression ::= Term { LowOperator Term }
+		// LowOperator ::= "+" | "-" | "||"
+		
 		Symbol op;
-
 		Expr left = term();
-		while ((op = lexer.token) == Symbol.MINUS || op == Symbol.PLUS
-				|| op == Symbol.OR) {
+		
+		while ((op = lexer.token) == Symbol.MINUS || op == Symbol.PLUS || op == Symbol.OR) {
+			
 			lexer.nextToken();
 			Expr right = term();
+			
+			// ANALISE SEMANTICA: checa o tipo das expressoes de acordo com o operador em questao
+			if (op == Symbol.MINUS || op == Symbol.PLUS) {
+				if (left.getType() != Type.intType || right.getType() != Type.intType) {
+					signalError.showError("'" + op.toString() + "' operator supports only 'int' type" );
+				}
+			} else if (op == Symbol.OR) {
+				if (left.getType() != Type.booleanType || right.getType() != Type.booleanType) {
+					signalError.showError("'" + op.toString() + "' operator supports only 'boolean' type" );
+				}
+			}
+			
 			left = new CompositeExpr(left, op, right);
 		}
+		
 		return left;
 	}
+	
+	// TODO - working here
 
 	private Expr term() {
+		// Term ::= SignalFactor { HighOperator SignalFactor }
+		// HighOperator ::= “*” | “/” | “&&”
+		
 		Symbol op;
-
 		Expr left = signalFactor();
-		while ((op = lexer.token) == Symbol.DIV || op == Symbol.MULT
-				|| op == Symbol.AND) {
+		
+		while ((op = lexer.token) == Symbol.DIV || op == Symbol.MULT || op == Symbol.AND) {
+			
 			lexer.nextToken();
 			Expr right = signalFactor();
+			
+			// ANALISE SEMANTICA: checa o tipo das expressoes de acordo com o operador em questao
+			if (op == Symbol.MULT || op == Symbol.DIV) {
+				if (left.getType() != Type.intType || right.getType() != Type.intType) {
+					signalError.showError("'" + op.toString() + "' operator supports only 'int' type" );
+				}
+			} else if (op == Symbol.AND) {
+				if (left.getType() != Type.booleanType || right.getType() != Type.booleanType) {
+					signalError.showError("'" + op.toString() + "' operator supports only 'boolean' type" );
+				}
+			}
+			
 			left = new CompositeExpr(left, op, right);
 		}
 		return left;
 	}
 
 	private Expr signalFactor() {
+		// SignalFactor ::= [ Signal ] Factor
+		// Signal ::= “+” | “-”
+		
 		Symbol op;
 		if ( (op = lexer.token) == Symbol.PLUS || op == Symbol.MINUS ) {
 			lexer.nextToken();
