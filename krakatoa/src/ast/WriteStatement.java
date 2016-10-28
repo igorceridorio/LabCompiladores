@@ -5,7 +5,7 @@ public class WriteStatement extends Statement {
 	private ExprList exprList;
 	private boolean line;
 	
-	public WriteStatement(ExprList exprList) {
+	public WriteStatement(ExprList exprList, boolean line) {
 		this.exprList = exprList;
 		this.line = false;
 	}
@@ -16,6 +16,14 @@ public class WriteStatement extends Statement {
 	
 	public void setLine(boolean line) {
 		this.line = line;
+	}
+	
+	public ExprList getExprList() {
+		return this.exprList;
+	}
+	
+	public void setExprList(ExprList exprList) {
+		this.exprList = exprList;
 	}
 	
 	@Override

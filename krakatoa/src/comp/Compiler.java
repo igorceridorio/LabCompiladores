@@ -30,8 +30,8 @@ public class Compiler {
 		return program;
 	}
 
-	// Program ::= { MOCall } ClassDec { ClassDec }
 	private Program program(ArrayList<CompilationError> compilationErrorList) {
+		// Program ::= { MOCall } ClassDec { ClassDec }
 
 		ArrayList<MetaobjectCall> metaobjectCallList = new ArrayList<>();
 		ArrayList<KraClass> kraClassList = new ArrayList<>();
@@ -77,9 +77,9 @@ public class Compiler {
      * 
 	 */
 	
-	// MOCall ::=  “@” Id [ “(” { MOParam } “)” ]
 	@SuppressWarnings("incomplete-switch")
-	private MetaobjectCall metaobjectCall() {	
+	private MetaobjectCall metaobjectCall() {
+		// MOCall ::=  “@” Id [ “(” { MOParam } “)” ]
 		
 		String name = lexer.getMetaobjectName();
 		ArrayList<Object> metaobjectParamList = new ArrayList<>();
@@ -131,13 +131,13 @@ public class Compiler {
 		return new MetaobjectCall(name, metaobjectParamList);
 	}
 
-	/*
-	 * ClassDec ::= ``class'' Id [ ``extends'' Id ] "{" MemberList "}"
-	 * MemberList ::= { Qualifier Member } 
-	 * Member ::= InstVarDec | MethodDec
-	 * Qualifier ::= [ "static" ]  ( "private" | "public" )
-	 */
 	private KraClass classDec() {
+		/*
+		 * ClassDec ::= ``class'' Id [ ``extends'' Id ] "{" MemberList "}"
+		 * MemberList ::= { Qualifier Member } 
+		 * Member ::= InstVarDec | MethodDec
+		 * Qualifier ::= [ "static" ]  ( "private" | "public" )
+		 */
 		
 		String className = null;
 		
@@ -516,20 +516,22 @@ public class Compiler {
 		return result;
 	}
 
-	private Statement compositeStatement() {
-
+	private CompositeStatement compositeStatement() {
+		// CompStatement ::= “{” { Statement } “}”
+		
 		lexer.nextToken();
-		statementList();
+		CompositeStatement compositeStatement = new CompositeStatement(statementList());
+		
 		if ( lexer.token != Symbol.RIGHTCURBRACKET )
 			signalError.showError("} expected");
 		else
 			lexer.nextToken();
 		
-		return null;
+		return compositeStatement;
 	}
 
 	private StatementList statementList() {
-		// CompStatement ::= "{" { Statement } "}"
+		// StatementList ::= { Statement }
 		
 		Symbol tk;
 		StatementList statementList = new StatementList();
@@ -615,12 +617,11 @@ public class Compiler {
 	}
 
 	private Statement assignExprLocalDec() {
+		// AssignExprLocalDec ::= Expression [ “=” Expression ] | LocalDec
 		
 		Expr left = null;
 		Expr right = null;
-		
-		// AssignExprLocalDec ::= Expression [ “=” Expression ] | LocalDec
-		
+					
 		if ( lexer.token == Symbol.INT || lexer.token == Symbol.BOOLEAN || lexer.token == Symbol.STRING || (lexer.token == Symbol.IDENT && isType(lexer.getStringValue())) ) {
 			 // AssignExprLocalDec ::=  LocalDec 
 			return localDec();
@@ -686,7 +687,7 @@ public class Compiler {
 		expr = expr();
 		
 		// ANALISE SEMANTICA: while deve analisar somente expressoes booleanas
-		if (expr.getType() != Type.booleanType) signalError.showError("Boolean expression is expected in a 'while' statement");
+		if (expr.getType() != Type.booleanType) signalError.showError("boolean expression is expected in a 'while' statement");
 		
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken();
@@ -694,23 +695,30 @@ public class Compiler {
 		
 		whileCounter--;
 		
-		return  null;
+		return new WhileStatement(expr, statement);
 	}
 	
-	private Statement doWhileStatement() {
+	private DoWhileStatement doWhileStatement() {
 		//DoWhileStat ::= “do” CompStatement “while” “(” Expression “)”
 
+		CompositeStatement compositeStatement = null;
+		Expr expr = null;
+		
 		lexer.nextToken(); //le o token "do"
-		compositeStatement();
+		compositeStatement = compositeStatement();
+		
 		if ( lexer.token != Symbol.WHILE ) signalError.showError("'while' expected");
 		lexer.nextToken(); //le o token "while"
+		
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken(); // le o token "("
-		expr();
+		
+		expr = expr();
+		
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken(); // le o token ")"
 		
-		return null;
+		return new DoWhileStatement(compositeStatement, expr);
 	}
 
 	private IfStatement ifStatement() {
@@ -878,47 +886,64 @@ public class Compiler {
 	private WriteStatement writeStatement() {
 		// WriteStat ::= “write” “(” ExpressionList “)”
 
+		ExprList exprList = new ExprList();
+		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
-		exprList();
+		
+		exprList = exprList();
+		
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken();
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
 		
-		return null;
+		return new WriteStatement(exprList, false);
 	}
 
-	private Statement writelnStatement() {
+	private WriteStatement writelnStatement() {
+		// WriteStat ::= “write” “(” ExpressionList “)”
 
+		ExprList exprList = new ExprList();
+		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
-		exprList();
+		
+		exprList = exprList();
+		
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken();
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
 		
-		return null;
+		return new WriteStatement(exprList, true);
 	}
 
-	private Statement breakStatement() {
+	private BreakStatement breakStatement() {
+		// “break” “;”
+		
+		// ANALISE SEMANTICA: o break nao pode estar sendo chamado de fora de um while
+		if (whileCounter == 0) {
+			signalError.showError("'break' statement must be inside a 'while' statement");
+		}
+		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
 		
-		return null;
+		return new BreakStatement();
 	}
 
-	private Statement nullStatement() {
-		lexer.nextToken();
+	private NullStatement nullStatement() {
+		// “;”
 		
-		return null;
+		lexer.nextToken();
+		return new NullStatement();
 	}
 
 	private ExprList exprList() {
@@ -933,12 +958,16 @@ public class Compiler {
 		return anExprList;
 	}
 
+	//TODO - working here
+	
 	private Expr expr() {
-
+		// Expression ::= SimpleExpression [ Relation SimpleExpression ]
+		// Relation ::= “==” | “<” | “>” | “<=” | “>=” | “!=”
+		
 		Expr left = simpleExpr();
 		Symbol op = lexer.token;
-		if ( op == Symbol.EQ || op == Symbol.NEQ || op == Symbol.LE
-				|| op == Symbol.LT || op == Symbol.GE || op == Symbol.GT ) {
+		
+		if ( op == Symbol.EQ || op == Symbol.NEQ || op == Symbol.LE || op == Symbol.LT || op == Symbol.GE || op == Symbol.GT ) {
 			lexer.nextToken();
 			Expr right = simpleExpr();
 			left = new CompositeExpr(left, op, right);
