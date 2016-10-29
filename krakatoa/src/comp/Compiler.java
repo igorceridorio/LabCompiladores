@@ -1199,8 +1199,6 @@ public class Compiler {
 			
 			return new MessageSendToSuper(msg, exprList);
 			
-			// TODO - working on this monster
-			
 		case IDENT:
 			/*
           	 * PrimaryExpr ::=  
@@ -1212,22 +1210,32 @@ public class Compiler {
 
 			String firstId = lexer.getStringValue();
 			lexer.nextToken();
+			
+			// PrimaryExpr ::= Id - logo deve verificar se o identificador local foi previamente declarado
 			if ( lexer.token != Symbol.DOT ) {
-				// Id
-				// retorne um objeto da ASA que representa um identificador
-				return null;
+				Variable v = symbolTable.getInLocal(firstId);
+				
+				if (v == null) {
+					signalError.showError("variable '" + firstId + "' has not been declared");
+				}
+				
+				return new VariableExpr(v);
 			}
-			else { // Id "."
+			else { 
+				
+				// Id "."
 				lexer.nextToken(); // coma o "."
 				if ( lexer.token != Symbol.IDENT ) {
 					signalError.showError("Identifier expected");
 				}
 				else {
-					// Id "." Id
+					
+					// PrimaryExpr ::= Id "." Id
 					lexer.nextToken();
 					id = lexer.getStringValue();
+					
 					if ( lexer.token == Symbol.DOT ) {
-						// Id "." Id "." Id "(" [ ExpressionList ] ")"
+						// PrimaryExpr ::= Id "." Id "." Id "(" [ ExpressionList ] ")"
 						/*
 						 * se o compilador permite variáveis estáticas, é possível
 						 * ter esta opção, como
@@ -1235,28 +1243,89 @@ public class Compiler {
 						 * Contudo, se variáveis estáticas não estiver nas especificações,
 						 * sinalize um erro neste ponto.
 						 */
+						
+						signalError.showError("compiler does not support static variables");
+						
 						lexer.nextToken();
 						if ( lexer.token != Symbol.IDENT )
 							signalError.showError("Identifier expected");
+						
 						messageName = lexer.getStringValue();
 						lexer.nextToken();
 						exprList = this.realParameters();
 
-					}
-					else if ( lexer.token == Symbol.LEFTPAR ) {
+					} else if ( lexer.token == Symbol.LEFTPAR ) {
 						// Id "." Id "(" [ ExpressionList ] ")"
 						exprList = this.realParameters();
+						
 						/*
 						 * para fazer as conferências semânticas, procure por
-						 * método 'ident' na classe de 'firstId'
+						 * método 'id' na classe de 'firstId'
 						 */
-					}
-					else {
+
+						// ANALISE SEMANTICA:
+						Variable v = null;
+						KraClass c = null;
+						
+						// caso 'firstId' nao seja uma classe
+						if ((c = symbolTable.getInGlobal(firstId)) == null) {
+							
+							// verifica se 'firstId' eh uma variavel local
+							if ((v = symbolTable.getInLocal(firstId)) == null) {
+								signalError.showError("'" + firstId + "' is neither a class object nor a variable");
+							}
+							
+							// verifica se 'firstId' eh variavel de instancia de alguma classe
+							if (v.getType() instanceof KraClass) {
+								c = (KraClass) v.getType();
+							} else {
+								signalError.showError("variable '" + firstId + "' does not have a class type");
+							}
+							
+							// se 'firsId' for um objeto de class verifica se 'id' foi declarado
+							if (c.searchMethod(id, false, true) == null) {
+								if (c.searchMethod(id, true, true) == null) {
+									signalError.showError("undefined method '" + id + "' in class '" + c.getName() + "'");
+								}
+							}
+							
+						} else {
+							// se 'firstId' for uma KraClass verifica se 'id' foi declarado
+							if (c.searchMethod(id, false, true) == null) {
+								if (c.searchMethod(id, true, true) == null) {
+									signalError.showError("undefined method '" + id + "' in class '" + c.getName() + "'");
+								}
+							}
+
+						}
+						
+					} else {
+						
 						// retorne o objeto da ASA que representa Id "." Id
+						KraClass kVariable = symbolTable.getInGlobal(firstId);
+						if (kVariable != null) {
+							InstanceVariable instanceVariable = kVariable.getInstanceVariable(id);
+							if (instanceVariable != null) return new VariableExpr(instanceVariable);
+						}
+						
+						Variable cVariable = symbolTable.getInLocal(firstId);
+						if (cVariable == null) {
+							signalError.showError("variable '" + firstId + "' was not declared");
+						}
+						else {
+							KraClass kcVariable = symbolTable.getInGlobal(cVariable.getType().getName());
+							Variable ckVariable = kcVariable.getInstanceVariable(id);
+							if (ckVariable == null) {
+								signalError.showError("variable '" + firstId + "' does not exist");
+							} else {
+								return new VariableExpr(ckVariable); 
+							}
+						}
 					}
 				}
 			}
 			break;
+			
 		case THIS:
 			/*
 			 * Este 'case THIS:' trata os seguintes casos: 
@@ -1271,7 +1340,7 @@ public class Compiler {
 				// only 'this'
 				// retorne um objeto da ASA que representa 'this'
 				// confira se não estamos em um método estático
-				return null;
+				return new MessageSendToSelf(null, null, null, currentClass);
 			}
 			else {
 				lexer.nextToken();
@@ -1287,9 +1356,24 @@ public class Compiler {
 					 * 'ident' e que pode tomar os parâmetros de ExpressionList
 					 */
 					exprList = this.realParameters();
+					
+					msg = currentClass.searchMethod(id, false, true);
+					if (msg != null) {
+						return new MessageSendToSelf(null, msg, exprList, msg.getType());
+					} else {
+						msg = currentClass.searchMethod(id, true, true);
+						if (msg != null) {
+							return new MessageSendToSelf(null, msg, exprList, msg.getType());
+						}
+					}
+					
 				}
 				else if ( lexer.token == Symbol.DOT ) {
 					// "this" "." Id "." Id "(" [ ExpressionList ] ")"
+					
+					// o compilador nao suporta vairaveis estaticas
+					signalError.showError("compiler does not support static variables");
+					
 					lexer.nextToken();
 					if ( lexer.token != Symbol.IDENT )
 						signalError.showError("Identifier expected");
@@ -1302,7 +1386,13 @@ public class Compiler {
 					 * confira se a classe corrente realmente possui uma
 					 * variável de instância 'ident'
 					 */
-					return null;
+					
+					Variable v = currentClass.getInstanceVariable(id);
+					if (v == null) {
+						signalError.showError("instance variable '" + id + "' has not been declared");
+					} else {
+						return new MessageSendToSelf(v, null, null, v.getType());
+					}
 				}
 			}
 			break;
@@ -1314,11 +1404,6 @@ public class Compiler {
 
 	private LiteralInt literalInt() {
 
-		LiteralInt e = null;
-
-		// the number value is stored in lexer.getToken().value as an object of
-		// Integer.
-		// Method intValue returns that value as an value of type int.
 		int value = lexer.getNumberValue();
 		lexer.nextToken();
 		return new LiteralInt(value);
