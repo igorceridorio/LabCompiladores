@@ -1,187 +1,51 @@
 Relatório do Compilador
 
-85 de um total de 117 erros que deveriam ser sinalizados não o foram (72%)
-12 erros foram sinalizados na linha errada (10%)
-0 erros foram sinalizados em 101 arquivos sem erro (0%)
+9 de um total de 117 erros que deveriam ser sinalizados não o foram (7%)
+20 erros foram sinalizados na linha errada (17%)
+23 erros foram sinalizados em 101 arquivos sem erro (22%)
 
 Erros que deveriam ser sinalizados mas não foram:
 
-ER-LEX02.KRA, 6, Unknown character '\' (lexer.Lexer.nextToken())
-
-ER-LEX03.KRA, 6, literal int out of limits (lexer.Lexer.nextToken())
-
-ER-LEX04.KRA, 6, literal int out of limits (lexer.Lexer.nextToken())
-
-ER-LEX06.KRA, 8, Identifier starting with underscore (lexer.Lexer.nextToken())
-
-ER-LEX07.KRA, 8, Unknown character (lexer.Lexer.nextToken())
-
-ER-LEX09.KRA, 6, literal int out of limits (lexer.Lexer.nextToken())
-
-ER-SEM02.KRA, 9, Variable 'I' was not declared (comp.Compiler.assignExprLocalDec())
-
-ER-SEM03.KRA, 10, Variable 'i' is being redeclared (comp.Compiler.localDec())
-
-ER-SEM04.KRA, 11, Type error: value of the right-hand side is not subtype of the variable of the left-hand side. (comp.Compiler.assignExprLocalDec())
-
-ER-SEM05.KRA, 10, 'int' cannot be assigned to 'boolean' (comp.Compiler.assignExprLocalDec())
-
-ER-SEM06.KRA, 7, 'operator expected' or 'variable expected at the left-hand side of a assignment'
-
-ER-SEM07.KRA, 10, Message send to a non-object receiver (comp.Compiler.factor())
-
-ER-SEM08.KRA, 8, type boolean does not support operation '+' (comp.Compiler.simpleExpr())
-
-ER-SEM09.KRA, 10, type 'int' does not support operator '&&' (comp.Compiler.term())
-
-ER-SEM11.KRA, 10, non-boolean expression in 'while' command (comp.Compiler.whileStatement())
-
-ER-SEM12.KRA, 9, operator '+' of 'int' expects an 'int' value (comp.Compiler.simpleExpr())
-
-ER-SEM13.KRA, 11, Command 'read' does not accept 'boolean' variables (comp.Compiler.readStatement())
-
 ER-SEM14.KRA, 12, Command 'write' does not accept 'boolean' expressions (comp.Compiler.writeStatement())
-
-ER-SEM15.KRA, 9, Operator '!' does not accepts 'int' values (comp.Compiler.factor())
 
 ER-SEM16.KRA, 11, Operator '-' does not accepts 'boolean' expressions (comp.Compiler.signalFactor())
 
-ER-SEM17.KRA, 8, Command 'read' expects a variable (comp.Compiler.readStatement()))
-
-ER-SEM18.KRA, 9, Type 'k' was not found (comp.Compiler.localDec())
-
-ER-SEM20.KRA, 8, Identifier expected (comp.Compiler.localDec())
-
-ER-SEM21.KRA, 8, Identifier expected (comp.Compiler.localDec())
-
-ER-SEM22.KRA, 8, Identifier expected (comp.Compiler.localDec())
-
-ER-SEM23.KRA, 8, Identifier expected (comp.Compiler.localDec())
-
-ER-SEM24.KRA, 8, Identifier expected (comp.Compiler.localDec())
-
-ER-SEM25.KRA, 8, Identifier expected (comp.Compiler.localDec())
-
-ER-SEM26.KRA, 9, 'break' statement found outside a 'while' statement (comp.Compiler.statement()))
-
-ER-SEM32.KRA, 11, Method 'm' is being redeclared (comp.Compiler.methodDec())
-
 ER-SEM33.KRA, 11, Method 'm' is being redeclared (comp.Compiler.methodDec())
-
-ER-SEM36.KRA, 20, Expression expected in the right-hand side of assignment (comp.Compiler.assignExprLocalDec())
-
-ER-SEM37.KRA, 20, Method 'set' was not found in class 'A' or its superclasses (comp.Compiler.factor())
-
-ER-SEM38.KRA, 20, Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side (comp.Compiler.assignExprLocalDec())
-
-ER-SEM41.KRA, 14, Type error: the type of the expression of the right-hand side is a basic type and the type of the variable of the left-hand side is a class (comp.Compiler.assignExprLocalDec())
-
-ER-SEM42.KRA, 14, Type error: type of the left-hand side of the assignment is a basic type and the type of the right-hand side is a class (comp.Compiler.assignExprLocalDec())
-
-ER-SEM43.KRA, 10, Type error: 'null' cannot be assigned to a variable of a basic type (comp.Compiler.assignExprLocalDec())
-
-ER-SEM45.KRA, 13, 'int' or 'String' expression expected (comp.Compiler.readStatement())
-
-ER-SEM46.KRA, 9, 'super' used in class 'Program' that does not have a superclass (comp.Compiler.factor())
-
-ER-SEM50.KRA, 17, Command 'break' outside a command 'while' (comp.Compiler.breakStatement())
-
-ER-SEM51.KRA, 17, Method 'put' is being redefined in subclass 'B' with a signature different from the method of superclass 'A' (comp.Compiler.methodDec())
-
-ER-SEM57.KRA, 21, Incompatible types cannot be compared with '==' because the result will always be 'false' (comp.Compiler.expr())
-
-ER-SEM58.KRA, 21, Incompatible types cannot be compared with '!=' because the result will always be 'false' (comp.Compiler.expr())
-
-ER-SEM59.KRA, 25, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
-
-ER-SEM61.KRA, 33, Method 's' was not found in class 'C' or its superclasses (comp.Compiler.factor())
-
-ER-SEM62.KRA, 15, Identifier 'a' was not found (comp.Compiler.factor())
 
 ER-SEM68.KRA, 12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
 
-ER-SEM70.KRA, 10, Method 'm' is being redefined (comp.Compiler.methodDec())
+ER-SEM77.KRA, 10, Method 'run' was not found in class 'Program' (comp.Compiler.classDec())
 
-ER-SEM86.KRA, 8, Class 'A' was not found (comp.Compiler.factor())
+ER-SEM79.KRA, 5, Method 'run' of class 'Program' cannot take parameters
 
 ER-SEM88.KRA, 13, boolean expression expected in a do-while statement (comp.Compiler.doWhileStatement())
 
 ER-SEM89.KRA, 13, boolean expression expected in a do-while statement (comp.Compiler.doWhileStatement())
 
-ER-SIN01.KRA, 8, '{' expected (comp.Compiler.methodDec())
-
-ER-SIN02.KRA, 8, Missing identifier (comp.Compiler.localDec())
-
-ER-SIN03.KRA, 8, Identifier expected (comp.Compiler.localDec())
-
-ER-SIN04.KRA, 8, Statement expected (comp.Compiler.assignExprLocalDec())
-
 ER-SIN05.KRA, 10, Expression expected (comp.Compiler.factor())
-
-ER-SIN06.KRA, 8, Expression expected (comp.Compiler.factor())
-
-ER-SIN07.KRA, 9, Command 'read' without arguments (comp.Compiler.readStatement())
-
-ER-SIN08.KRA, 9, Command 'write' without arguments (comp.Compiler.writeStatement())
-
-ER-SIN09.KRA, 10, ')' expected (comp.Compiler.ifStatement())
-
-ER-SIN10.KRA, 9, '(' expected after 'read' command (comp.Compiler.readStatement())
-
-ER-SIN11.KRA, 7, Missing '(' (comp.Compiler.writeStatement())
-
-ER-SIN12.KRA, 10, Expression expected (comp.Compiler.factor())
-
-ER-SIN14.KRA, 14, 'class' expected (comp.Compiler.program())
-
-ER-SIN15.KRA, 8, ')' expected (comp.Compiler.writeStatement())
-
-ER-SIN16.KRA, 9, Identifier expected (comp.Compiler.localDec())
-
-ER-SIN17.KRA, 7, Missing ';' (comp.Compiler.localDec())
-
-ER-SIN18.KRA, 9, Missing ';' (comp.Compiler.assignExprLocalDec())
-
-ER-SIN19.KRA, 9, Missing ';' (comp.Compiler.readStatement())
-
-ER-SIN20.KRA, 7, Missing ';' (comp.Compiler.writeStatement())
-
-ER-SIN21.KRA, 11, Missing ';' (comp.Compiler.assignExprLocalDec)
-
-ER-SIN22.KRA, 11, Missing ';' (comp.Compiler.assignExprLocalDec())
-
-ER-SIN23.KRA, 8, Statement expected (comp.Compiler.statement())
-
-ER-SIN24.KRA, 9, Expression expected OR Unknown sequence of symbols (comp.Compiler.expr() OR lexer.Lexer.nextToken())
-
-ER-SIN25.KRA, 9, Expression expected OR invalid sequence of symbols (comp.Compiler.expr() OR lexer.Lexer.nextToken())
-
-ER-SIN26.KRA, 9, Expression expected OR invalid sequence of symbols (comp.Compiler.ifStatement() OR lexer.Lexer.nextToken())
-
-ER-SIN27.KRA, 8, ')' expected OR Unknown sequence of symbols (comp.Compiler.ifStatement OR lexer.Lexer.nextToken())
-
-ER-SIN30.KRA, 7, Unknown character '#' (lexer.Lexer.nextToken())
-
-ER-SIN37.KRA, 8, Expression expected (comp.Compiler.factor())
-
-ER-SIN38.KRA, 13, '}' expected (comp.Compiler.classDec())
-
-ER-SIN58.KRA, 10, ')' expected (comp.Compiler.factor())
-
-ER-SIN59.KRA, 12, '{' expected after 'do' (comp.Compiler.doWhileStatement())
-
-ER-SIN60.KRA, 14, '(' expected after 'while' (comp.Compiler.doWhileStatement())
-
-ER-SIN61.KRA, 14, ')' expected after 'while' expression (comp.Compiler.doWhileStatement())
-
-ER-SIN62.KRA, 17, 'while' expected (comp.Compiler.doWhileStatement())
 
 ######################################################
 Erros que foram sinalizados na linha errada:
 
+ER-SEM32.KRA
+    correto:    11, Method 'm' is being redeclared (comp.Compiler.methodDec())
+    sinalizado: 24, undefined method 'm' in class 'A'
+
 ER-SEM39.KRA
     correto:    16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
     sinalizado: 17, Missing 'return' in method 'm'
+
+ER-SEM51.KRA
+    correto:    17, Method 'put' is being redefined in subclass 'B' with a signature different from the method of superclass 'A' (comp.Compiler.methodDec())
+    sinalizado: 29, undefined method 'put' in class 'A'
+
+ER-SEM57.KRA
+    correto:    21, Incompatible types cannot be compared with '==' because the result will always be 'false' (comp.Compiler.expr())
+    sinalizado: 19, Cannot assign 'null' type to 'A'
+
+ER-SEM58.KRA
+    correto:    21, Incompatible types cannot be compared with '!=' because the result will always be 'false' (comp.Compiler.expr())
+    sinalizado: 19, Cannot assign 'null' type to 'A'
 
 ER-SEM63.KRA
     correto:    12, '.' or '=' expected after an identifier OR statement expected (comp.Compiler.factor())
@@ -207,6 +71,10 @@ ER-SEM69.KRA
     correto:    11, '.' or '=' expected after identifier OR statement expected (comp.Compiler.factor())
     sinalizado: 7, 'public', 'private' or '}' expected
 
+ER-SEM70.KRA
+    correto:    10, Method 'm' is being redefined (comp.Compiler.methodDec())
+    sinalizado: 23, undefined method 'm' in class 'A'
+
 ER-SEM71.KRA
     correto:    9, Attempt to access an instance variable using 'this' in a static method (comp.Compiler.factor())
     sinalizado: 8, 'public', 'private' or '}' expected
@@ -219,28 +87,278 @@ ER-SEM73.KRA
     correto:    10, Redefinition of static method 'm' (comp.Compiler.methodDec())
     sinalizado: 7, 'public', 'private' or '}' expected
 
-ER-SEM77.KRA
-    correto:    10, Method 'run' was not found in class 'Program' (comp.Compiler.classDec())
-    sinalizado: 11, Class 'Program' must have a 'run'
-
 ER-SEM87.KRA
     correto:    11, Call to 'this' in a static method (comp.Compiler.factor())
     sinalizado: 10, 'public', 'private' or '}' expected
 
-O compilador não sinalizou nenhum erro que não deveria ter sinalizado
+ER-SIN07.KRA
+    correto:    9, Command 'read' without arguments (comp.Compiler.readStatement())
+    sinalizado: 11, command 'read' should take at least one argument
+
+ER-SIN17.KRA
+    correto:    7, Missing ';' (comp.Compiler.localDec())
+    sinalizado: 8, Missing ';'
+
+ER-SIN19.KRA
+    correto:    9, Missing ';' (comp.Compiler.readStatement())
+    sinalizado: 10, ) expected
+
+ER-SIN22.KRA
+    correto:    11, Missing ';' (comp.Compiler.assignExprLocalDec())
+    sinalizado: 9, ) expected
+
+######################################################
+Erros que foram sinalizados mas não deveriam ter sido:
+
+OK-CHK01.KRA, 70, undefined method 'm1' in class 'A'
+
+OK-CHK03.KRA, 38, undefined method 's' in class 'A'
+
+OK-CHK04.KRA, 38, undefined method 's' in class 'A'
+
+OK-CHK05.KRA, 40, undefined method 'm' in class 'C'
+
+OK-GER01.KRA, 99, undefined method 'm' in class 'A'
+
+OK-GER02.KRA, 35, undefined method 'm' in class 'A'
+
+OK-GER03.KRA, 64, undefined method 'm' in class 'A'
+
+OK-GER04.KRA, 41, undefined method 'm' in class 'A'
+
+OK-GER06.KRA, 49, undefined method 'm' in class 'A'
+
+OK-GER07.KRA, 28, undefined method 'm' in class 'A'
+
+OK-GER08.KRA, 40, undefined method 'm1' in class 'A'
+
+OK-GER11.KRA, 47, undefined method 'm2' in class 'A'
+
+OK-GER15.KRA, 134, undefined method 'init_A' in class 'A'
+
+OK-GER23.KRA, 24, Missing ';'
+
+OK-LEX02.KRA, 27, undefined method 'm' in class 'A'
+
+OK-LEX03.KRA, 26, undefined method 'm' in class 'A'
+
+OK-LEX10.KRA, 24, undefined method 'm' in class 'A'
+
+OK-SEM03.KRA, 18, incompatible type comparation between'ast.TypeString@28d93b30' and 'ast.TypeNull@1b6d3586'
+
+OK-SEM10.KRA, 44, undefined method 'first' in class 'A'
+
+OK-SEM11.KRA, 24, undefined method 'A' in class 'A'
+
+OK-SEM13.KRA, 28, undefined method 'p' in class 'A'
+
+OK-SEM14.KRA, 24, Cannot assign 'null' type to 'A'
+
+OK-SIN16.KRA, 26, Statement expected
+
 ######################################################
 Em todos os testes abaixo, o compilador sinalizou o erro na linha correta (quando o teste tinha erros) ou não sinalizou o erro (quando o teste NÃO tinha erros). Mas é necessário conferir se as mensagens emitidas pelo compilador são compatíveis com as mensagens de erro sugeridas pelas chamadas aos metaobjetos dos testes. 
 
 A lista abaixo contém o nome do arquivo de teste, a mensagem que ele sinalizou e a mensagem sugerida pelo arquivo de teste
+
+ER-LEX02.KRA
+The compiler message was: "Invalid Character: '\'"
+The 'ce' message is:      "Unknown character '\'"
+
+
+ER-LEX03.KRA
+The compiler message was: "Number out of limits"
+The 'ce' message is:      "literal int out of limits"
+
+
+ER-LEX04.KRA
+The compiler message was: "Number out of limits"
+The 'ce' message is:      "literal int out of limits"
+
+
+ER-LEX06.KRA
+The compiler message was: "'_' cannot start an indentifier"
+The 'ce' message is:      "Identifier starting with underscore"
+
+
+ER-LEX07.KRA
+The compiler message was: "Missing ';'"
+The 'ce' message is:      "Unknown character"
+
+
+ER-LEX09.KRA
+The compiler message was: "Number out of limits"
+The 'ce' message is:      "literal int out of limits"
+
 
 ER-SEM01.KRA
 The compiler message was: "Missing 'return' in method 'm'"
 The 'ce' message is:      "Missing 'return' statement in method 'm'"
 
 
-ER-SEM79.KRA
-The compiler message was: "Method 'run' of class 'Program' must be parameterless"
-The 'ce' message is:      "Method 'run' of class 'Program' cannot take parameters"
+ER-SEM02.KRA
+The compiler message was: "variable 'I' has not been declared"
+The 'ce' message is:      "Variable 'I' was not declared"
+
+
+ER-SEM03.KRA
+The compiler message was: "Variable 'i' is being redeclared"
+The 'ce' message is:      "Variable 'i' is being redeclared"
+
+
+ER-SEM04.KRA
+The compiler message was: "Cannot assign 'boolean' type to 'int'"
+The 'ce' message is:      "Type error: value of the right-hand side is not subtype of the variable of the left-hand side."
+
+
+ER-SEM05.KRA
+The compiler message was: "Cannot assign 'int' type to 'boolean'"
+The 'ce' message is:      "'int' cannot be assigned to 'boolean'"
+
+
+ER-SEM06.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'operator expected' or 'variable expected at the left-hand side of a assignment'"
+
+
+ER-SEM07.KRA
+The compiler message was: "variable 'i' does not have a class type"
+The 'ce' message is:      "Message send to a non-object receiver"
+
+
+ER-SEM08.KRA
+The compiler message was: "'+' operator supports only 'int' type"
+The 'ce' message is:      "type boolean does not support operation '+'"
+
+
+ER-SEM09.KRA
+The compiler message was: "'&&' operator supports only 'boolean' type"
+The 'ce' message is:      "type 'int' does not support operator '&&'"
+
+
+ER-SEM11.KRA
+The compiler message was: "boolean expression is expected in a 'while' statement"
+The 'ce' message is:      "non-boolean expression in 'while' command"
+
+
+ER-SEM12.KRA
+The compiler message was: "'+' operator supports only 'int' type"
+The 'ce' message is:      "operator '+' of 'int' expects an 'int' value"
+
+
+ER-SEM13.KRA
+The compiler message was: "command 'read' does not accept 'boolean' variables"
+The 'ce' message is:      "Command 'read' does not accept 'boolean' variables"
+
+
+ER-SEM15.KRA
+The compiler message was: "operator '!' just accepts boolean expressions"
+The 'ce' message is:      "Operator '!' does not accepts 'int' values"
+
+
+ER-SEM17.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "Command 'read' expects a variable"
+
+
+ER-SEM18.KRA
+The compiler message was: "variable 'i' has not been declared"
+The 'ce' message is:      "Type 'k' was not found"
+
+
+ER-SEM20.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM21.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM22.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM23.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM24.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM25.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM26.KRA
+The compiler message was: "'break' statement must be inside a 'while' statement"
+The 'ce' message is:      "'break' statement found outside a 'while' statement"
+
+
+ER-SEM36.KRA
+The compiler message was: "undefined method 'm' in class 'A'"
+The 'ce' message is:      "Expression expected in the right-hand side of assignment"
+
+
+ER-SEM37.KRA
+The compiler message was: "undefined method 'set' in class 'A'"
+The 'ce' message is:      "Method 'set' was not found in class 'A' or its superclasses"
+
+
+ER-SEM38.KRA
+The compiler message was: "Cannot assign 'A' type to 'B'"
+The 'ce' message is:      "Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side"
+
+
+ER-SEM41.KRA
+The compiler message was: "Cannot assign 'int' type to 'A'"
+The 'ce' message is:      "Type error: the type of the expression of the right-hand side is a basic type and the type of the variable of the left-hand side is a class"
+
+
+ER-SEM42.KRA
+The compiler message was: "Cannot assign 'A' type to 'int'"
+The 'ce' message is:      "Type error: type of the left-hand side of the assignment is a basic type and the type of the right-hand side is a class"
+
+
+ER-SEM43.KRA
+The compiler message was: "Cannot assign 'null' type to 'int'"
+The 'ce' message is:      "Type error: 'null' cannot be assigned to a variable of a basic type"
+
+
+ER-SEM45.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "'int' or 'String' expression expected"
+
+
+ER-SEM46.KRA
+The compiler message was: "class 'Program' does not have a superclass"
+The 'ce' message is:      "'super' used in class 'Program' that does not have a superclass"
+
+
+ER-SEM50.KRA
+The compiler message was: "'break' statement must be inside a 'while' statement"
+The 'ce' message is:      "Command 'break' outside a command 'while'"
+
+
+ER-SEM59.KRA
+The compiler message was: "undefined method 'p' in class 'A'"
+The 'ce' message is:      "Method 'p' was not found in the public interface of 'A' or its superclasses"
+
+
+ER-SEM61.KRA
+The compiler message was: "undefined method 's' in class 'C'"
+The 'ce' message is:      "Method 's' was not found in class 'C' or its superclasses"
+
+
+ER-SEM62.KRA
+The compiler message was: "variable 'a' has not been declared"
+The 'ce' message is:      "Identifier 'a' was not found"
 
 
 ER-SEM80.KRA
@@ -256,6 +374,121 @@ The 'ce' message is:      "Method 'run' of class 'Program' cannot be private"
 ER-SEM82.KRA
 The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "Method 'run' cannot be static"
+
+
+ER-SEM86.KRA
+The compiler message was: "class 'A' does not exist"
+The 'ce' message is:      "Class 'A' was not found"
+
+
+ER-SIN01.KRA
+The compiler message was: "'{' expected"
+The 'ce' message is:      "'{' expected"
+
+
+ER-SIN02.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Missing identifier"
+
+
+ER-SIN03.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN04.KRA
+The compiler message was: "variable 'i' has not been declared"
+The 'ce' message is:      "Statement expected"
+
+
+ER-SIN06.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected"
+
+
+ER-SIN08.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Command 'write' without arguments"
+
+
+ER-SIN09.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN10.KRA
+The compiler message was: "( expected"
+The 'ce' message is:      "'(' expected after 'read' command"
+
+
+ER-SIN11.KRA
+The compiler message was: "( expected"
+The 'ce' message is:      "Missing '('"
+
+
+ER-SIN12.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected"
+
+
+ER-SIN14.KRA
+The compiler message was: "Expected class declaration"
+The 'ce' message is:      "'class' expected"
+
+
+ER-SIN15.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN16.KRA
+The compiler message was: "Identifier expected"
+The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN18.KRA
+The compiler message was: "';' expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN20.KRA
+The compiler message was: "; expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN21.KRA
+The compiler message was: "';' expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN23.KRA
+The compiler message was: "'}' expected"
+The 'ce' message is:      "Statement expected"
+
+
+ER-SIN24.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected OR Unknown sequence of symbols"
+
+
+ER-SIN25.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected OR invalid sequence of symbols"
+
+
+ER-SIN26.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "Expression expected OR invalid sequence of symbols"
+
+
+ER-SIN27.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected OR Unknown sequence of symbols"
+
+
+ER-SIN30.KRA
+The compiler message was: "Invalid Character: '#'"
+The 'ce' message is:      "Unknown character '#'"
 
 
 ER-SIN31.KRA
@@ -286,6 +519,16 @@ The 'ce' message is:      "')' expected"
 ER-SIN36.KRA
 The compiler message was: "Type 'm' has not been defined"
 The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN37.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected"
+
+
+ER-SIN38.KRA
+The compiler message was: "'public', 'private' or '}' expected"
+The 'ce' message is:      "'}' expected"
 
 
 ER-SIN43.KRA
@@ -331,5 +574,30 @@ The 'ce' message is:      "Identifier expected"
 ER-SIN57.KRA
 The compiler message was: "'public', 'private' or '}' expected"
 The 'ce' message is:      "'public', 'private' or '}' expected"
+
+
+ER-SIN58.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected"
+
+
+ER-SIN59.KRA
+The compiler message was: "Statement expected"
+The 'ce' message is:      "'{' expected after 'do'"
+
+
+ER-SIN60.KRA
+The compiler message was: "( expected"
+The 'ce' message is:      "'(' expected after 'while'"
+
+
+ER-SIN61.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "')' expected after 'while' expression"
+
+
+ER-SIN62.KRA
+The compiler message was: "'while' expected"
+The 'ce' message is:      "'while' expected"
 
 

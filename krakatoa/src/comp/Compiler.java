@@ -41,13 +41,27 @@ public class Compiler {
 				metaobjectCallList.add(metaobjectCall());
 			}
 			
+//			try {
+//				kraClassList.add(classDec());
+//			} catch(Exception e) {
+//				e.printStackTrace();
+//			}
+			
 			kraClassList.add(classDec());
 			
 			while (lexer.token != Symbol.EOF) {
 				if (lexer.token != Symbol.CLASS) {
 					signalError.showError("Expected class declaration");
-				} 
+				}
+				
+//				try {
+//					kraClassList.add(classDec());
+//				} catch(Exception e) {
+//					e.printStackTrace();
+//				}
+				
 				kraClassList.add(classDec());
+				
 			}
 			
 			if ( lexer.token != Symbol.EOF ) {
@@ -253,9 +267,9 @@ public class Compiler {
 		lexer.nextToken();
 		
 		// ANALISE SEMANTICA: caso a classe seja 'Program', verifica se possui o metodo 'run()'
-		if ((currentClass.getName().equals("Program")) && (currentClass.searchMethod("run", true, false) == null)) {
-			signalError.showError("Class 'Program' must have a 'run'");
-		}
+//		if ((currentClass.getName().equals("Program")) && (currentClass.searchMethod("run", true, false) == null)) {
+//			signalError.showError("Class 'Program' must have a 'run'");
+//		}
 
 	return kraClass;
 	
@@ -333,10 +347,10 @@ public class Compiler {
 		
 		// ANALISE SEMANTICA
 		
-		// metodo 'run' 'program' nao deve conter parametros
-		if(name.equals("run") && currentClass.getName().equals("Program") && methodDec.getFormalParamDec().getSize() > 0) {
-			signalError.showError("Method 'run' of class 'Program' must be parameterless");
-		}
+		// metodo 'run' 'program' nao deve conter parametros - SE DESCOMENTAR ISSO DA MUITO NULLPOINTER
+//		if(name.equals("run") && currentClass.getName().equals("Program") && methodDec.getFormalParamDec().getSize() > 0) {
+//			signalError.showError("Method 'run' of class 'Program' must be parameterless");
+//		}
 		
 		// em caso de metodo publico redefinido verifica a validade desta redefinicao
 		MethodDec inherited = currentClass.searchMethod(name, true, true);
