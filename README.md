@@ -40,7 +40,7 @@ Coding Project - First Phase. Compilers Lab course - 2016. Federal University of
 - [x] ```Program ::= { MOCall } ClassDec { ClassDec }```
 - [x] ```Qualifier ::= [ "final" ] [ "static" ] ( “private” | “public”)```
 - [x] ```ReadStat ::= “read” “(” LeftValue { “,” LeftValue } “)”```
-- [ ] ```PrimaryExpr ::= “super” “.” Id “(” [ ExpressionList ] “)” | Id | Id “.” Id | Id “.” Id “(” [ ExpressionList ] ”)” | Id “.” Id “.” Id “(” [ ExpressionList ] “)” | “this” | “this” “.” Id | “this” ”.” Id “(” [ ExpressionList ] “)” | ```“this” ”.” I ``` “.” Id “(” [ ExpressionList ] “)”```
+- [ ] ```PrimaryExpr ::= “super” “.” Id “(” [ ExpressionList ] “)” | Id | Id “.” Id | Id “.” Id “(” [ ExpressionList ] ”)” | Id “.” Id “.” Id “(” [ ExpressionList ] “)” | “this” | “this” “.” Id | “this” ”.” Id “(” [ ExpressionList ] “)” | “this” ”.” I ``` “.” Id “(” [ ExpressionList ] “)”```
 - [x] ```Relation ::= “==” | “<” | “>” | “<=” | “>=” | “! =”```
 - [x] ```ReturnStat ::= “return” Expression```
 - [ ] ```RightValue ::= “this” [ “.” Id ] | Id [ “.” Id ]```

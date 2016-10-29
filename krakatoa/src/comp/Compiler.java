@@ -1021,8 +1021,6 @@ public class Compiler {
 		
 		return left;
 	}
-	
-	// TODO - working here
 
 	private Expr term() {
 		// Term ::= SignalFactor { HighOperator SignalFactor }
@@ -1087,25 +1085,35 @@ public class Compiler {
 		Expr anExpr;
 		ExprList exprList;
 		String messageName, id;
+		KraClass classObj;
+		
+		// Factor ::= BasicValue
+		// BasicValue ::= IntValue | BooleanValue | StringValue
+		// BooleanValue ::=  "true" | "false"
 
 		switch (lexer.token) {
+		
 		// IntValue
 		case LITERALINT:
 			return literalInt();
-			// BooleanValue
+		
+		// BooleanValue
 		case FALSE:
 			lexer.nextToken();
 			return LiteralBoolean.False;
-			// BooleanValue
+		
+		// BooleanValue
 		case TRUE:
 			lexer.nextToken();
 			return LiteralBoolean.True;
-			// StringValue
+		
+		// StringValue
 		case LITERALSTRING:
 			String literalString = lexer.getLiteralStringValue();
 			lexer.nextToken();
 			return new LiteralString(literalString);
-			// "(" Expression ")" |
+		
+		// Factor ::= "(" Expression ")"
 		case LEFTPAR:
 			lexer.nextToken();
 			anExpr = expr();
@@ -1113,50 +1121,58 @@ public class Compiler {
 			lexer.nextToken();
 			return new ParenthesisExpr(anExpr);
 
-			// "null"
+		// Factor ::= "null"
 		case NULL:
 			lexer.nextToken();
 			return new NullExpr();
-			// "!" Factor
+		
+		// Factor ::= "!" Factor
 		case NOT:
 			lexer.nextToken();
-			anExpr = expr();
+			anExpr = factor();
+		
+			// ANALISE SEMANTICA: apenas expressoes do tipo boolean podem ser associadas com o operador not
+			if (anExpr.getType() != Type.booleanType) signalError.showError("operator '!' just accepts boolean expressions");
 			return new UnaryExpr(anExpr, Symbol.NOT);
-			// ObjectCreation ::= "new" Id "(" ")"
+			
+		// ObjectCreation ::= "new" Id "(" ")"
 		case NEW:
 			lexer.nextToken();
 			if ( lexer.token != Symbol.IDENT )
 				signalError.showError("Identifier expected");
 
 			String className = lexer.getStringValue();
-			/*
-			 * // encontre a classe className in symbol table KraClass 
-			 *      aClass = symbolTable.getInGlobal(className); 
-			 *      if ( aClass == null ) ...
-			 */
+			classObj = symbolTable.getInGlobal(className);
+			
+			// ANALISE SEMANTICA: verifica se a classe informada existe
+			if (classObj == null) {
+				signalError.showError("class '" + className + "' does not exist");
+			}
 
 			lexer.nextToken();
 			if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 			lexer.nextToken();
 			if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 			lexer.nextToken();
-			/*
-			 * return an object representing the creation of an object
-			 */
-			return null;
-			/*
-          	 * PrimaryExpr ::= "super" "." Id "(" [ ExpressionList ] ")"  | 
-          	 *                 Id  |
-          	 *                 Id "." Id | 
-          	 *                 Id "." Id "(" [ ExpressionList ] ")" |
-          	 *                 Id "." Id "." Id "(" [ ExpressionList ] ")" |
-          	 *                 "this" | 
-          	 *                 "this" "." Id | 
-          	 *                 "this" "." Id "(" [ ExpressionList ] ")"  | 
-          	 *                 "this" "." Id "." Id "(" [ ExpressionList ] ")"
-			 */
+			
+			return new ObjectCreation(classObj);
+			
+		/*
+		 * Factor ::= PrimaryExpr
+      	 * PrimaryExpr ::= "super" "." Id "(" [ ExpressionList ] ")"  | 
+      	 *                 Id  |
+      	 *                 Id "." Id | 
+      	 *                 Id "." Id "(" [ ExpressionList ] ")" |
+      	 *                 Id "." Id "." Id "(" [ ExpressionList ] ")" |
+      	 *                 "this" | 
+      	 *                 "this" "." Id | 
+      	 *                 "this" "." Id "(" [ ExpressionList ] ")"  | 
+      	 *                 "this" "." Id "." Id "(" [ ExpressionList ] ")"
+		 */
+		
+		// PrimaryExpr ::= "super" "." Id "(" [ ExpressionList ] ")"
 		case SUPER:
-			// "super" "." Id "(" [ ExpressionList ] ")"
+			
 			lexer.nextToken();
 			if ( lexer.token != Symbol.DOT ) {
 				signalError.showError("'.' expected");
@@ -1166,13 +1182,25 @@ public class Compiler {
 			if ( lexer.token != Symbol.IDENT )
 				signalError.showError("Identifier expected");
 			messageName = lexer.getStringValue();
-			/*
-			 * para fazer as conferências semânticas, procure por 'messageName'
-			 * na superclasse/superclasse da superclasse etc
-			 */
+
+			// ANALISE SEMANTICA: realiza a busca por 'messageName' nas superclasses
+			MethodDec msg = null;
+			if (currentClass.getSuperclass() == null) {
+				signalError.showError("class '" + currentClass.getName() + "' does not have a superclass");
+			} else {
+				msg = currentClass.searchMethod(messageName, true, true);
+				if (msg == null) {
+					signalError.showError("method '" + messageName + "' was not found in superclass");
+				}
+			}
+			
 			lexer.nextToken();
 			exprList = realParameters();
-			break;
+			
+			return new MessageSendToSuper(msg, exprList);
+			
+			// TODO - working on this monster
+			
 		case IDENT:
 			/*
           	 * PrimaryExpr ::=  

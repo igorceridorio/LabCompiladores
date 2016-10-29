@@ -1,7 +1,7 @@
 Relatório do Compilador
 
-89 de um total de 119 erros que deveriam ser sinalizados não o foram (74%)
-11 erros foram sinalizados na linha errada (9%)
+88 de um total de 119 erros que deveriam ser sinalizados não o foram (73%)
+12 erros foram sinalizados na linha errada (10%)
 0 erros foram sinalizados em 99 arquivos sem erro (0%)
 
 Erros que deveriam ser sinalizados mas não foram:
@@ -77,8 +77,6 @@ ER-SEM36.KRA, 20, Expression expected in the right-hand side of assignment (comp
 ER-SEM37.KRA, 20, Method 'set' was not found in class 'A' or its superclasses (comp.Compiler.factor())
 
 ER-SEM38.KRA, 20, Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side (comp.Compiler.assignExprLocalDec())
-
-ER-SEM39.KRA, 16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
 
 ER-SEM41.KRA, 14, Type error: the type of the expression of the right-hand side is a basic type and the type of the variable of the left-hand side is a class (comp.Compiler.assignExprLocalDec())
 
@@ -186,6 +184,10 @@ ER-SIN62.KRA, 17, 'while' expected (comp.Compiler.doWhileStatement())
 
 ######################################################
 Erros que foram sinalizados na linha errada:
+
+ER-SEM39.KRA
+    correto:    16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
+    sinalizado: 17, Missing 'return' in method 'm'
 
 ER-SEM63.KRA
     correto:    12, '.' or '=' expected after an identifier OR statement expected (comp.Compiler.factor())

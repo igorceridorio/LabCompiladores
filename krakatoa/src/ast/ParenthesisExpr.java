@@ -2,8 +2,14 @@ package ast;
 
 public class ParenthesisExpr extends Expr {
     
+	private Expr expr;
+	
     public ParenthesisExpr( Expr expr ) {
         this.expr = expr;
+    }
+    
+    public Type getType() {
+        return expr.getType();
     }
     
     public void genC( PW pw, boolean putParenthesis ) {
@@ -13,12 +19,10 @@ public class ParenthesisExpr extends Expr {
     }
     
     public void genKra(PW pw, boolean ident) {	
-    }
-    
-    public Type getType() {
-        return expr.getType();
-    }
-    
-    private Expr expr;
+    	if (ident) pw.printIdent("(");
+    	else pw.print("(");
+    	if (expr != null) expr.genKra(pw, ident);
+    	pw.print(")");
+    } 
 
 }
