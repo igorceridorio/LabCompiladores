@@ -729,6 +729,11 @@ public class Compiler {
 		
 		expr = expr();
 		
+		// ANALISE SEMANTICA: do while aceita apenas expressoes do tipo booleana 
+		if (expr.getType() != Type.booleanType) {
+			signalError.showError("boolean expression expected in a do-while statement");
+		}
+		
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken(); // le o token ")"
 		
@@ -907,6 +912,15 @@ public class Compiler {
 		lexer.nextToken();
 		
 		exprList = exprList();
+		
+		// ANALISE SEMANTICA: write nao suporta nenhuma expressao booleana
+		int i = 0;
+		while (i < exprList.getSize()) {
+			if(exprList.getElement(i).getType() == Type.booleanType) {
+				signalError.showError("command 'write' does not accept 'boolean' expressions");
+			}
+			i++;
+		}
 		
 		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
 		lexer.nextToken();

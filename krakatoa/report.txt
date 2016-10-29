@@ -1,14 +1,10 @@
 Relatório do Compilador
 
-9 de um total de 117 erros que deveriam ser sinalizados não o foram (7%)
+5 de um total de 117 erros que deveriam ser sinalizados não o foram (4%)
 20 erros foram sinalizados na linha errada (17%)
 23 erros foram sinalizados em 101 arquivos sem erro (22%)
 
 Erros que deveriam ser sinalizados mas não foram:
-
-ER-SEM14.KRA, 12, Command 'write' does not accept 'boolean' expressions (comp.Compiler.writeStatement())
-
-ER-SEM16.KRA, 11, Operator '-' does not accepts 'boolean' expressions (comp.Compiler.signalFactor())
 
 ER-SEM33.KRA, 11, Method 'm' is being redeclared (comp.Compiler.methodDec())
 
@@ -17,10 +13,6 @@ ER-SEM68.KRA, 12, Method 'p' was not found in class 'Program' or its superclasse
 ER-SEM77.KRA, 10, Method 'run' was not found in class 'Program' (comp.Compiler.classDec())
 
 ER-SEM79.KRA, 5, Method 'run' of class 'Program' cannot take parameters
-
-ER-SEM88.KRA, 13, boolean expression expected in a do-while statement (comp.Compiler.doWhileStatement())
-
-ER-SEM89.KRA, 13, boolean expression expected in a do-while statement (comp.Compiler.doWhileStatement())
 
 ER-SIN05.KRA, 10, Expression expected (comp.Compiler.factor())
 
@@ -251,9 +243,19 @@ The compiler message was: "command 'read' does not accept 'boolean' variables"
 The 'ce' message is:      "Command 'read' does not accept 'boolean' variables"
 
 
+ER-SEM14.KRA
+The compiler message was: "command 'write' does not accept 'boolean' expressions"
+The 'ce' message is:      "Command 'write' does not accept 'boolean' expressions"
+
+
 ER-SEM15.KRA
 The compiler message was: "operator '!' just accepts boolean expressions"
 The 'ce' message is:      "Operator '!' does not accepts 'int' values"
+
+
+ER-SEM16.KRA
+The compiler message was: "command 'write' does not accept 'boolean' expressions"
+The 'ce' message is:      "Operator '-' does not accepts 'boolean' expressions"
 
 
 ER-SEM17.KRA
@@ -379,6 +381,16 @@ The 'ce' message is:      "Method 'run' cannot be static"
 ER-SEM86.KRA
 The compiler message was: "class 'A' does not exist"
 The 'ce' message is:      "Class 'A' was not found"
+
+
+ER-SEM88.KRA
+The compiler message was: "boolean expression expected in a do-while statement"
+The 'ce' message is:      "boolean expression expected in a do-while statement"
+
+
+ER-SEM89.KRA
+The compiler message was: "boolean expression expected in a do-while statement"
+The 'ce' message is:      "boolean expression expected in a do-while statement"
 
 
 ER-SIN01.KRA

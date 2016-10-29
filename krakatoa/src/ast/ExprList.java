@@ -13,6 +13,14 @@ public class ExprList {
     public void addElement( Expr expr ) {
         exprList.add(expr);
     }
+    
+    public int getSize() {
+    	return exprList.size();
+    }
+    
+    public Expr getElement(int i) {
+    	return exprList.get(i);
+    }
 
     public void genC( PW pw ) {
 
