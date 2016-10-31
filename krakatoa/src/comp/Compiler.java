@@ -78,6 +78,8 @@ public class Compiler {
 			signalError.showError("Source code without a class 'Program'");
 		}
 		
+		
+		
 		return new Program(kraClassList, metaobjectCallList, compilationErrorList);
 	}
 
@@ -238,6 +240,7 @@ public class Compiler {
 			if(currentClass.getName().equals("Program") && name.equals("run") && t != Type.voidType) {
 				signalError.showError("Method 'run' from class 'Program' must be 'void'");
 			}
+
 			
 			InstanceVariableList instanceVariableList = null;
 			MethodDec methodDec = null;
@@ -263,13 +266,22 @@ public class Compiler {
 		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
 			signalError.showError("'public', 'private' or '}' expected");
 		}
+
+		// ANALISE SEMANTICA: caso a classe seja 'Program', verifica se possui o metodo 'run()'
+		if (currentClass.getName().equals("Program")){
+		
+			System.out.println("ESTAMOS DENTRO DA CLASSE PROGRAM");
+			System.out.println("METODOS PRIVADOS: " + currentClass.getPrivateMethodList().getSize());
+			System.out.println("METODOS PUBLICOS: " + currentClass.getPublicMethodList().getSize());
+			
+			Iterator<MethodDec> mIt = currentClass.getPublicMethodList().elements();
+			while(mIt.hasNext()) {
+				System.out.println("NOME DO METODO: " + mIt.next().getName());
+			}
+		
+		}
 		
 		lexer.nextToken();
-		
-		// ANALISE SEMANTICA: caso a classe seja 'Program', verifica se possui o metodo 'run()'
-//		if ((currentClass.getName().equals("Program")) && (currentClass.searchMethod("run", true, false) == null)) {
-//			signalError.showError("Class 'Program' must have a 'run'");
-//		}
 
 	return kraClass;
 	
@@ -338,19 +350,28 @@ public class Compiler {
 		}
 		
 		MethodDec methodDec = new MethodDec(qualifier, type, name);
-		currentMethod = methodDec;
+		
+		// adiciona o metodo na lista de metodos da classe atual
+		if (qualifier == Symbol.PRIVATE) {
+			currentClass.addPrivateMethod(methodDec);
+		} else {
+			currentClass.addPublicMethod(methodDec);
+		}
+		
 		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.RIGHTPAR ) {
 			methodDec.setFormalParamDec(formalParamDec());
 		}
 		
+		currentMethod = methodDec;
+		
 		// ANALISE SEMANTICA
 		
-		// metodo 'run' 'program' nao deve conter parametros - SE DESCOMENTAR ISSO DA MUITO NULLPOINTER
-//		if(name.equals("run") && currentClass.getName().equals("Program") && methodDec.getFormalParamDec().getSize() > 0) {
-//			signalError.showError("Method 'run' of class 'Program' must be parameterless");
-//		}
+		// metodo 'run' 'program' nao deve conter parametros
+		if(name.equals("run") && currentClass.getName().equals("Program") && currentMethod.getFormalParamDec() != null) {
+			signalError.showError("Method 'run' of class 'Program' cannot take parameters");
+		}
 		
 		// em caso de metodo publico redefinido verifica a validade desta redefinicao
 		MethodDec inherited = currentClass.searchMethod(name, true, true);
@@ -390,6 +411,7 @@ public class Compiler {
 
 		lexer.nextToken();
 		methodDec.setStatementList(statementList());
+		currentMethod.setStatementList(methodDec.getStatementList());
 		
 		// ANALISE SEMANTICA: verifica se um metodo nao void possui de fato retorno
 		if(type != Type.voidType && !methodDec.getHasReturn()) {

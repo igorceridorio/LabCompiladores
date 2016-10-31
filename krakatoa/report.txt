@@ -1,6 +1,6 @@
 Relatório do Compilador
 
-5 de um total de 117 erros que deveriam ser sinalizados não o foram (4%)
+4 de um total de 117 erros que deveriam ser sinalizados não o foram (3%)
 20 erros foram sinalizados na linha errada (17%)
 23 erros foram sinalizados em 101 arquivos sem erro (22%)
 
@@ -11,8 +11,6 @@ ER-SEM33.KRA, 11, Method 'm' is being redeclared (comp.Compiler.methodDec())
 ER-SEM68.KRA, 12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
 
 ER-SEM77.KRA, 10, Method 'run' was not found in class 'Program' (comp.Compiler.classDec())
-
-ER-SEM79.KRA, 5, Method 'run' of class 'Program' cannot take parameters
 
 ER-SIN05.KRA, 10, Expression expected (comp.Compiler.factor())
 
@@ -361,6 +359,11 @@ The 'ce' message is:      "Method 's' was not found in class 'C' or its supercla
 ER-SEM62.KRA
 The compiler message was: "variable 'a' has not been declared"
 The 'ce' message is:      "Identifier 'a' was not found"
+
+
+ER-SEM79.KRA
+The compiler message was: "Method 'run' of class 'Program' cannot take parameters"
+The 'ce' message is:      "Method 'run' of class 'Program' cannot take parameters"
 
 
 ER-SEM80.KRA
