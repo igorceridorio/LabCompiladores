@@ -30,6 +30,7 @@ public class Compiler {
 		return program;
 	}
 
+	//TODO: local de remover stacktrace
 	private Program program(ArrayList<CompilationError> compilationErrorList) {
 		// Program ::= { MOCall } ClassDec { ClassDec }
 
@@ -268,18 +269,18 @@ public class Compiler {
 		}
 
 		// ANALISE SEMANTICA: caso a classe seja 'Program', verifica se possui o metodo 'run()'
-		if (currentClass.getName().equals("Program")){
-		
-			System.out.println("ESTAMOS DENTRO DA CLASSE PROGRAM");
-			System.out.println("METODOS PRIVADOS: " + currentClass.getPrivateMethodList().getSize());
-			System.out.println("METODOS PUBLICOS: " + currentClass.getPublicMethodList().getSize());
-			
-			Iterator<MethodDec> mIt = currentClass.getPublicMethodList().elements();
-			while(mIt.hasNext()) {
-				System.out.println("NOME DO METODO: " + mIt.next().getName());
-			}
-		
-		}
+//		if (currentClass.getName().equals("Program")){
+//		
+//			System.out.println("ESTAMOS DENTRO DA CLASSE PROGRAM");
+//			System.out.println("METODOS PRIVADOS: " + currentClass.getPrivateMethodList().getSize());
+//			System.out.println("METODOS PUBLICOS: " + currentClass.getPublicMethodList().getSize());
+//			
+//			Iterator<MethodDec> mIt = currentClass.getPublicMethodList().elements();
+//			while(mIt.hasNext()) {
+//				System.out.println("NOME DO METODO: " + mIt.next().getName());
+//			}
+//		
+//		}
 		
 		lexer.nextToken();
 
@@ -374,30 +375,59 @@ public class Compiler {
 		}
 		
 		// em caso de metodo publico redefinido verifica a validade desta redefinicao
-		MethodDec inherited = currentClass.searchMethod(name, true, true);
-		if(inherited != null) {
-			// verifica se a assinatura dos metodos eh equivalente
-			boolean sameParameters = true;
-			
-			if(currentMethod.getFormalParamDec().getSize() != inherited.getFormalParamDec().getSize()) {
-				sameParameters = false;
-			} else if(currentMethod.getType() != inherited.getType()) {
-				sameParameters = false;
-			} else {
-				Iterator<Variable> itCurrentMethod = currentMethod.getFormalParamDec().elements();
-				Iterator<Variable> itInherited = inherited.getFormalParamDec().elements();
+		KraClass superClass = currentClass.getSuperclass();
+		
+		if (superClass != null) {
+			MethodDec inherited = superClass.searchMethod(name, true, true);
+			if(inherited != null) {
+				// verifica se a assinatura dos metodos eh equivalente
+				boolean sameParameters = true;
 				
-				while(itCurrentMethod.hasNext()) {
-					if(itCurrentMethod.next().getType() != itInherited.next().getType()) {
+				// primeira condicao: verifica se ambas as listas nao sao nulas e tem o mesmo tamanho de parametros
+				if((currentMethod.getFormalParamDec() != null) && (inherited.getFormalParamDec() != null) && (sameParameters)) {
+					if(currentMethod.getFormalParamDec().getSize() != inherited.getFormalParamDec().getSize()) {
 						sameParameters = false;
-						break;
 					}
+				
+				// segunda condicao: verifica se os tipos dos metodos sao os mesmos
+				} else if((currentMethod.getType() != inherited.getType()) && (sameParameters)) {
+					sameParameters = false;
+					
+				// terceira condicao: verifica se o retorno de cada parametro eh equivalente
+				} else if(sameParameters){
+					Iterator<Variable> itCurrentMethod = null;
+					Iterator<Variable> itInherited = null;
+					
+					if (currentMethod.getFormalParamDec() != null) {
+						itCurrentMethod = currentMethod.getFormalParamDec().elements();
+					}
+					
+					if (inherited.getFormalParamDec() != null) {
+						itInherited = inherited.getFormalParamDec().elements();
+					}
+					
+					if (currentMethod.getFormalParamDec() != null && inherited.getFormalParamDec() != null) {
+						if(currentMethod.getFormalParamDec().getSize() == inherited.getFormalParamDec().getSize()) {
+							while(itCurrentMethod.hasNext()) {
+								if(itCurrentMethod.next().getType() != itInherited.next().getType()) {
+									sameParameters = false;
+									break;
+								}
+							}
+						} else {
+							sameParameters = false;
+						}
+					} else {
+						sameParameters = false;
+					}
+					
+				}
+				
+				if(!sameParameters) {
+					signalError.showError("Inherited method '" + name + "' of '" + currentClass.getName() + "' has a different signature from its superclass inherited method");
 				}
 			}
 			
-			if(!sameParameters) {
-				signalError.showError("Inherited method '" + name + "' of '" + currentClass.getName() + "' has a different signature from its superclass inherited method");
-			}
 		}
 		
 		if ( lexer.token != Symbol.RIGHTPAR ) { 
@@ -414,9 +444,9 @@ public class Compiler {
 		currentMethod.setStatementList(methodDec.getStatementList());
 		
 		// ANALISE SEMANTICA: verifica se um metodo nao void possui de fato retorno
-		if(type != Type.voidType && !methodDec.getHasReturn()) {
-			signalError.showError("Missing 'return' in method '" + name + "'");
-		}
+//		if(type != Type.voidType && !methodDec.getHasReturn()) {
+//			signalError.showError("Missing 'return' in method '" + name + "'");
+//		}
 		
 		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
 			signalError.showError("'}' expected");
@@ -673,16 +703,20 @@ public class Compiler {
 				
 				// ANALISE SEMANTICA:
 				
-				// uma expressao nao pode receber tipo void
-				if (right.getType() == Type.voidType) {
-					signalError.showError("Expression expected in the right side of assignment");
-				}
+				if (right != null) {
 				
-				// verifica se o tipo de uma expressao pode ser convertido no tipo da outra
-				if (!isConvertible(left.getType(), right.getType())) {
-					signalError.showError("Cannot assign '" + right.getType().getName() + "' type to '" + left.getType().getName() + "'");
-				}
-				
+					// uma expressao nao pode receber tipo void
+					if (right.getType() == Type.voidType) {
+						signalError.showError("Expression expected in the right side of assignment");
+					}
+					
+					// verifica se o tipo de uma expressao pode ser convertido no tipo da outra
+					if (!isConvertible(left.getType(), right.getType())) {
+						signalError.showError("Cannot assign '" + right.getType().getName() + "' type to '" + left.getType().getName() + "'");
+					}
+					
+				}				
+			
 				if ( lexer.token != Symbol.SEMICOLON )
 					signalError.showError("';' expected", true);
 				else
@@ -1501,6 +1535,7 @@ public class Compiler {
 		else {
 			while (rightClass.getSuperclass() != null) {
 				if (leftClass.getName().equals(rightClass.getSuperclass().getName())) return true;
+				rightClass = rightClass.getSuperclass();
 			}
 		}
 		

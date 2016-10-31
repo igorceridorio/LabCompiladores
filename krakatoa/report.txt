@@ -1,12 +1,26 @@
 Relatório do Compilador
 
-4 de um total de 117 erros que deveriam ser sinalizados não o foram (3%)
-20 erros foram sinalizados na linha errada (17%)
-23 erros foram sinalizados em 101 arquivos sem erro (22%)
+11 de um total de 118 erros que deveriam ser sinalizados não o foram (9%)
+16 erros foram sinalizados na linha errada (13%)
+8 erros foram sinalizados em 100 arquivos sem erro (8%)
 
 Erros que deveriam ser sinalizados mas não foram:
 
-ER-SEM33.KRA, 11, Method 'm' is being redeclared (comp.Compiler.methodDec())
+ER-SEM01.KRA, 16, Missing 'return' statement in method 'm' (comp.Compiler.methodDec())
+
+ER-SEM34.KRA, 19, Message send 'a.m()' returns a value that is not used (comp.Compiler.statement())
+
+ER-SEM36.KRA, 20, Expression expected in the right-hand side of assignment (comp.Compiler.assignExprLocalDec())
+
+ER-SEM39.KRA, 16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
+
+ER-SEM40.KRA, 40, Type error: the type of the real parameter is not subclass of the type of the formal parameter (comp.Compiler.factor())
+
+ER-SEM44.KRA, 26, Command 'write' does not accept objects (comp.Compiler.writeStatement())
+
+ER-SEM51.KRA, 17, Method 'put' is being redefined in subclass 'B' with a signature different from the method of superclass 'A' (comp.Compiler.methodDec())
+
+ER-SEM59.KRA, 25, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
 
 ER-SEM68.KRA, 12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
 
@@ -16,18 +30,6 @@ ER-SIN05.KRA, 10, Expression expected (comp.Compiler.factor())
 
 ######################################################
 Erros que foram sinalizados na linha errada:
-
-ER-SEM32.KRA
-    correto:    11, Method 'm' is being redeclared (comp.Compiler.methodDec())
-    sinalizado: 24, undefined method 'm' in class 'A'
-
-ER-SEM39.KRA
-    correto:    16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
-    sinalizado: 17, Missing 'return' in method 'm'
-
-ER-SEM51.KRA
-    correto:    17, Method 'put' is being redefined in subclass 'B' with a signature different from the method of superclass 'A' (comp.Compiler.methodDec())
-    sinalizado: 29, undefined method 'put' in class 'A'
 
 ER-SEM57.KRA
     correto:    21, Incompatible types cannot be compared with '==' because the result will always be 'false' (comp.Compiler.expr())
@@ -60,10 +62,6 @@ ER-SEM67.KRA
 ER-SEM69.KRA
     correto:    11, '.' or '=' expected after identifier OR statement expected (comp.Compiler.factor())
     sinalizado: 7, 'public', 'private' or '}' expected
-
-ER-SEM70.KRA
-    correto:    10, Method 'm' is being redefined (comp.Compiler.methodDec())
-    sinalizado: 23, undefined method 'm' in class 'A'
 
 ER-SEM71.KRA
     correto:    9, Attempt to access an instance variable using 'this' in a static method (comp.Compiler.factor())
@@ -100,49 +98,19 @@ ER-SIN22.KRA
 ######################################################
 Erros que foram sinalizados mas não deveriam ter sido:
 
-OK-CHK01.KRA, 70, undefined method 'm1' in class 'A'
-
-OK-CHK03.KRA, 38, undefined method 's' in class 'A'
-
-OK-CHK04.KRA, 38, undefined method 's' in class 'A'
-
-OK-CHK05.KRA, 40, undefined method 'm' in class 'C'
-
-OK-GER01.KRA, 99, undefined method 'm' in class 'A'
-
-OK-GER02.KRA, 35, undefined method 'm' in class 'A'
-
-OK-GER03.KRA, 64, undefined method 'm' in class 'A'
-
-OK-GER04.KRA, 41, undefined method 'm' in class 'A'
-
-OK-GER06.KRA, 49, undefined method 'm' in class 'A'
-
-OK-GER07.KRA, 28, undefined method 'm' in class 'A'
-
-OK-GER08.KRA, 40, undefined method 'm1' in class 'A'
-
-OK-GER11.KRA, 47, undefined method 'm2' in class 'A'
-
-OK-GER15.KRA, 134, undefined method 'init_A' in class 'A'
+OK-GER21.KRA, 19, compiler does not support static variables
 
 OK-GER23.KRA, 24, Missing ';'
 
-OK-LEX02.KRA, 27, undefined method 'm' in class 'A'
-
-OK-LEX03.KRA, 26, undefined method 'm' in class 'A'
-
-OK-LEX10.KRA, 24, undefined method 'm' in class 'A'
-
 OK-SEM03.KRA, 18, incompatible type comparation between'ast.TypeString@28d93b30' and 'ast.TypeNull@1b6d3586'
 
-OK-SEM10.KRA, 44, undefined method 'first' in class 'A'
-
-OK-SEM11.KRA, 24, undefined method 'A' in class 'A'
-
-OK-SEM13.KRA, 28, undefined method 'p' in class 'A'
+OK-SEM05.KRA, 50, Statement type is 'B' and return type is 'A'
 
 OK-SEM14.KRA, 24, Cannot assign 'null' type to 'A'
+
+OK-SIN14.KRA, 39, compiler does not support static variables
+
+OK-SIN15.KRA, 27, ) expected
 
 OK-SIN16.KRA, 26, Statement expected
 
@@ -179,11 +147,6 @@ The 'ce' message is:      "Unknown character"
 ER-LEX09.KRA
 The compiler message was: "Number out of limits"
 The 'ce' message is:      "literal int out of limits"
-
-
-ER-SEM01.KRA
-The compiler message was: "Missing 'return' in method 'm'"
-The 'ce' message is:      "Missing 'return' statement in method 'm'"
 
 
 ER-SEM02.KRA
@@ -301,9 +264,9 @@ The compiler message was: "'break' statement must be inside a 'while' statement"
 The 'ce' message is:      "'break' statement found outside a 'while' statement"
 
 
-ER-SEM36.KRA
-The compiler message was: "undefined method 'm' in class 'A'"
-The 'ce' message is:      "Expression expected in the right-hand side of assignment"
+ER-SEM33.KRA
+The compiler message was: "Method 'm' is being redeclared"
+The 'ce' message is:      "Method 'm' is being redeclared"
 
 
 ER-SEM37.KRA
@@ -344,11 +307,6 @@ The 'ce' message is:      "'super' used in class 'Program' that does not have a 
 ER-SEM50.KRA
 The compiler message was: "'break' statement must be inside a 'while' statement"
 The 'ce' message is:      "Command 'break' outside a command 'while'"
-
-
-ER-SEM59.KRA
-The compiler message was: "undefined method 'p' in class 'A'"
-The 'ce' message is:      "Method 'p' was not found in the public interface of 'A' or its superclasses"
 
 
 ER-SEM61.KRA

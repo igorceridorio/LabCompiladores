@@ -110,8 +110,9 @@ public class KraClass extends Type {
 	   // em seguida realiza a busca na lista desejada
 	   while (it.hasNext()) {
 		   methodDecAux = it.next();
-		   if(methodDecAux.getName().equals(name)) {
+		   if(methodDecAux.getName().equals(methodName)) {
 			   return methodDecAux;
+//			   return null;
 		   }
 	   }
 	   
@@ -124,6 +125,7 @@ public class KraClass extends Type {
 	   return null;
    }
    
+
    public boolean extend(String name) {
 	   
 	   // verifica se a classe passada como parametro herda a classe atual
