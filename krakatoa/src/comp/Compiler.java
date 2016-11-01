@@ -30,7 +30,6 @@ public class Compiler {
 		return program;
 	}
 
-	//TODO: local de remover stacktrace
 	private Program program(ArrayList<CompilationError> compilationErrorList) {
 		// Program ::= { MOCall } ClassDec { ClassDec }
 
@@ -269,18 +268,13 @@ public class Compiler {
 		}
 
 		// ANALISE SEMANTICA: caso a classe seja 'Program', verifica se possui o metodo 'run()'
-//		if (currentClass.getName().equals("Program")){
-//		
-//			System.out.println("ESTAMOS DENTRO DA CLASSE PROGRAM");
-//			System.out.println("METODOS PRIVADOS: " + currentClass.getPrivateMethodList().getSize());
-//			System.out.println("METODOS PUBLICOS: " + currentClass.getPublicMethodList().getSize());
-//			
-//			Iterator<MethodDec> mIt = currentClass.getPublicMethodList().elements();
-//			while(mIt.hasNext()) {
-//				System.out.println("NOME DO METODO: " + mIt.next().getName());
-//			}
-//		
-//		}
+		if (currentClass.getName().equals("Program")){
+			if (currentClass.getPublicMethodList() != null) {
+				if (currentClass.searchMethod("run", true, false) == null) {
+					signalError.showError("Method 'run' was not found in class 'Program'");
+				}
+			}
+		}
 		
 		lexer.nextToken();
 
@@ -380,49 +374,38 @@ public class Compiler {
 		if (superClass != null) {
 			MethodDec inherited = superClass.searchMethod(name, true, true);
 			if(inherited != null) {
-				// verifica se a assinatura dos metodos eh equivalente
+				
+				// ANALISE SEMANTICA: verifica se a assinatura dos metodos eh equivalente
 				boolean sameParameters = true;
 				
-				// primeira condicao: verifica se ambas as listas nao sao nulas e tem o mesmo tamanho de parametros
-				if((currentMethod.getFormalParamDec() != null) && (inherited.getFormalParamDec() != null) && (sameParameters)) {
+				// verifica se ambas as listas nao sao nulas
+				if((currentMethod.getFormalParamDec() != null) && (inherited.getFormalParamDec() != null) && (sameParameters)) {				
+					// verifica se as listas possuem o mesmo tamanho
 					if(currentMethod.getFormalParamDec().getSize() != inherited.getFormalParamDec().getSize()) {
-						sameParameters = false;
-					}
-				
-				// segunda condicao: verifica se os tipos dos metodos sao os mesmos
-				} else if((currentMethod.getType() != inherited.getType()) && (sameParameters)) {
-					sameParameters = false;
-					
-				// terceira condicao: verifica se o retorno de cada parametro eh equivalente
-				} else if(sameParameters){
-					Iterator<Variable> itCurrentMethod = null;
-					Iterator<Variable> itInherited = null;
-					
-					if (currentMethod.getFormalParamDec() != null) {
-						itCurrentMethod = currentMethod.getFormalParamDec().elements();
-					}
-					
-					if (inherited.getFormalParamDec() != null) {
-						itInherited = inherited.getFormalParamDec().elements();
-					}
-					
-					if (currentMethod.getFormalParamDec() != null && inherited.getFormalParamDec() != null) {
-						if(currentMethod.getFormalParamDec().getSize() == inherited.getFormalParamDec().getSize()) {
-							while(itCurrentMethod.hasNext()) {
-								if(itCurrentMethod.next().getType() != itInherited.next().getType()) {
-									sameParameters = false;
-									break;
-								}
-							}
-						} else {
+						sameParameters = false;	
+					} else {		
+						// verifica se os tipos dos metodos sao os mesmos
+						if(currentMethod.getType() != inherited.getType()) {
 							sameParameters = false;
+						} else {		
+							// verifica se o retorno de cada metodo eh equivalente
+							Iterator<Variable> itCurrentMethod = currentMethod.getFormalParamDec().elements();
+							Iterator<Variable> itInherited = inherited.getFormalParamDec().elements();;		
+							if(currentMethod.getFormalParamDec().getSize() == inherited.getFormalParamDec().getSize()) {
+								while(itCurrentMethod.hasNext()) {
+									if(itCurrentMethod.next().getType() != itInherited.next().getType()) {
+										sameParameters = false;
+										break;
+									}
+								}
+							} else {
+								sameParameters = false;
+							}
 						}
-					} else {
-						sameParameters = false;
 					}
-					
+				} else {
+					sameParameters = false;
 				}
-				
 				if(!sameParameters) {
 					signalError.showError("Inherited method '" + name + "' of '" + currentClass.getName() + "' has a different signature from its superclass inherited method");
 				}
@@ -444,9 +427,9 @@ public class Compiler {
 		currentMethod.setStatementList(methodDec.getStatementList());
 		
 		// ANALISE SEMANTICA: verifica se um metodo nao void possui de fato retorno
-//		if(type != Type.voidType && !methodDec.getHasReturn()) {
-//			signalError.showError("Missing 'return' in method '" + name + "'");
-//		}
+		if(type != Type.voidType && !methodDec.getHasReturn()) {
+			signalError.showError("Missing 'return' in method '" + name + "'");
+		}
 		
 		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
 			signalError.showError("'}' expected");
@@ -703,19 +686,15 @@ public class Compiler {
 				
 				// ANALISE SEMANTICA:
 				
-				if (right != null) {
-				
-					// uma expressao nao pode receber tipo void
-					if (right.getType() == Type.voidType) {
-						signalError.showError("Expression expected in the right side of assignment");
-					}
-					
+				if (right != null) {					
 					// verifica se o tipo de uma expressao pode ser convertido no tipo da outra
 					if (!isConvertible(left.getType(), right.getType())) {
 						signalError.showError("Cannot assign '" + right.getType().getName() + "' type to '" + left.getType().getName() + "'");
 					}
-					
-				}				
+				} else {
+					// uma expressao nao pode receber null
+					signalError.showError("Expression expected in the right side of assignment");
+				}
 			
 				if ( lexer.token != Symbol.SEMICOLON )
 					signalError.showError("';' expected", true);
@@ -939,6 +918,7 @@ public class Compiler {
 				// le o proximo leftValue
 				lexer.nextToken();
 			} else {
+				signalError.showError("Expression expected");
 				break;
 			}
 			
@@ -969,12 +949,20 @@ public class Compiler {
 		
 		exprList = exprList();
 		
-		// ANALISE SEMANTICA: write nao suporta nenhuma expressao booleana
+		// ANALISE SEMANTICA: 
 		int i = 0;
 		while (i < exprList.getSize()) {
+			
+			// write nao suporta nenhuma expressao booleana
 			if(exprList.getElement(i).getType() == Type.booleanType) {
 				signalError.showError("command 'write' does not accept 'boolean' expressions");
 			}
+			
+			// write nao suporta objetos
+			if(exprList.getElement(i).getType() instanceof KraClass) {
+				signalError.showError("Command 'write' does not accept objects");
+			}
+			
 			i++;
 		}
 		
@@ -1070,6 +1058,13 @@ public class Compiler {
 					}
 				}
 			}
+			
+			// se as classes nao herdam uma da outra e possuem tipos diferentes entao nao pode haver comparacao
+			//boolean isInherited = false;
+			if (left.getType() != right.getType()) {
+				signalError.showError("Incompatible types cannot be compared with '==' because the result will always be 'false'");
+			}
+			
 			
 			left = new CompositeExpr(left, op, right);
 		}
@@ -1366,12 +1361,18 @@ public class Compiler {
 								signalError.showError("variable '" + firstId + "' does not have a class type");
 							}
 							
-							// se 'firsId' for um objeto de class verifica se 'id' foi declarado
-							if (c.searchMethod(id, false, true) == null) {
-								if (c.searchMethod(id, true, true) == null) {
+							// se 'firstId' for um objeto de class verifica se 'id' foi declarado
+							MethodDec aux = null;
+							if ((aux = c.searchMethod(id, false, true)) == null) {
+								if ((aux = c.searchMethod(id, true, true)) == null) {
 									signalError.showError("undefined method '" + id + "' in class '" + c.getName() + "'");
 								}
 							}
+							
+							if (aux.getQualifier() == Symbol.PRIVATE) {
+								signalError.showError("Method '" + id + "' was not found in the public interface of '" + firstId + "' or its superclasses");
+							}
+							
 							
 						} else {
 							// se 'firstId' for uma KraClass verifica se 'id' foi declarado
@@ -1448,6 +1449,8 @@ public class Compiler {
 						msg = currentClass.searchMethod(id, true, true);
 						if (msg != null) {
 							return new MessageSendToSelf(null, msg, exprList, msg.getType());
+						} else {
+							signalError.showError("undefined method '" + id + "' in class '" + currentClass.getName() + "'");
 						}
 					}
 					

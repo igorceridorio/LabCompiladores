@@ -1,35 +1,15 @@
 Relatório do Compilador
 
-11 de um total de 118 erros que deveriam ser sinalizados não o foram (9%)
-16 erros foram sinalizados na linha errada (13%)
-8 erros foram sinalizados em 100 arquivos sem erro (8%)
-
-Erros que deveriam ser sinalizados mas não foram:
-
-ER-SEM01.KRA, 16, Missing 'return' statement in method 'm' (comp.Compiler.methodDec())
-
-ER-SEM34.KRA, 19, Message send 'a.m()' returns a value that is not used (comp.Compiler.statement())
-
-ER-SEM36.KRA, 20, Expression expected in the right-hand side of assignment (comp.Compiler.assignExprLocalDec())
-
-ER-SEM39.KRA, 16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
-
-ER-SEM40.KRA, 40, Type error: the type of the real parameter is not subclass of the type of the formal parameter (comp.Compiler.factor())
-
-ER-SEM44.KRA, 26, Command 'write' does not accept objects (comp.Compiler.writeStatement())
-
-ER-SEM51.KRA, 17, Method 'put' is being redefined in subclass 'B' with a signature different from the method of superclass 'A' (comp.Compiler.methodDec())
-
-ER-SEM59.KRA, 25, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
-
-ER-SEM68.KRA, 12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
-
-ER-SEM77.KRA, 10, Method 'run' was not found in class 'Program' (comp.Compiler.classDec())
-
-ER-SIN05.KRA, 10, Expression expected (comp.Compiler.factor())
-
+0 de um total de 114 erros que deveriam ser sinalizados não o foram (0%)
+16 erros foram sinalizados na linha errada (14%)
+5 erros foram sinalizados em 104 arquivos sem erro (4%)
+Todos os erros que deveriam ter sido sinalizados o foram
 ######################################################
 Erros que foram sinalizados na linha errada:
+
+ER-SEM39.KRA
+    correto:    16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
+    sinalizado: 17, Missing 'return' in method 'm'
 
 ER-SEM57.KRA
     correto:    21, Incompatible types cannot be compared with '==' because the result will always be 'false' (comp.Compiler.expr())
@@ -79,38 +59,28 @@ ER-SEM87.KRA
     correto:    11, Call to 'this' in a static method (comp.Compiler.factor())
     sinalizado: 10, 'public', 'private' or '}' expected
 
-ER-SIN07.KRA
-    correto:    9, Command 'read' without arguments (comp.Compiler.readStatement())
-    sinalizado: 11, command 'read' should take at least one argument
-
 ER-SIN17.KRA
     correto:    7, Missing ';' (comp.Compiler.localDec())
     sinalizado: 8, Missing ';'
 
 ER-SIN19.KRA
     correto:    9, Missing ';' (comp.Compiler.readStatement())
-    sinalizado: 10, ) expected
+    sinalizado: 10, Expression expected
 
 ER-SIN22.KRA
     correto:    11, Missing ';' (comp.Compiler.assignExprLocalDec())
-    sinalizado: 9, ) expected
+    sinalizado: 9, Expression expected
 
 ######################################################
 Erros que foram sinalizados mas não deveriam ter sido:
-
-OK-GER21.KRA, 19, compiler does not support static variables
 
 OK-GER23.KRA, 24, Missing ';'
 
 OK-SEM03.KRA, 18, incompatible type comparation between'ast.TypeString@28d93b30' and 'ast.TypeNull@1b6d3586'
 
-OK-SEM05.KRA, 50, Statement type is 'B' and return type is 'A'
+OK-SEM10.KRA, 45, undefined method 'first' in class 'B'
 
 OK-SEM14.KRA, 24, Cannot assign 'null' type to 'A'
-
-OK-SIN14.KRA, 39, compiler does not support static variables
-
-OK-SIN15.KRA, 27, ) expected
 
 OK-SIN16.KRA, 26, Statement expected
 
@@ -147,6 +117,11 @@ The 'ce' message is:      "Unknown character"
 ER-LEX09.KRA
 The compiler message was: "Number out of limits"
 The 'ce' message is:      "literal int out of limits"
+
+
+ER-SEM01.KRA
+The compiler message was: "Missing 'return' in method 'm'"
+The 'ce' message is:      "Missing 'return' statement in method 'm'"
 
 
 ER-SEM02.KRA
@@ -220,7 +195,7 @@ The 'ce' message is:      "Operator '-' does not accepts 'boolean' expressions"
 
 
 ER-SEM17.KRA
-The compiler message was: ") expected"
+The compiler message was: "Expression expected"
 The 'ce' message is:      "Command 'read' expects a variable"
 
 
@@ -269,6 +244,11 @@ The compiler message was: "Method 'm' is being redeclared"
 The 'ce' message is:      "Method 'm' is being redeclared"
 
 
+ER-SEM36.KRA
+The compiler message was: "Expression expected in the right side of assignment"
+The 'ce' message is:      "Expression expected in the right-hand side of assignment"
+
+
 ER-SEM37.KRA
 The compiler message was: "undefined method 'set' in class 'A'"
 The 'ce' message is:      "Method 'set' was not found in class 'A' or its superclasses"
@@ -295,7 +275,7 @@ The 'ce' message is:      "Type error: 'null' cannot be assigned to a variable o
 
 
 ER-SEM45.KRA
-The compiler message was: ") expected"
+The compiler message was: "Expression expected"
 The 'ce' message is:      "'int' or 'String' expression expected"
 
 
@@ -309,6 +289,11 @@ The compiler message was: "'break' statement must be inside a 'while' statement"
 The 'ce' message is:      "Command 'break' outside a command 'while'"
 
 
+ER-SEM59.KRA
+The compiler message was: "Method 'p' was not found in the public interface of 'a' or its superclasses"
+The 'ce' message is:      "Method 'p' was not found in the public interface of 'A' or its superclasses"
+
+
 ER-SEM61.KRA
 The compiler message was: "undefined method 's' in class 'C'"
 The 'ce' message is:      "Method 's' was not found in class 'C' or its superclasses"
@@ -317,6 +302,16 @@ The 'ce' message is:      "Method 's' was not found in class 'C' or its supercla
 ER-SEM62.KRA
 The compiler message was: "variable 'a' has not been declared"
 The 'ce' message is:      "Identifier 'a' was not found"
+
+
+ER-SEM68.KRA
+The compiler message was: "undefined method 'p' in class 'Program'"
+The 'ce' message is:      "Method 'p' was not found in class 'Program' or its superclasses"
+
+
+ER-SEM77.KRA
+The compiler message was: "Method 'run' was not found in class 'Program'"
+The 'ce' message is:      "Method 'run' was not found in class 'Program'"
 
 
 ER-SEM79.KRA
@@ -374,9 +369,19 @@ The compiler message was: "variable 'i' has not been declared"
 The 'ce' message is:      "Statement expected"
 
 
+ER-SIN05.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Expression expected"
+
+
 ER-SIN06.KRA
 The compiler message was: "Expression expected"
 The 'ce' message is:      "Expression expected"
+
+
+ER-SIN07.KRA
+The compiler message was: "Expression expected"
+The 'ce' message is:      "Command 'read' without arguments"
 
 
 ER-SIN08.KRA

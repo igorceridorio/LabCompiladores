@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 public class KraClass extends Type {
 	 
-   private String name;
    private KraClass superclass;
    private MemberList memberList;
    private InstanceVariableList instanceVariableList;
@@ -112,13 +111,12 @@ public class KraClass extends Type {
 		   methodDecAux = it.next();
 		   if(methodDecAux.getName().equals(methodName)) {
 			   return methodDecAux;
-//			   return null;
 		   }
 	   }
 	   
 	   // caso nao encontre o metodo na classe atual procura em sua superclasse (caso exista)
-	   if(this.getSuperclass() != null && searchInSuper && isPublic) {
-		   return this.getSuperclass().searchMethod(methodName, isPublic, searchInSuper);
+	   if(this.getSuperclass() != null && searchInSuper) {
+		   return this.getSuperclass().searchMethod(methodName, false, searchInSuper);
 	   }
 	   
 	   // caso nao encontre, nao ha metodos com esse nome disponiveis
