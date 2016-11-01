@@ -1,3 +1,13 @@
+/*==============================================================
+
+UFSCar - Universidade Federal de São Carlos, campus Sorocaba
+Laboratório de Compiladores - Trabalho 1
+
+408611 - Igor Felipe Ferreira Ceridório
+552380 - Rafael Zanetti
+
+==============================================================*/
+
 
 package comp;
 
@@ -40,25 +50,13 @@ public class Compiler {
 			while ( lexer.token == Symbol.MOCall ) {
 				metaobjectCallList.add(metaobjectCall());
 			}
-			
-//			try {
-//				kraClassList.add(classDec());
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//			}
-			
+
 			kraClassList.add(classDec());
 			
 			while (lexer.token != Symbol.EOF) {
 				if (lexer.token != Symbol.CLASS) {
 					signalError.showError("Expected class declaration");
 				}
-				
-//				try {
-//					kraClassList.add(classDec());
-//				} catch(Exception e) {
-//					e.printStackTrace();
-//				}
 				
 				kraClassList.add(classDec());
 				
@@ -486,7 +484,7 @@ public class Compiler {
 		}
 		
 		if (lexer.token != Symbol.SEMICOLON) {
-			signalError.showError(("Missing ';'"));
+			signalError.showError("Missing ';'");
 		}
 		
 		lexer.nextToken(); //le o token ";"
@@ -1057,15 +1055,8 @@ public class Compiler {
 						signalError.showError("incompatible type comparation between'" + left.getType().toString() + "' and '" + right.getType().toString() + "'");
 					}
 				}
-			}
-			
-			// se as classes nao herdam uma da outra e possuem tipos diferentes entao nao pode haver comparacao
-			//boolean isInherited = false;
-			if (left.getType() != right.getType()) {
-				signalError.showError("Incompatible types cannot be compared with '==' because the result will always be 'false'");
-			}
-			
-			
+			}	
+
 			left = new CompositeExpr(left, op, right);
 		}
 		
