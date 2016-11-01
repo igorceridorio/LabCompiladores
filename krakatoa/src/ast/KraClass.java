@@ -1,12 +1,5 @@
-/*==============================================================
-
-UFSCar - Universidade Federal de São Carlos, campus Sorocaba
-Laboratório de Compiladores - Trabalho 1
-
-408611 - Igor Felipe Ferreira Ceridório
-552380 - Rafael Zanetti
-
-==============================================================*/
+// 408611 - Igor Felipe Ferreira Ceridorio
+// 552380 - Rafael Zanetti
 
 package ast;
 
@@ -154,11 +147,14 @@ public class KraClass extends Type {
 	   if(superclass != null) {
 		   pw.print(" extends " + superclass.getName());
 	   }
-	   pw.println(" {\n");
+	   pw.println(" {");
+	   pw.println("");
 	   pw.add();
 	   memberList.genKra(pw);
 	   pw.println("");
 	   pw.sub();
-	   pw.println("}\n\n");
+	   pw.println("}");
+	   pw.println("");
+	   pw.println("");
    }
 }

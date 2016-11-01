@@ -1,12 +1,5 @@
-/*==============================================================
-
-UFSCar - Universidade Federal de São Carlos, campus Sorocaba
-Laboratório de Compiladores - Trabalho 1
-
-408611 - Igor Felipe Ferreira Ceridório
-552380 - Rafael Zanetti
-
-==============================================================*/
+// 408611 - Igor Felipe Ferreira Ceridorio
+// 552380 - Rafael Zanetti
 
 package ast;
 
@@ -23,7 +16,8 @@ public class LiteralInt extends Expr {
         pw.printIdent("" + value);
     }
     
-    public void genKra(PW pw, boolean ident) {	
+    public void genKra(PW pw, boolean ident) {
+    	pw.print(Integer.toString(value));
     }
     
     public Type getType() {

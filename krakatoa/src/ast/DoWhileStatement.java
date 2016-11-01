@@ -1,12 +1,5 @@
-/*==============================================================
-
-UFSCar - Universidade Federal de São Carlos, campus Sorocaba
-Laboratório de Compiladores - Trabalho 1
-
-408611 - Igor Felipe Ferreira Ceridório
-552380 - Rafael Zanetti
-
-==============================================================*/
+// 408611 - Igor Felipe Ferreira Ceridorio
+// 552380 - Rafael Zanetti
 
 package ast;
 
@@ -30,7 +23,7 @@ public class DoWhileStatement extends Statement {
 		pw.add();
 		compositeStatement.genKra(pw);
 		pw.sub();
-		pw.printIdent("while(");
+		pw.printIdent("while (");
 		expr.genKra(pw, false);
 		pw.println(");");
 	}

@@ -1,12 +1,5 @@
-/*==============================================================
-
-UFSCar - Universidade Federal de São Carlos, campus Sorocaba
-Laboratório de Compiladores - Trabalho 1
-
-408611 - Igor Felipe Ferreira Ceridório
-552380 - Rafael Zanetti
-
-==============================================================*/
+// 408611 - Igor Felipe Ferreira Ceridorio
+// 552380 - Rafael Zanetti
 
 package ast;
 
@@ -28,7 +21,7 @@ public class IfStatement extends Statement {
 	
 	@Override
 	public void genKra(PW pw) {
-		pw.printIdent("if(");
+		pw.printIdent("if (");
 		expr.genKra(pw, false);
 		pw.println(") {");
 		pw.add();

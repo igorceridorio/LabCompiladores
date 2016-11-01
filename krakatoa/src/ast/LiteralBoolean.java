@@ -1,12 +1,5 @@
-/*==============================================================
-
-UFSCar - Universidade Federal de São Carlos, campus Sorocaba
-Laboratório de Compiladores - Trabalho 1
-
-408611 - Igor Felipe Ferreira Ceridório
-552380 - Rafael Zanetti
-
-==============================================================*/
+// 408611 - Igor Felipe Ferreira Ceridorio
+// 552380 - Rafael Zanetti
 
 package ast;
 
@@ -21,7 +14,12 @@ public class LiteralBoolean extends Expr {
        pw.print( value ? "1" : "0" );
     }
     
-    public void genKra(PW pw, boolean ident) {	
+    public void genKra(PW pw, boolean ident) {
+    	if(value) {
+    		pw.print("true");
+    	} else {
+    		pw.print("false");
+    	}
     }
 
     @Override

@@ -1,12 +1,5 @@
-/*==============================================================
-
-UFSCar - Universidade Federal de São Carlos, campus Sorocaba
-Laboratório de Compiladores - Trabalho 1
-
-408611 - Igor Felipe Ferreira Ceridório
-552380 - Rafael Zanetti
-
-==============================================================*/
+// 408611 - Igor Felipe Ferreira Ceridorio
+// 552380 - Rafael Zanetti
 
 package ast;
 
@@ -32,7 +25,7 @@ public class MessageSendToSuper extends MessageSend {
 		if (ident) pw.printIdent("");
 		pw.print("super." + msg.getName() + "(");
 		if (exprList != null) exprList.genKra(pw, false);
-		pw.print(" )");
+		pw.print(")");
     }
     
 }

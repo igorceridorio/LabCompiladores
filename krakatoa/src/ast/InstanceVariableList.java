@@ -1,12 +1,5 @@
-/*==============================================================
-
-UFSCar - Universidade Federal de São Carlos, campus Sorocaba
-Laboratório de Compiladores - Trabalho 1
-
-408611 - Igor Felipe Ferreira Ceridório
-552380 - Rafael Zanetti
-
-==============================================================*/
+// 408611 - Igor Felipe Ferreira Ceridorio
+// 552380 - Rafael Zanetti
 
 package ast;
 
@@ -32,16 +25,8 @@ public class InstanceVariableList {
         return instanceVariableList.size();
     }
     
-//    public boolean isFinal() {
-//    	return instanceVariableList.get(0).isFinal();
-//    }
-    
     public void genKra(PW pw) {
-    	pw.printIdent("");
-//    	if(isFinal()) {
-//    		pw.print("final ");
-//    	}
-    	pw.print("private");
+    	pw.printIdent("private");
     	for(InstanceVariable v: instanceVariableList) {
     		pw.println(" " + v.getType().getName() + " " + v.getName() + ";");
     	}
