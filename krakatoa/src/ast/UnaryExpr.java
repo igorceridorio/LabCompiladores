@@ -34,9 +34,10 @@ public class UnaryExpr extends Expr {
 	
     public void genKra(PW pw, boolean ident) {
     	if (ident) {
-    		pw.printIdent("");
+    		pw.printIdent(op.toString());
+    	} else {
+    		pw.print(op.toString());
     	}
-    	pw.print(op.toString());
 		if ( expr != null ) {
 			expr.genKra(pw, ident);
 		}

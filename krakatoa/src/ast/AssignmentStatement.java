@@ -38,7 +38,7 @@ public class AssignmentStatement extends Statement{
 		leftExpr.genKra(pw, true);
 		pw.print(" = ");
 		rightExpr.genKra(pw, false);
-		pw.print(";");
+		pw.println(";");
 	}
 	
 }

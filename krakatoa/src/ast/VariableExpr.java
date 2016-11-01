@@ -15,9 +15,10 @@ public class VariableExpr extends Expr {
     
     public void genKra(PW pw, boolean ident) {
     	if (ident) {
-    		pw.printIdent("");
+    		pw.printIdent(v.getName());
+    	} else {
+    		pw.print(v.getName());
     	}
-    	pw.print(v.getName());
     }
     
     public Type getType() {

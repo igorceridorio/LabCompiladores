@@ -29,7 +29,7 @@ public class LocalVariableList extends Statement {
     public void genKra(PW pw) {
     	for (Variable var : localList) {
     		if (var != null) {
-    			pw.printIdent(var.getType().getName() + " " + var.getName() + ";");
+    			pw.printlnIdent(var.getType().getName() + " " + var.getName() + ";");
     		}
     	}
     }
