@@ -7,14 +7,14 @@ package ast;
 public class MessageSendToSelf extends MessageSend {
   
 	Variable v;
-	MethodDec msg;
+	MethodDec m;
 	ExprList exprList;
 	Type t;
 	
-	public MessageSendToSelf(Variable v, MethodDec msg, ExprList exprList, Type t) {
+	public MessageSendToSelf(Variable v, MethodDec m, ExprList exprList, Type t) {
 		super();
 		this.v = v;
-		this.msg = msg;
+		this.m = m;
 		this.exprList = exprList;
 		this.t = t;
 	}
@@ -32,8 +32,8 @@ public class MessageSendToSelf extends MessageSend {
 		if ( v != null) {
 			pw.print("." + v.getName());
 		}
-		if ( msg != null ) {
-			pw.print("." + msg.getName() + "(");
+		if ( m != null ) {
+			pw.print("." + m.getName() + "(");
 			if ( exprList != null )
 				exprList.genKra(pw, ident);
 			pw.print(")");

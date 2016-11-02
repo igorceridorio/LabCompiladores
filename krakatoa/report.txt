@@ -245,7 +245,7 @@ The 'ce' message is:      "Method 'm' is being redeclared"
 
 
 ER-SEM36.KRA
-The compiler message was: "Expression expected in the right side of assignment"
+The compiler message was: "Cannot assign 'void' type to 'int'"
 The 'ce' message is:      "Expression expected in the right-hand side of assignment"
 
 

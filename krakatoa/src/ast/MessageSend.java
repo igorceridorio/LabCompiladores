@@ -4,6 +4,6 @@
 package ast;
 
 
-abstract class MessageSend  extends Expr  {
+abstract public class MessageSend  extends Expr  {
 }
 

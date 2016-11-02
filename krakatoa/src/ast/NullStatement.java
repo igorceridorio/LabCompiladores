@@ -11,7 +11,7 @@ public class NullStatement extends Statement{
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printlnIdent(";");
+//		pw.printlnIdent(";");
 	}
 
 }

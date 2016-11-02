@@ -1331,7 +1331,7 @@ public class Compiler {
 						KraClass c = null;
 						
 						// caso 'firstId' nao seja uma classe
-						if ((c = symbolTable.getInGlobal(firstId)) == null) {
+if ((c = symbolTable.getInGlobal(firstId)) == null) {
 							
 							// verifica se 'firstId' eh uma variavel local
 							if ((v = symbolTable.getInLocal(firstId)) == null) {
@@ -1357,14 +1357,20 @@ public class Compiler {
 								signalError.showError("Method '" + id + "' was not found in the public interface of '" + firstId + "' or its superclasses");
 							}
 							
+							// envia uma mensagem com a variavel local 'firstId', o metodo encontrado e a lista de expressoes do mesmo
+							return new MessageSendToVariable(new Variable(v.getName(), aux.getType()), aux, exprList);
 							
 						} else {
 							// se 'firstId' for uma KraClass verifica se 'id' foi declarado
-							if (c.searchMethod(id, false, true) == null) {
-								if (c.searchMethod(id, true, true) == null) {
+							MethodDec aux = null;
+							if ((aux = c.searchMethod(id, false, true)) == null) {
+								if ((aux = c.searchMethod(id, true, true)) == null) {
 									signalError.showError("undefined method '" + id + "' in class '" + c.getName() + "'");
 								}
 							}
+							
+							// envia uma mensagem com a classe 'firstId', o metodo encontrado e a lista de expressoes da mesma
+							return new MessageSendToVariable(new Variable(c.getName(), aux.getType()), aux, exprList);
 
 						}
 						
@@ -1438,6 +1444,8 @@ public class Compiler {
 						}
 					}
 					
+					return new MessageSendToSelf(null, msg, exprList, null);
+					
 				}
 				else if ( lexer.token == Symbol.DOT ) {
 					// "this" "." Id "." Id "(" [ ExpressionList ] ")"
@@ -1450,6 +1458,7 @@ public class Compiler {
 						signalError.showError("Identifier expected");
 					lexer.nextToken();
 					exprList = this.realParameters();
+					
 				}
 				else {
 					// retorne o objeto da ASA que representa "this" "." Id
@@ -1462,7 +1471,7 @@ public class Compiler {
 					if (v == null) {
 						signalError.showError("instance variable '" + id + "' has not been declared");
 					} else {
-						return new MessageSendToSelf(v, null, null, v.getType());
+						return new MessageSendToSelf(new Variable(id, v.getType()), null, null, v.getType());
 					}
 				}
 			}
