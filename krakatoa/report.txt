@@ -1,15 +1,27 @@
 Relatório do Compilador
 
-0 de um total de 114 erros que deveriam ser sinalizados não o foram (0%)
-16 erros foram sinalizados na linha errada (14%)
-5 erros foram sinalizados em 104 arquivos sem erro (4%)
-Todos os erros que deveriam ter sido sinalizados o foram
+7 de um total de 119 erros que deveriam ser sinalizados não o foram (5%)
+13 erros foram sinalizados na linha errada (10%)
+6 erros foram sinalizados em 99 arquivos sem erro (6%)
+
+Erros que deveriam ser sinalizados mas não foram:
+
+ER-SEM30.KRA, 16, Method 'put' of subclass 'B' has a signature different from method inherited from superclass 'A' (comp.Compiler.methodDec())
+
+ER-SEM34.KRA, 19, Message send 'a.m()' returns a value that is not used (comp.Compiler.statement())
+
+ER-SEM38.KRA, 20, Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side (comp.Compiler.assignExprLocalDec())
+
+ER-SEM39.KRA, 16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
+
+ER-SEM40.KRA, 40, Type error: the type of the real parameter is not subclass of the type of the formal parameter (comp.Compiler.factor())
+
+ER-SEM45.KRA, 13, 'int' or 'String' expression expected (comp.Compiler.readStatement())
+
+ER-SEM47.KRA, 24, Method 'm' was not found in superclass 'B' or its superclasses (comp.Compiler.factor())
+
 ######################################################
 Erros que foram sinalizados na linha errada:
-
-ER-SEM39.KRA
-    correto:    16, Type error: type of the expression returned is not subclass of the method return type (comp.Compiler.returnStatement())
-    sinalizado: 17, Missing 'return' in method 'm'
 
 ER-SEM57.KRA
     correto:    21, Incompatible types cannot be compared with '==' because the result will always be 'false' (comp.Compiler.expr())
@@ -63,24 +75,18 @@ ER-SIN17.KRA
     correto:    7, Missing ';' (comp.Compiler.localDec())
     sinalizado: 8, Missing ';'
 
-ER-SIN19.KRA
-    correto:    9, Missing ';' (comp.Compiler.readStatement())
-    sinalizado: 10, Expression expected
-
-ER-SIN22.KRA
-    correto:    11, Missing ';' (comp.Compiler.assignExprLocalDec())
-    sinalizado: 9, Expression expected
-
 ######################################################
 Erros que foram sinalizados mas não deveriam ter sido:
+
+OK-GER21.KRA, 19, compiler does not support static variables
 
 OK-GER23.KRA, 24, Missing ';'
 
 OK-SEM03.KRA, 18, incompatible type comparation between'ast.TypeString@28d93b30' and 'ast.TypeNull@1b6d3586'
 
-OK-SEM10.KRA, 45, undefined method 'first' in class 'B'
-
 OK-SEM14.KRA, 24, Cannot assign 'null' type to 'A'
+
+OK-SIN14.KRA, 39, compiler does not support static variables
 
 OK-SIN16.KRA, 26, Statement expected
 
@@ -195,7 +201,7 @@ The 'ce' message is:      "Operator '-' does not accepts 'boolean' expressions"
 
 
 ER-SEM17.KRA
-The compiler message was: "Expression expected"
+The compiler message was: "; expected"
 The 'ce' message is:      "Command 'read' expects a variable"
 
 
@@ -254,11 +260,6 @@ The compiler message was: "undefined method 'set' in class 'A'"
 The 'ce' message is:      "Method 'set' was not found in class 'A' or its superclasses"
 
 
-ER-SEM38.KRA
-The compiler message was: "Cannot assign 'A' type to 'B'"
-The 'ce' message is:      "Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side"
-
-
 ER-SEM41.KRA
 The compiler message was: "Cannot assign 'int' type to 'A'"
 The 'ce' message is:      "Type error: the type of the expression of the right-hand side is a basic type and the type of the variable of the left-hand side is a class"
@@ -274,9 +275,9 @@ The compiler message was: "Cannot assign 'null' type to 'int'"
 The 'ce' message is:      "Type error: 'null' cannot be assigned to a variable of a basic type"
 
 
-ER-SEM45.KRA
-The compiler message was: "Expression expected"
-The 'ce' message is:      "'int' or 'String' expression expected"
+ER-SEM44.KRA
+The compiler message was: "Command 'write' does not accept objects"
+The 'ce' message is:      "Command 'write' does not accept objects"
 
 
 ER-SEM46.KRA
@@ -370,7 +371,7 @@ The 'ce' message is:      "Statement expected"
 
 
 ER-SIN05.KRA
-The compiler message was: "Expression expected"
+The compiler message was: "; expected"
 The 'ce' message is:      "Expression expected"
 
 
@@ -380,7 +381,7 @@ The 'ce' message is:      "Expression expected"
 
 
 ER-SIN07.KRA
-The compiler message was: "Expression expected"
+The compiler message was: "; expected"
 The 'ce' message is:      "Command 'read' without arguments"
 
 
@@ -429,12 +430,22 @@ The compiler message was: "';' expected"
 The 'ce' message is:      "Missing ';'"
 
 
+ER-SIN19.KRA
+The compiler message was: "; expected"
+The 'ce' message is:      "Missing ';'"
+
+
 ER-SIN20.KRA
 The compiler message was: "; expected"
 The 'ce' message is:      "Missing ';'"
 
 
 ER-SIN21.KRA
+The compiler message was: "';' expected"
+The 'ce' message is:      "Missing ';'"
+
+
+ER-SIN22.KRA
 The compiler message was: "';' expected"
 The 'ce' message is:      "Missing ';'"
 

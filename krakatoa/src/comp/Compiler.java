@@ -44,12 +44,24 @@ public class Compiler {
 				metaobjectCallList.add(metaobjectCall());
 			}
 
+//			try {
+//				kraClassList.add(classDec());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+			
 			kraClassList.add(classDec());
 			
 			while (lexer.token != Symbol.EOF) {
 				if (lexer.token != Symbol.CLASS) {
 					signalError.showError("Expected class declaration");
 				}
+			
+//				try {
+//					kraClassList.add(classDec());
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 				
 				kraClassList.add(classDec());
 				
@@ -317,7 +329,7 @@ public class Compiler {
 
 	private MethodDec methodDec(Type type, String name, Symbol qualifier) {
 		// MethodDec ::= Qualifier Return Id "("[ FormalParamDec ] ")" "{" StatementList "}"
-
+		
 		// ANALISE SEMANTICA: 
 
 		// o metodo 'run' de 'Program' deve ser publico
@@ -368,7 +380,7 @@ public class Compiler {
 				
 				// ANALISE SEMANTICA: verifica se a assinatura dos metodos eh equivalente
 				boolean sameParameters = true;
-				
+								
 				// verifica se ambas as listas nao sao nulas
 				if((currentMethod.getFormalParamDec() != null) && (inherited.getFormalParamDec() != null) && (sameParameters)) {				
 					// verifica se as listas possuem o mesmo tamanho
@@ -394,9 +406,8 @@ public class Compiler {
 							}
 						}
 					}
-				} else {
-					sameParameters = false;
 				}
+				
 				if(!sameParameters) {
 					signalError.showError("Inherited method '" + name + "' of '" + currentClass.getName() + "' has a different signature from its superclass inherited method");
 				}
@@ -791,7 +802,14 @@ public class Compiler {
 	private ReturnStatement returnStatement() {
 		// ReturnStat ::= “return” Expression
 
-		// ANALISE SEMANTICA: caso o metodo atual seja void nao pode existir um return statement
+		// ANALISE SEMANTICA:
+		
+		// caso o metodo atual nao seja nulo seta a flag de retorno
+		if (currentMethod != null) {
+			currentMethod.setHasReturn(true);
+		}
+		
+		// caso o metodo atual seja void nao pode existir um return statement
 		if (currentMethod.getType() == Type.voidType) {
 			signalError.showError("Method '" + currentMethod.getName() + "' is 'void', hence shouldn't have a return");
 		}
@@ -824,7 +842,7 @@ public class Compiler {
 		lexer.nextToken();
 		
 		while (true) {
-		
+			
 			if (lexer.token == Symbol.THIS) {
 				// this.Id
 				
@@ -843,7 +861,7 @@ public class Compiler {
 				if ( v.getType() == Type.booleanType ) {
 					signalError.showError("command 'read' does not accept 'boolean' variables");
 				} else {
-					readList.addElement(v);
+					readList.addElement(new Variable("this." + v.getName(), v.getType()));
 				}
 				lexer.nextToken();
 				
@@ -909,14 +927,14 @@ public class Compiler {
 				// le o proximo leftValue
 				lexer.nextToken();
 			} else {
-				signalError.showError("Expression expected");
 				break;
 			}
 			
 		}
 
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
-		lexer.nextToken();
+		//if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
+		//lexer.nextToken();
+		
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
 		lexer.nextToken();
@@ -1331,7 +1349,7 @@ public class Compiler {
 						KraClass c = null;
 						
 						// caso 'firstId' nao seja uma classe
-if ((c = symbolTable.getInGlobal(firstId)) == null) {
+						if ((c = symbolTable.getInGlobal(firstId)) == null) {
 							
 							// verifica se 'firstId' eh uma variavel local
 							if ((v = symbolTable.getInLocal(firstId)) == null) {
@@ -1344,7 +1362,7 @@ if ((c = symbolTable.getInGlobal(firstId)) == null) {
 							} else {
 								signalError.showError("variable '" + firstId + "' does not have a class type");
 							}
-							
+	
 							// se 'firstId' for um objeto de class verifica se 'id' foi declarado
 							MethodDec aux = null;
 							if ((aux = c.searchMethod(id, false, true)) == null) {
@@ -1515,12 +1533,15 @@ if ((c = symbolTable.getInGlobal(firstId)) == null) {
 		
 		KraClass leftClass = null, rightClass = null;
 		
-		// caso right seja subclasse de left
+		// verifica se uma classe eh subclasse da outra
 		if (left instanceof KraClass) leftClass = (KraClass) left;
 		else return false;
 		
 		if (right instanceof KraClass) rightClass = (KraClass) right;
 		else return false;
+		
+		if (rightClass.extend(leftClass.getName())) return true;
+		if (leftClass.extend(rightClass.getName())) return true;
 		
 		// uma classe eh considerada subclasse de si mesma
 		if (leftClass.getName().equals(rightClass.getName())) return true;

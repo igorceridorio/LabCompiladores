@@ -101,7 +101,7 @@ public class KraClass extends Type {
    public MethodDec searchMethod(String methodName, boolean isPublic, boolean searchInSuper) {
 	   Iterator<MethodDec> it = null;
 	   MethodDec methodDecAux = null;
-	   
+
 	   // primeiramente define em qual lista realizara a busca
 	   if(isPublic) {
 		   it = this.publicMethodList.elements();
@@ -119,7 +119,7 @@ public class KraClass extends Type {
 	   
 	   // caso nao encontre o metodo na classe atual procura em sua superclasse (caso exista)
 	   if(this.getSuperclass() != null && searchInSuper) {
-		   return this.getSuperclass().searchMethod(methodName, false, searchInSuper);
+		   return this.getSuperclass().searchMethod(methodName, true, searchInSuper);
 	   }
 	   
 	   // caso nao encontre, nao ha metodos com esse nome disponiveis

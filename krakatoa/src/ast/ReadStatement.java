@@ -25,13 +25,13 @@ public class ReadStatement extends Statement{
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printIdent("read(");
+		pw.printIdent("read (");
 
 		int size = leftValues.getSize();
-		
+
 		for (int i = 0; i < size; i++) {
 			pw.print(leftValues.get(i).getName());
-			if (--size > 0) pw.print(", ");
+			if (i < (size - 1)) pw.print(", ");
 		}
 
 		pw.println(");");
