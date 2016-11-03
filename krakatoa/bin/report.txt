@@ -1,8 +1,8 @@
 Relatório do Compilador
 
-7 de um total de 120 erros que deveriam ser sinalizados não o foram (5%)
+7 de um total de 119 erros que deveriam ser sinalizados não o foram (5%)
 13 erros foram sinalizados na linha errada (10%)
-6 erros foram sinalizados em 98 arquivos sem erro (6%)
+6 erros foram sinalizados em 99 arquivos sem erro (6%)
 
 Erros que deveriam ser sinalizados mas não foram:
 
@@ -82,7 +82,7 @@ OK-GER21.KRA, 19, compiler does not support static variables
 
 OK-GER23.KRA, 24, Missing ';'
 
-OK-SEM03.KRA, 18, incompatible type comparation between'ast.TypeString@723279cf' and 'ast.TypeNull@34c45dca'
+OK-SEM03.KRA, 18, incompatible type comparation between'ast.TypeString@28d93b30' and 'ast.TypeNull@1b6d3586'
 
 OK-SEM14.KRA, 24, Cannot assign 'null' type to 'A'
 
@@ -473,11 +473,6 @@ The 'ce' message is:      "Expression expected OR invalid sequence of symbols"
 ER-SIN27.KRA
 The compiler message was: ") expected"
 The 'ce' message is:      "')' expected OR Unknown sequence of symbols"
-
-
-ER-SIN29.KRA
-The compiler message was: "'public', 'private' or '}' expected"
-The 'ce' message is:      "'private',  'public', or '}' expected"
 
 
 ER-SIN30.KRA
