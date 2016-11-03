@@ -1,8 +1,8 @@
 Relatório do Compilador
 
 7 de um total de 119 erros que deveriam ser sinalizados não o foram (5%)
-13 erros foram sinalizados na linha errada (10%)
-6 erros foram sinalizados em 99 arquivos sem erro (6%)
+16 erros foram sinalizados na linha errada (13%)
+7 erros foram sinalizados em 99 arquivos sem erro (7%)
 
 Erros que deveriam ser sinalizados mas não foram:
 
@@ -16,9 +16,9 @@ ER-SEM39.KRA, 16, Type error: type of the expression returned is not subclass of
 
 ER-SEM40.KRA, 40, Type error: the type of the real parameter is not subclass of the type of the formal parameter (comp.Compiler.factor())
 
-ER-SEM45.KRA, 13, 'int' or 'String' expression expected (comp.Compiler.readStatement())
-
 ER-SEM47.KRA, 24, Method 'm' was not found in superclass 'B' or its superclasses (comp.Compiler.factor())
+
+ER-SIN05.KRA, 10, Expression expected (comp.Compiler.factor())
 
 ######################################################
 Erros que foram sinalizados na linha errada:
@@ -71,9 +71,21 @@ ER-SEM87.KRA
     correto:    11, Call to 'this' in a static method (comp.Compiler.factor())
     sinalizado: 10, 'public', 'private' or '}' expected
 
+ER-SIN07.KRA
+    correto:    9, Command 'read' without arguments (comp.Compiler.readStatement())
+    sinalizado: 11, command 'read' should take at least one argument
+
 ER-SIN17.KRA
     correto:    7, Missing ';' (comp.Compiler.localDec())
     sinalizado: 8, Missing ';'
+
+ER-SIN19.KRA
+    correto:    9, Missing ';' (comp.Compiler.readStatement())
+    sinalizado: 10, ) expected
+
+ER-SIN22.KRA
+    correto:    11, Missing ';' (comp.Compiler.assignExprLocalDec())
+    sinalizado: 9, ) expected
 
 ######################################################
 Erros que foram sinalizados mas não deveriam ter sido:
@@ -87,6 +99,8 @@ OK-SEM03.KRA, 18, incompatible type comparation between'ast.TypeString@28d93b30'
 OK-SEM14.KRA, 24, Cannot assign 'null' type to 'A'
 
 OK-SIN14.KRA, 39, compiler does not support static variables
+
+OK-SIN15.KRA, 27, ) expected
 
 OK-SIN16.KRA, 26, Statement expected
 
@@ -201,7 +215,7 @@ The 'ce' message is:      "Operator '-' does not accepts 'boolean' expressions"
 
 
 ER-SEM17.KRA
-The compiler message was: "; expected"
+The compiler message was: ") expected"
 The 'ce' message is:      "Command 'read' expects a variable"
 
 
@@ -278,6 +292,11 @@ The 'ce' message is:      "Type error: 'null' cannot be assigned to a variable o
 ER-SEM44.KRA
 The compiler message was: "Command 'write' does not accept objects"
 The 'ce' message is:      "Command 'write' does not accept objects"
+
+
+ER-SEM45.KRA
+The compiler message was: ") expected"
+The 'ce' message is:      "'int' or 'String' expression expected"
 
 
 ER-SEM46.KRA
@@ -370,19 +389,9 @@ The compiler message was: "variable 'i' has not been declared"
 The 'ce' message is:      "Statement expected"
 
 
-ER-SIN05.KRA
-The compiler message was: "; expected"
-The 'ce' message is:      "Expression expected"
-
-
 ER-SIN06.KRA
 The compiler message was: "Expression expected"
 The 'ce' message is:      "Expression expected"
-
-
-ER-SIN07.KRA
-The compiler message was: "; expected"
-The 'ce' message is:      "Command 'read' without arguments"
 
 
 ER-SIN08.KRA
@@ -430,22 +439,12 @@ The compiler message was: "';' expected"
 The 'ce' message is:      "Missing ';'"
 
 
-ER-SIN19.KRA
-The compiler message was: "; expected"
-The 'ce' message is:      "Missing ';'"
-
-
 ER-SIN20.KRA
 The compiler message was: "; expected"
 The 'ce' message is:      "Missing ';'"
 
 
 ER-SIN21.KRA
-The compiler message was: "';' expected"
-The 'ce' message is:      "Missing ';'"
-
-
-ER-SIN22.KRA
 The compiler message was: "';' expected"
 The 'ce' message is:      "Missing ';'"
 

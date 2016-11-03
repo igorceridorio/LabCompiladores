@@ -932,8 +932,8 @@ public class Compiler {
 			
 		}
 
-		//if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
-		//lexer.nextToken();
+		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
+		lexer.nextToken();
 		
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
