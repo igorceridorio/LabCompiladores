@@ -43,12 +43,6 @@ public class Compiler {
 			while ( lexer.token == Symbol.MOCall ) {
 				metaobjectCallList.add(metaobjectCall());
 			}
-
-//			try {
-//				kraClassList.add(classDec());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
 			
 			kraClassList.add(classDec());
 			
@@ -56,12 +50,7 @@ public class Compiler {
 				if (lexer.token != Symbol.CLASS) {
 					signalError.showError("Expected class declaration");
 				}
-			
-//				try {
-//					kraClassList.add(classDec());
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
+		
 				
 				kraClassList.add(classDec());
 				
@@ -488,7 +477,7 @@ public class Compiler {
 		}
 		
 		if (lexer.token != Symbol.SEMICOLON) {
-			signalError.showError("Missing ';'");
+			signalError.showError("Missing ';'", true);
 		}
 		
 		lexer.nextToken(); //le o token ";"
@@ -699,7 +688,7 @@ public class Compiler {
 				}
 			
 				if ( lexer.token != Symbol.SEMICOLON )
-					signalError.showError("';' expected", true);
+					signalError.showError("Missing ';'", true);
 				else
 					lexer.nextToken();
 			}
@@ -818,9 +807,18 @@ public class Compiler {
 		
 		Expr expr = expr();
 		
+		KraClass aux1 = null, aux2 = null;
+		
+		if (expr.getType() instanceof KraClass) aux1 = (KraClass) expr.getType();
+		if (currentMethod.getType() instanceof KraClass) aux2 = (KraClass) currentMethod.getType();
+		
+		if (aux1.extend(aux2.getName())) System.out.println();
+		if (aux2.extend(aux1.getName())) System.out.println();
+
+		
 		// ANALISE SEMANTICA: verifica se o tipo da expressao eh equivalente ao tipo do retorno
-		if (!isConvertible(expr.getType(), currentMethod.getType())) {
-			signalError.showError("Statement type is '" + expr.getType().getName() + "' and return type is '" + currentMethod.getType().getName() + "'");
+		if (!isConvertible(currentMethod.getType(), expr.getType())) {
+			signalError.showError("Statement type is '" + currentMethod.getType().getName() + "' and return type is '" + expr.getType().getName() + "'");
 		}
 		
 		if ( lexer.token != Symbol.SEMICOLON )
@@ -841,8 +839,9 @@ public class Compiler {
 		if ( lexer.token != Symbol.LEFTPAR ) signalError.showError("( expected");
 		lexer.nextToken();
 		
+		if (lexer.token == Symbol.RIGHTPAR) signalError.showError("Command 'read' without arguments");
+		
 		while (true) {
-			
 			if (lexer.token == Symbol.THIS) {
 				// this.Id
 				
@@ -864,6 +863,10 @@ public class Compiler {
 					readList.addElement(new Variable("this." + v.getName(), v.getType()));
 				}
 				lexer.nextToken();
+				
+				if (lexer.token == Symbol.RIGHTPAR) {
+					signalError.showError("Expression expected");
+				}
 				
 			} else if (lexer.token == Symbol.IDENT) {
 				
@@ -906,8 +909,11 @@ public class Compiler {
 					}
 					lexer.nextToken();
 					
-				} else {
+					if (lexer.token == Symbol.RIGHTPAR) {
+						signalError.showError("Expression expected");
+					}
 					
+				} else {
 					// caso onde a variavel eh acessada diretamente (Id)
 					v = symbolTable.getInLocal(n);
 					if (v == null) {
@@ -919,21 +925,33 @@ public class Compiler {
 					} else {
 						readList.addElement(v);
 					}
-					lexer.nextToken();
+	
 					
+					if (lexer.token == Symbol.RIGHTPAR) {
+						lexer.nextToken();
+						if (lexer.token != Symbol.SEMICOLON) {
+							signalError.showError("Missing ';", true);
+						}
+					}
 				}
 				
 			} else if (lexer.token == Symbol.COMMA) {
 				// le o proximo leftValue
 				lexer.nextToken();
+				
+				if (lexer.token == Symbol.RIGHTPAR) {
+					signalError.showError("Expression expected");
+				}
 			} else {
 				break;
 			}
 			
 		}
-
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
-		lexer.nextToken();
+		
+		if (readList.getSize() != 1) {
+			if ( lexer.token != Symbol.RIGHTPAR ) signalError.showError(") expected");
+			lexer.nextToken();
+		}
 		
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(ErrorSignaller.semicolon_expected);
@@ -1009,7 +1027,7 @@ public class Compiler {
 		
 		// ANALISE SEMANTICA: o break nao pode estar sendo chamado de fora de um while
 		if (whileCounter == 0) {
-			signalError.showError("'break' statement must be inside a 'while' statement");
+			signalError.showError("'break' statement found outside a 'while' statement");
 		}
 		
 		lexer.nextToken();
@@ -1325,7 +1343,7 @@ public class Compiler {
 						 * sinalize um erro neste ponto.
 						 */
 						
-						signalError.showError("compiler does not support static variables");
+						//signalError.showError("compiler does not support static variables");
 						
 						lexer.nextToken();
 						if ( lexer.token != Symbol.IDENT )
@@ -1469,7 +1487,7 @@ public class Compiler {
 					// "this" "." Id "." Id "(" [ ExpressionList ] ")"
 					
 					// o compilador nao suporta vairaveis estaticas
-					signalError.showError("compiler does not support static variables");
+					//signalError.showError("compiler does not support static variables");
 					
 					lexer.nextToken();
 					if ( lexer.token != Symbol.IDENT )
@@ -1523,43 +1541,40 @@ public class Compiler {
 	// ==========================================================================================
 	
 	// verifica se um tipo pode ser convertido para outro
+
 	private boolean isConvertible(Type left, Type right) {
 		
-		// caso left for int, boolean ou String verifica se right possui o mesmo tipo
-		if (left == Type.intType || left == Type.booleanType || left == Type.stringType) {
-			if (left == right) return true;
-			else return false;
-		}
-		
-		KraClass leftClass = null, rightClass = null;
-		
-		// verifica se uma classe eh subclasse da outra
-		if (left instanceof KraClass) leftClass = (KraClass) left;
+	// caso left for int, boolean ou String verifica se right possui o mesmo tipo
+	if (left == Type.intType || left == Type.booleanType || left == Type.stringType) {
+		if (left == right) return true;
 		else return false;
-		
-		if (right instanceof KraClass) rightClass = (KraClass) right;
+	}
+	
+	if (right.getName() == "null") {
+		if (left instanceof KraClass) {
+			return true;
+		}
 		else return false;
-		
-		if (rightClass.extend(leftClass.getName())) return true;
-		if (leftClass.extend(rightClass.getName())) return true;
-		
-		// uma classe eh considerada subclasse de si mesma
-		if (leftClass.getName().equals(rightClass.getName())) return true;
-		
-		if (rightClass.getSuperclass() == null) {
-			return false;
-		}
-		else {
-			while (rightClass.getSuperclass() != null) {
-				if (leftClass.getName().equals(rightClass.getSuperclass().getName())) return true;
-				rightClass = rightClass.getSuperclass();
-			}
-		}
-		
-		// caso left seja uma classe mas right seja null
-		if (left instanceof KraClass && right == Type.nullType) return true;
-		
+	}
+	
+	if (left.getName() == "null") {
 		return false;
 	}
+
+	KraClass leftClass = null, rightClass = null;
+	
+	// verifica se uma classe eh subclasse da outra
+	if (left instanceof KraClass) leftClass = (KraClass) left;
+	else return false;
+	if (right instanceof KraClass) rightClass = (KraClass) right;
+	else return false;
+	
+	if (rightClass.extend(leftClass.getName())) return true;
+	
+	// uma classe eh considerada subclasse de si mesma
+	if (leftClass.getName().equals(rightClass.getName())) return true;
+	
+	return false;
+}
 
 }

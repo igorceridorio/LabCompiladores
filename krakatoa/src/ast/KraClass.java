@@ -129,7 +129,7 @@ public class KraClass extends Type {
 
    public boolean extend(String name) {
 	   
-	   // verifica se a classe passada como parametro herda a classe atual
+	   // verifica se a classe atual herda a classe passada como parametro
 	   if(this.superclass != null) {
 		   if(this.superclass.getName().equals(name)) {
 			   return true;
