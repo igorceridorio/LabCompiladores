@@ -1,0 +1,51 @@
+class A {    
+    private int i;   
+    public int get() {      
+        return this.i;   
+    }   
+    public void put( int p_i ) {      
+        this.i = p_i;   
+    }
+}      
+
+
+class B extends A {   
+    private int lastInc;   
+    private void add( int n ) {      
+        this.lastInc = n;      
+        super.put( super.get() + n );   
+    }   
+    public void print() {      
+        write( this.get() );   
+    }   
+    public void put( int p_i ) {      
+        if ( p_i > 0 )         
+           super.put(p_i);   
+    }   
+    public void inc() {      
+        this.add(1);   
+    }   
+    public int getLastInc() {      
+        return this.lastInc;   
+    }
+}
+
+class Program {   
+    public void run() {      
+       A a;      
+       int k;   
+       B b;
+       
+       a = new A();      
+       a.put(5);      
+       k = a.get();      
+       write(k);   
+       
+       b = new B();
+       b.put(2);
+       b.inc();
+       b.print();
+       write( b.getLastInc(), b.get() );
+       
+       }
+}   

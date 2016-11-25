@@ -1,0 +1,22 @@
+class A { 
+   private int i;
+   public int get() {
+      return this.i;
+   }
+   public void put( int p_i ) {
+      this.i = p_i;
+   }
+}      
+
+
+class Program {
+   public void run() {
+      A a;
+      int k;
+      
+      a = new A();
+      a.put(5);
+      k = a.get();
+      write(k);
+   }
+}   
