@@ -26,6 +26,32 @@ public class Program {
 	}
 
 	public void genC(PW pw) {
+		
+		// gera a base padrao para todos os programas
+		
+		// headers 
+		pw.println("#include <malloc.h>");
+		pw.println("#include <stdlib.h>");
+		pw.println("#include <stdio.h>");
+		pw.println("");
+		
+		// define o tipo boolean
+		pw.println("typedef int boolean;");
+		pw.println("#define true 1");
+		pw.println("#define false 0");
+		pw.println("");
+		
+		// define um tipo Func que eh um ponteiro para funcao
+		pw.println("typedef");
+		pw.add();
+		pw.println("void (*Func) ();");
+		pw.sub();
+		pw.println("");
+		
+		for(KraClass k : classList) {
+			k.genKra(pw);
+		}
+		
 	}
 	
 	public ArrayList<KraClass> getClassList() {
