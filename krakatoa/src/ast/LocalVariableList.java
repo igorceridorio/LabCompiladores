@@ -36,6 +36,17 @@ public class LocalVariableList extends Statement {
 
 	@Override
 	public void genC(PW pw, String className) {
+		
+		// gera o codigo para as variaveis locais
+		for (Variable var : localList) {
+			if(var != null) {
+				if(var.getType() != Type.stringType) {
+					pw.printlnIdent(var.getType().getCname() + " _" + var.getName() + ";");
+				} else {
+					pw.printlnIdent(var.getType().getCname() + "_" + var.getName() + ";");
+				}
+			}
+		}
 	}
     
 }

@@ -17,4 +17,11 @@ typedef
 _class_Program *new_Program(void);
 
 void _Program_run(_class_Program *this) {
+   int _i;
+   int _b;
+   int _primo;
+   char *_msg;
+   puts(Olá, este é o meu primeiro programa);
+   puts(Digite um número: );
+   puts(msg);
 }

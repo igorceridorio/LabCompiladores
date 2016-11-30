@@ -3,6 +3,8 @@
 
 package ast;
 
+import java.util.Iterator;
+
 public class WriteStatement extends Statement {
 
 	private ExprList exprList;
@@ -31,6 +33,28 @@ public class WriteStatement extends Statement {
 	
 	@Override
 	public void genC(PW pw, String className) {
+		
+		// gera codigo diferente quando o tipo eh inteiro e quando eh String
+		Iterator<Expr> itExpr = exprList.elements();
+		while(itExpr.hasNext()) {
+			
+			Expr expr = itExpr.next();
+			
+			// caso seja identificado um tipo inteiro
+			if(expr.getType() == Type.intType) {
+				pw.printIdent("printf(\"%d \", ");
+				expr.genC(pw, false, className);
+				pw.println(");");
+			}
+			
+			// caso seja identificado um tipo String
+			if(expr.getType() == Type.stringType) {
+				pw.printIdent("puts(");
+				expr.genC(pw, false, className);
+				pw.println(");");
+			}
+			
+		}
 	}
 
 	@Override

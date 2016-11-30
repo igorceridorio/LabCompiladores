@@ -24,6 +24,10 @@ public class ExprList {
     public Expr getElement(int i) {
     	return exprList.get(i);
     }
+    
+    public Iterator<Expr> elements() {
+    	return exprList.iterator();
+    }
 
     public void genC( PW pw, String className ) {
 

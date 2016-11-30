@@ -33,10 +33,10 @@ public class AssignmentStatement extends Statement{
 	public void genC(PW pw, String className) {
 		
 		//geracao de codigo apra atribuicoes
-		leftExpr.genC(pw, true, className);
-		pw.print(" = ");
-		rightExpr.genC(pw, false, className);
-		pw.println(";");
+//		leftExpr.genC(pw, true, className);
+//		pw.print(" = ");
+//		rightExpr.genC(pw, false, className);
+//		pw.println(";");
 		
 	}
 
