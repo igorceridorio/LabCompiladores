@@ -23,4 +23,17 @@ public class MemberList {
 		}
 	}
 	
+	public void genC(PW pw, KraClass kraClass) {
+		
+		// gera os codigos para os metodos da classe passada como parametro
+		if(memberList != null) {
+			for(Member m: memberList) {
+				if(m.getInstanceVariableList() == null) {
+					// se as variaveis de instancia sao nulas entao se trata de metodos
+					m.genC(pw, kraClass);
+				}
+			}
+		}
+	}
+	
 }

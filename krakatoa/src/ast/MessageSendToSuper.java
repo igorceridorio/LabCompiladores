@@ -17,7 +17,7 @@ public class MessageSendToSuper extends MessageSend {
         return msg.getType();
     }
 
-    public void genC( PW pw, boolean putParenthesis ) {
+    public void genC( PW pw, boolean putParenthesis, String className ) {
         
     }
     

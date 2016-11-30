@@ -44,12 +44,13 @@ public class Program {
 		// define um tipo Func que eh um ponteiro para funcao
 		pw.println("typedef");
 		pw.add();
-		pw.println("void (*Func) ();");
+		pw.printlnIdent("void (*Func) ();");
 		pw.sub();
 		pw.println("");
 		
+		// realizada a chamada para a geracao das classes
 		for(KraClass k : classList) {
-			k.genKra(pw);
+			  k.genC(pw);
 		}
 		
 	}

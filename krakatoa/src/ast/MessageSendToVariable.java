@@ -20,7 +20,7 @@ public class MessageSendToVariable extends MessageSend {
         return v.getType();
     }
     
-    public void genC( PW pw, boolean putParenthesis ) {
+    public void genC( PW pw, boolean putParenthesis, String className ) {
         
     }
     

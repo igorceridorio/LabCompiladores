@@ -31,5 +31,14 @@ public class InstanceVariableList {
     		pw.println(" " + v.getType().getName() + " " + v.getName() + ";");
     	}
     }
+    
+    public void genC(PW pw, String className) {
+    	
+    	// gera o codigo as variaveis de instancia da classe
+    	for(InstanceVariable var: instanceVariableList) {
+    		pw.printlnIdent(var.getType().getCname() + " _" + className + "_" + var.getName() + ";");
+    	}
+    	
+    }
 
 }

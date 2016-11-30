@@ -16,17 +16,17 @@ public class CompositeExpr extends Expr {
     }
     
     @Override
-	public void genC( PW pw, boolean putParenthesis ) {
+	public void genC( PW pw, boolean putParenthesis, String className ) {
         if ( putParenthesis )
           pw.print("(");
-        left.genC(pw, true);
+        left.genC(pw, true, className);
         String strSymbol = arrayOper.get(oper);
         if ( strSymbol == null ) {
         	pw.println("internal error in CompositeExpr::genC");
         }
         else
             pw.print(" " + strSymbol + " ");
-        right.genC(pw, true);
+        right.genC(pw, true, className);
         if ( putParenthesis )
           pw.print(")");
     }

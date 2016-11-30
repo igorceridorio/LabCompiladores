@@ -10,7 +10,7 @@ public class LiteralBoolean extends Expr {
     }
 
     @Override
-	public void genC( PW pw, boolean putParenthesis ) {
+	public void genC( PW pw, boolean putParenthesis, String className ) {
        pw.print( value ? "1" : "0" );
     }
     

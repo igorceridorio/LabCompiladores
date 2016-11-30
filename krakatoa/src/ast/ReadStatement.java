@@ -20,7 +20,7 @@ public class ReadStatement extends Statement{
 	}
 
 	@Override
-	public void genC(PW pw) {
+	public void genC(PW pw, String className) {
 	}
 
 	@Override

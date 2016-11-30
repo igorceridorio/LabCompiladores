@@ -33,5 +33,16 @@ public class ParamList {
 			}
     	}
     }
+    
+    public void genC(PW pw) {
+    
+    	// gera o codigo da lista de parametros
+    	for(Variable var: paramList) {
+    		pw.print(var.getType().getCname() + " " + var.getName());
+    		if(var != paramList.get(getSize() - 1)) {
+    			pw.print(", ");
+    		}
+    	}
+    }
 
 }

@@ -12,9 +12,9 @@ public class MessageSendStatement extends Statement {
 	}
 
 	@Override
-	public void genC( PW pw ) {
+	public void genC( PW pw, String className ) {
 		pw.printIdent("");
-		// messageSend.genC(pw);
+		// messageSend.genC(pw, className);
 		pw.println(";");
 	}
 

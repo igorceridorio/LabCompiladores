@@ -9,7 +9,7 @@ abstract public class Statement {
 	ReadStat “;” | WriteStat “;” | “break” “;” | “;” | CompStatement
 	DoWhileStat*/
 
-	abstract public void genC(PW pw);
+	abstract public void genC(PW pw, String className);
 	abstract public void genKra(PW pw);
 	
 }

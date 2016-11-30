@@ -23,7 +23,7 @@ public class KraClass extends Type {
    }
    
    public String getCname() {
-      return getName();
+      return "_class_" + getName();
    }
    
    public String getName() {
@@ -157,4 +157,38 @@ public class KraClass extends Type {
 	   pw.println("");
 	   pw.println("");
    }
+   
+   public void genC(PW pw) {
+	   
+	   // gera a estrutura com um vetor de metodos da classe e variaveis de instancia
+	   
+	   pw.println("typedef");
+	   pw.add();
+	   pw.printlnIdent("struct _St_" + getName() + " {");
+	   pw.add();
+	   pw.printlnIdent("Func *vt;");
+	   
+	   // chamada para geracao de codigo das variaveis de instancia
+	   
+	   // caso haja uma superclasse, as variaveis de instancia serao as mesmas desta superclasse
+	   if (superclass != null) {
+		   superclass.instanceVariableList.genC(pw, superclass.getName());
+	   } else if (instanceVariableList.getSize() != 0) {
+		   instanceVariableList.genC(pw, this.getName());
+	   }
+	   
+	   pw.sub();
+	   pw.printlnIdent("} " + getCname() + ";");
+	   pw.sub();
+	   
+	   // criacao de um objeto desta classe 
+	   pw.println("");
+	   pw.println(getCname() + " *new_" + getName() + "(void);");
+	   pw.println("");
+	   
+	   // gera codigos para os metodos desta classe
+	   memberList.genC(pw, this);
+	   
+   }
+   
 }

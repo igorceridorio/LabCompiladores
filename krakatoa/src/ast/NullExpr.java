@@ -10,7 +10,7 @@ public class NullExpr extends Expr {
    }
 	
    @Override
-   public void genC( PW pw, boolean putParenthesis ) {
+   public void genC( PW pw, boolean putParenthesis, String className ) {
       pw.printIdent("NULL");
    }
    

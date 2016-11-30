@@ -72,6 +72,26 @@ public class MethodDec {
 		statementList.genKra(pw);
 		pw.sub();
 		pw.printlnIdent("}");
-	} 
+	}
+	
+	public void genC(PW pw, KraClass kraClass) {
+		
+		// gera o codigo para o nome e parametros do metodo
+		pw.print(returnType.getCname() + " _" + kraClass.getName() + "_" + methodName + "(" + kraClass.getCname() + " *this");
+		if(formalParamDec != null) {
+			if(formalParamDec.getSize() > 0) {
+				pw.print(", ");
+				formalParamDec.genC(pw);
+			}
+		}
+		pw.println(") {");
+		
+		// gera o codigo dos statments do metodo
+		pw.add();
+		statementList.genC(pw, kraClass.getName());
+		pw.sub();
+		pw.println("}");
+		
+	}
 	
 }

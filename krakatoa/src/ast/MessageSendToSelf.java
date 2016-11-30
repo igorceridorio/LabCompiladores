@@ -23,7 +23,7 @@ public class MessageSendToSelf extends MessageSend {
         return t;
     }
     
-    public void genC( PW pw, boolean putParenthesis ) {
+    public void genC( PW pw, boolean putParenthesis, String className ) {
     }
     
     public void genKra(PW pw, boolean ident) {	

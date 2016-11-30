@@ -35,4 +35,17 @@ public class StatementList {
 			}
 		}
 	}
+	
+	public void genC(PW pw, String className) {
+		
+		// chama cada statement para a geracao do codigo correspondente
+		if(!statementList.isEmpty()) {
+			for(Statement s: statementList) {
+				if(s != null) {
+					s.genC(pw, className);
+				}
+			}
+		}
+		
+	}
 }
