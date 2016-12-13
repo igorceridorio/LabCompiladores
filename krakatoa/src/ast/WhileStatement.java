@@ -15,6 +15,26 @@ public class WhileStatement extends Statement {
 
 	@Override
 	public void genC(PW pw, String className) {
+		pw.printIdent("while (");
+		expr.genC(pw, false, className);
+		pw.print(")");
+		if(whilePart != null) {
+			pw.println(" {");
+		} else {
+			pw.println("");
+		}
+		pw.add();
+		if(whilePart != null) {
+			whilePart.genC(pw, className);
+		} else {
+			pw.printlnIdent(";");
+		}
+		pw.sub();
+		if(whilePart != null) {
+			pw.printlnIdent("}");
+		} else {
+			pw.println("");
+		}
 	}
 
 	@Override
