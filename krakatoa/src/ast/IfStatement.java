@@ -17,7 +17,26 @@ public class IfStatement extends Statement {
 	
 	@Override
 	public void genC(PW pw, String className) {
-
+		pw.printIdent("if (");
+		expr.genC(pw, false, className);
+		pw.println(") {");
+		pw.add();
+		if(thenPart != null) {
+			thenPart.genC(pw, className);
+		} else {
+			pw.println("");
+		}
+		pw.sub();
+		pw.printIdent("}");
+		if(elsePart != null) {
+			pw.println(" else { ");
+			pw.add();
+			elsePart.genC(pw, className);
+			pw.sub();
+			pw.printlnIdent("}");
+		} else {
+			pw.println("");
+		}
 	}
 	
 	@Override

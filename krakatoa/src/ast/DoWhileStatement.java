@@ -15,6 +15,13 @@ public class DoWhileStatement extends Statement {
 	
 	@Override
 	public void genC(PW pw, String className) {
+		pw.printlnIdent("do {");
+		pw.add();
+		compositeStatement.genC(pw, className);
+		pw.sub();
+		pw.printIdent("while (");
+		expr.genC(pw, false, className);
+		pw.println(");");
 	}
 
 	@Override
