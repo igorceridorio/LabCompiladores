@@ -13,6 +13,7 @@ public class CompositeStatement extends Statement {
 	
 	@Override
 	public void genC(PW pw, String className) {
+		statementList.genC(pw, className);
 	}
 
 	@Override

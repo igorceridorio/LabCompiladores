@@ -807,15 +807,6 @@ public class Compiler {
 		
 		Expr expr = expr();
 		
-		KraClass aux1 = null, aux2 = null;
-		
-		if (expr.getType() instanceof KraClass) aux1 = (KraClass) expr.getType();
-		if (currentMethod.getType() instanceof KraClass) aux2 = (KraClass) currentMethod.getType();
-		
-		if (aux1.extend(aux2.getName())) System.out.println();
-		if (aux2.extend(aux1.getName())) System.out.println();
-
-		
 		// ANALISE SEMANTICA: verifica se o tipo da expressao eh equivalente ao tipo do retorno
 		if (!isConvertible(currentMethod.getType(), expr.getType())) {
 			signalError.showError("Statement type is '" + currentMethod.getType().getName() + "' and return type is '" + expr.getType().getName() + "'");

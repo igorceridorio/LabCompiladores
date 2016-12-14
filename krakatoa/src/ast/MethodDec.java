@@ -91,6 +91,7 @@ public class MethodDec {
 		statementList.genC(pw, kraClass.getName());
 		pw.sub();
 		pw.println("}");
+		pw.println("");
 		
 	}
 	

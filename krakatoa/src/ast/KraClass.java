@@ -126,6 +126,23 @@ public class KraClass extends Type {
 	   return null;
    }
    
+   /* responsavel por retornar o indice de determinado metodo publico de uma classe 
+    * informada como parametro 
+    */
+   
+   public int getMethodIndex(String methodName, String className) {
+	   
+	   if(this.publicMethodList != null) {
+		   for(int i=0; i < this.publicMethodList.getSize(); i++) {
+			   if(this.publicMethodList.getElement(i).equals(methodName) && this.publicMethodList.getElement(i).getClass().getName().equals(className)) {
+				   return i;
+			   }
+		   }
+	   }
+	   
+	   return 0;
+   }
+   
 
    public boolean extend(String name) {
 	   
@@ -188,6 +205,40 @@ public class KraClass extends Type {
 	   
 	   // gera codigos para os metodos desta classe
 	   memberList.genC(pw, this);
+	   
+	   // gera o vetor de metodos publicos desta classe
+	   pw.println("Func VTclass_" + this.getName() + "[] = {");
+	   pw.add();
+	   
+	   // gera o codigo relativo a todos os metodos publicos declarados para esta classe
+	   for(int i=0; i < this.publicMethodList.getSize(); i++) {
+		   MethodDec currentMethod = this.publicMethodList.getElement(i);
+		   pw.printIdent("(void(*)()) _" + this.getName() + "_" + currentMethod.getName());
+		   if(i+1 != this.publicMethodList.getSize()) {
+			   pw.println(";");
+		   } else {
+			   pw.println("");
+		   }
+	   }
+	   
+	   pw.sub();
+	   pw.println("};");
+	   pw.println("");
+	   
+	   // gera o codigo para alocacao de memoria para um "objeto" da classe
+	   pw.println(getCname() + " *new_" + getName() + "() {");
+	   pw.add();
+	   pw.printlnIdent(getCname() + " *t;");
+	   pw.println("");
+	   pw.printlnIdent("if ((t = malloc(sizeof(" + getCname() + "))) != NULL)");
+	   pw.add();
+	   pw.printlnIdent("t->vt = VTclass_" + getName() + ";");
+	   pw.sub();
+	   pw.printlnIdent("return t;");
+	   pw.sub();
+	   pw.printlnIdent("}");
+	   pw.println("");
+	   
 	   
    }
    

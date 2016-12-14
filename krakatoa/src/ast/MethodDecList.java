@@ -22,6 +22,10 @@ public class MethodDecList {
 		methodDecList.add(methodDec);
 	}
 	
+	public MethodDec getElement(int index) {
+		return methodDecList.get(index);
+	}
+	
 	public Iterator<MethodDec> elements() {
 		return this.methodDecList.iterator();
 	}

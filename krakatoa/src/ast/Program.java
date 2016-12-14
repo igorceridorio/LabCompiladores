@@ -48,10 +48,36 @@ public class Program {
 		pw.sub();
 		pw.println("");
 		
+		/* cria um objeto kraclass para armazenar a classe 'Program', isso eh necessario 
+		 dado que precisamos depois buscar a posicao correta do metodo 'run' no vetor de 
+		 metodos desta classe */
+		KraClass classProgram = null;
+		
 		// realizada a chamada para a geracao das classes
 		for(KraClass k : classList) {
 			  k.genC(pw);
+			  
+			  // ao encontrar a classe 'program' armazenamos a mesma
+			  if(k.getName().equals("Program")) {
+				  classProgram = k;
+			  }
 		}
+		
+		// gera o codigo do metodo main do programa
+		pw.println("int main() {");
+		pw.add();
+		pw.printlnIdent("_class_Program *program;");
+		pw.printlnIdent("program = new_Program();");
+		
+		/* recebe o valor relativo ao indice de localizacao do metodo run no vetor 
+		 de metoodos da classe 'Program' */
+		
+		int runIndex = classProgram.getMethodIndex("run", "Program");
+		pw.printlnIdent("((void (*)(_class_Program *) ) program->vt[" + runIndex + "])(program);");
+		
+		pw.printlnIdent("return 0;");
+		pw.sub();
+		pw.println("}");
 		
 	}
 	

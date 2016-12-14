@@ -58,15 +58,15 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 
 - [x] ```AsssignmentStatement```
 - [x] ```BreakStatement```
-- [ ] ```CompositeExpr```
-- [ ] ```CompositeStatement```
+- [x] ```CompositeExpr```
+- [x] ```CompositeStatement```
 - [x] ```DoWhileStatement```
 - [ ] ```ExprList```
 - [x] ```IfStatement```
 - [ ] ```InstanceVariableList```
 - [ ] ```KraClass```
 - [x] ```LiteralBoolean```
-- [ ] ```LiteralInt```
+- [x] ```LiteralInt```
 - [x] ```LiteralString```
 - [ ] ```LocalVariableList```
 - [ ] ```Member```

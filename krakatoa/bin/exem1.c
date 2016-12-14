@@ -29,11 +29,13 @@ void _Program_run(_class_Program *this) {
       sscanf(__s, "%d", &_b);
    }
    _primo = true;
-   _i =    2;
+   _i = 2;
    while (_i < _b) {
-      if ((_b - (_i * (_b / _i      ))) ==       0) {
+      if ((_b - (_i * (_b / _i))) == 0) {
+         _primo = false;
+         break;
       } else { 
-         _i = _i +          1;
+         _i = _i + 1;
       }
    }
    if (_primo) {
@@ -42,4 +44,22 @@ void _Program_run(_class_Program *this) {
       _msg = "Este numero nao e primo";
    }
    puts(_msg);
+}
+
+Func VTclass_Program[] = {
+   (void(*)()) _Program_run
+};
+
+_class_Program *new_Program() {
+   _class_Program *t;
+
+   if ((t = malloc(sizeof(_class_Program))) != NULL)
+      t->vt = VTclass_Program;
+   return t;
+}
+
+int main() {
+   _class_Program *program;
+   program = new_Program();
+   return 0;
 }
