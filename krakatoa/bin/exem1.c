@@ -61,5 +61,6 @@ _class_Program *new_Program() {
 int main() {
    _class_Program *program;
    program = new_Program();
+   ((void (*)(_class_Program *) ) program->vt[0])(program);
    return 0;
 }
