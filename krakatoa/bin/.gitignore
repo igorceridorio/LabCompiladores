@@ -1,5 +1,4 @@
-/tests/
-/ast/
 /comp/
 /lexer/
-/exem1.c
+/tests/
+/ast/

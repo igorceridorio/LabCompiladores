@@ -9,7 +9,7 @@ public class LiteralString extends Expr {
     }
     
     public void genC( PW pw, boolean putParenthesis, String className ) {
-        pw.print(literalString);
+    	pw.print("\"" + literalString + "\"");
     }
     
     public void genKra(PW pw, boolean ident) {

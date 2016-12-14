@@ -54,9 +54,9 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```WriteStat ::= “write” “(” ExpressionList “)”```
 - [x] ```WhileStat ::= “while” “(” Expression “)” Statement```
 
-genC files:
+### genC files:
 
-- [ ] ```AsssignmentStatement```
+- [x] ```AsssignmentStatement```
 - [x] ```BreakStatement```
 - [ ] ```CompositeExpr```
 - [ ] ```CompositeStatement```
@@ -67,7 +67,7 @@ genC files:
 - [ ] ```KraClass```
 - [x] ```LiteralBoolean```
 - [ ] ```LiteralInt```
-- [ ] ```LiteralString```
+- [x] ```LiteralString```
 - [ ] ```LocalVariableList```
 - [ ] ```Member```
 - [ ] ```MemberList```
@@ -80,16 +80,16 @@ genC files:
 - [ ] ```NullStatement```
 - [ ] ```ObjectCreation```
 - [ ] ```ParamList```
-- [ ] ```ParenthesisExpr```
+- [x] ```ParenthesisExpr```
 - [ ] ```Program```
-- [ ] ```ReadStatement```
+- [x] ```ReadStatement```
 - [ ] ```ReturnStatement```
-- [ ] ```SignalExpr```
+- [x] ```SignalExpr```
 - [ ] ```StatementAssert```
 - [x] ```StatementList```
-- [ ] ```UnaryExpr```
+- [x] ```UnaryExpr```
 - [ ] ```Variable```
-- [ ] ```VariableExpr```
+- [x] ```VariableExpr```
 - [ ] ```VariableList```
 - [x] ```WhileStatement```
-- [ ] ```WriteStatement```
+- [x] ```WriteStatement```

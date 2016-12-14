@@ -32,11 +32,12 @@ public class AssignmentStatement extends Statement{
 	@Override
 	public void genC(PW pw, String className) {
 		
-		//geracao de codigo apra atribuicoes
-//		leftExpr.genC(pw, true, className);
-//		pw.print(" = ");
-//		rightExpr.genC(pw, false, className);
-//		pw.println(";");
+		//geracao de codigo para atribuicoes
+		pw.printIdent("");
+		leftExpr.genC(pw, true, className);
+		pw.print(" = ");
+		rightExpr.genC(pw, false, className);
+		pw.println(";");
 		
 	}
 

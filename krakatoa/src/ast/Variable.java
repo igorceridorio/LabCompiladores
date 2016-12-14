@@ -10,7 +10,13 @@ public class Variable {
         this.type = type;
     }
 
-    public String getName() { return name; }
+    public String getName() { 
+    	return name; 
+    }
+    
+    public String getCname() {
+    	return "_" + name;
+    }
 
     public Type getType() {
         return type;
@@ -18,6 +24,11 @@ public class Variable {
 
     private String name;
     private Type type;
+    
+    public void genC(PW pw) {
+    	String varType = this.type.getCname();
+    	pw.printlnIdent(varType + " " + getCname() + ";");
+    }
     
 	public void genKra(PW pw) {
 		pw.printlnIdent(this.type.getName() + " " + this.name + ";");
