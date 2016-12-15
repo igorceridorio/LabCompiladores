@@ -1,5 +1,5 @@
 Relatório do Compilador
 
-0 erros foram sinalizados em 7 arquivos sem erro (0%)
+0 erros foram sinalizados em 1 arquivos sem erro (0%)
 O compilador não sinalizou nenhum erro que não deveria ter sinalizado
-Para os casos de teste que você utilizou, o compilador está correto
+Para o caso de teste que você utilizou, o compilador está correto
