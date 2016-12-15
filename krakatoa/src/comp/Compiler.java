@@ -1298,7 +1298,7 @@ public class Compiler {
 			lexer.nextToken();
 			exprList = realParameters();
 			
-			return new MessageSendToSuper(msg, exprList);
+			return new MessageSendToSuper(msg, exprList, currentClass);
 			
 		case IDENT:
 			/*

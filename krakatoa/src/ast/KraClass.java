@@ -146,6 +146,18 @@ public class KraClass extends Type {
 	   return 0;
    }
    
+   public MethodDec getMethod(String methodName) {
+	   if(this.vt != null) {
+		   for(int i=0; i < this.vt.size(); i++) {
+			   if(this.vt.get(i).getName().equals(methodName)) {
+				   return this.vt.get(i);
+			   }
+		   }
+	   }
+	   
+	   return null;
+   }
+   
 
    public boolean extend(String name) {
 	   
