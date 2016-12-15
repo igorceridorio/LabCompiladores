@@ -1385,7 +1385,7 @@ public class Compiler {
 							}
 							
 							// envia uma mensagem com a variavel local 'firstId', o metodo encontrado e a lista de expressoes do mesmo
-							return new MessageSendToVariable(new Variable(v.getName(), aux.getType()), aux, exprList);
+							return new MessageSendToVariable(new Variable(v.getName(), aux.getType()), aux, exprList, c);
 							
 						} else {
 							// se 'firstId' for uma KraClass verifica se 'id' foi declarado
@@ -1397,7 +1397,7 @@ public class Compiler {
 							}
 							
 							// envia uma mensagem com a classe 'firstId', o metodo encontrado e a lista de expressoes da mesma
-							return new MessageSendToVariable(new Variable(c.getName(), aux.getType()), aux, exprList);
+							return new MessageSendToVariable(new Variable(c.getName(), aux.getType()), aux, exprList, c);
 
 						}
 						

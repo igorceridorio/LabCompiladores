@@ -88,7 +88,7 @@ void _Program_run(_class_Program *this) {
    puts("The output should be :");
    puts("7 0 1 2 3 4 5 6 7");
    _a = new_A();
-   ;
+   ((void (*)(_class_A *)) _a->vt[0])((_class_A*) _a);
 }
 
 Func VTclass_Program[] = {

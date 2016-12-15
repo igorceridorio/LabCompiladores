@@ -3,6 +3,7 @@
 
 package ast;
 
+import lexer.Symbol;
 
 public class MessageSendToSelf extends MessageSend {
   
@@ -24,9 +25,34 @@ public class MessageSendToSelf extends MessageSend {
     }
     
     public void genC( PW pw, boolean putParenthesis, String className ) {
-    	
-    	
-    	
+    	if (v != null) {
+    		pw.printIdent("this->_" + className + v.getCname());
+    	}
+    	if (m != null) {
+    		KraClass thisClass = (KraClass)m.getType();
+    		
+    		if (m.getQualifier() == Symbol.PUBLIC) {
+    			pw.print("( (" + m.getType().getCname() + " (*)(" + thisClass.getCname() + " *" );
+    			if (m.getFormalParamDec() != null) {
+    				pw.print(", ");
+    				m.getFormalParamDec().genC(pw);
+    			}
+    			pw.print(")) this->vt[" + thisClass.getMethodIndex(m.getName(), className) + "]) ( (" + thisClass.getCname() + "*) this");
+    			if (exprList != null) {
+    				pw.print(", ");
+    				exprList.genC(pw, className);
+    			}
+    			pw.print(")");
+    		}
+    		else {
+    			pw.print("_" + className + "_" + m.getName() + "(this");
+    			if (exprList != null) {
+    				pw.print(", ");
+    				exprList.genC(pw, className);
+    			}
+    			pw.print(")");
+    		}
+    	}
     }
     
     public void genKra(PW pw, boolean ident) {	

@@ -14,7 +14,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```BooleanValue ::= “true” | “false”```
 - [x] ```ClassDec ::= “class” Id [ “extends” Id ] “{” MemberList “}”```
 - [x] ```CompStatement ::= “{” { Statement } “}”```
-- [ ] ```Digit ::= “0” | ... | “9”```
+- [x] ```Digit ::= “0” | ... | “9”```
 - [x] ```DoWhileStat ::= “do” CompStatement “while” “(” Expression “)”```
 - [x] ```Expression ::= SimpleExpression [ Relation SimpleExpression ]```
 - [x] ```ExpressionList ::= Expression { “,” Expression }```
@@ -27,7 +27,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```InstVarDec ::= Type IdList “;”```
 - [x] ```IntValue ::= Digit { Digit }```
 - [x] ```LeftValue ::= [ (“this” | Id ) “.” ] Id```
-- [ ] ```Letter ::= “A” | ... | “Z” | “a” | ... | “z”```
+- [x] ```Letter ::= “A” | ... | “Z” | “a” | ... | “z”```
 - [x] ```LocalDec ::= Type IdList “;”```
 - [x] ```LowOperator ::= “+” | “−” | “||”```
 - [x] ```MemberList ::= { Qualifier Member }```
@@ -43,7 +43,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```PrimaryExpr ::= “super” “.” Id “(” [ ExpressionList ] “)” | Id | Id “.” Id | Id “.” Id “(” [ ExpressionList ] ”)” | Id “.” Id “.” Id “(” [ ExpressionList ] “)” | “this” | “this” “.” Id | “this” ”.” Id “(” [ ExpressionList ] “)” | “this” ”.” I ``` “.” Id “(” [ ExpressionList ] “)”```
 - [x] ```Relation ::= “==” | “<” | “>” | “<=” | “>=” | “! =”```
 - [x] ```ReturnStat ::= “return” Expression```
-- [ ] ```RightValue ::= “this” [ “.” Id ] | Id [ “.” Id ]```
+- [x] ```RightValue ::= “this” [ “.” Id ] | Id [ “.” Id ]```
 - [x] ```Signal ::= “+” | “−”```
 - [x] ```SignalFactor ::= [ Signal ] Factor```
 - [x] ```SimpleExpression ::= Term { LowOperator Term }```
@@ -71,10 +71,10 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [ ] ```LocalVariableList```
 - [x] ```Member```
 - [x] ```MemberList```
-- [ ] ```MessageSendStatement```
-- [ ] ```MessageSendToSelf```
+- [x] ```MessageSendStatement```
+- [x] ```MessageSendToSelf```
 - [ ] ```MessageSendToSuper```
-- [ ] ```MessageSendToVariable```
+- [x] ```MessageSendToVariable```
 - [ ] ```MethodDec```
 - [ ] ```NullExpr```
 - [ ] ```NullStatement```
@@ -93,3 +93,27 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [ ] ```VariableList```
 - [x] ```WhileStatement```
 - [x] ```WriteStatement```
+
+### genC tests:
+
+- [x] ```OK-GER01```
+- [x] ```OK-GER02```
+- [x] ```OK-GER03```
+- [ ] ```OK-GER04```
+- [ ] ```OK-GER05```
+- [ ] ```OK-GER06```
+- [ ] ```OK-GER07```
+- [ ] ```OK-GER08```
+- [ ] ```OK-GER09```
+- [ ] ```OK-GER10```
+- [ ] ```OK-GER11```
+- [ ] ```OK-GER12```
+- [ ] ```OK-GER13```
+- [ ] ```OK-GER14```
+- [ ] ```OK-GER15```
+- [ ] ```OK-GER16```
+- [ ] ```OK-GER17```
+- [ ] ```OK-GER18```
+- [ ] ```OK-GER19```
+- [ ] ```OK-GER20```
+- [ ] ```OK-GER21```

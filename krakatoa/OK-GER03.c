@@ -18,12 +18,39 @@ _class_A *new_A(void);
 
 void _A_m(_class_A *this) {
    printf("%d ", 6);
-   printf("%d ", 1);
-   printf("%d ", 1 + 1);
-   printf("%d ", 4 - 1);
-   printf("%d ", (6 - 3) + 1);
-   printf("%d ", 10 / 2);
-   printf("%d ", 2 * 3);
+   if (true && true) {
+      printf("%d ", 1);
+   }
+   if (false && true) {
+      printf("%d ", 1000);
+   }
+   if (true && false) {
+      printf("%d ", 1000);
+   }
+   if (false && false) {
+      printf("%d ", 1000);
+   }
+   if (true || true) {
+      printf("%d ", 2);
+   }
+   if (true || false) {
+      printf("%d ", 3);
+   }
+   if (false || true) {
+      printf("%d ", 4);
+   }
+   if (false || false) {
+      printf("%d ", 1000);
+   }
+   if (!false) {
+      printf("%d ", 5);
+   }
+   if (!true) {
+      printf("%d ", 1000);
+   }
+   if (true || (true && false)) {
+      printf("%d ", 6);
+   }
 }
 
 Func VTclass_A[] = {
@@ -48,7 +75,7 @@ _class_Program *new_Program(void);
 void _Program_run(_class_Program *this) {
    _class_A *_a;
    puts("");
-   puts("Ok-ger02");
+   puts("Ok-ger03");
    puts("The output should be :");
    puts("6 1 2 3 4 5 6");
    _a = new_A();
