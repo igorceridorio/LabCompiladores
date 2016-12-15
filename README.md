@@ -104,10 +104,10 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```OK-GER06```
 - [x] ```OK-GER07```
 - [x] ```OK-GER08```
-- [ ] ```OK-GER09 - problemas na fase 1```
+- [x] ```OK-GER09```
 - [ ] ```OK-GER10 - problemas na fase 1```
 - [ ] ```OK-GER11 - problemas na fase 1```
-- [ ] ```OK-GER12 - problemas na fase 1```
+- [x] ```OK-GER12```
 - [ ] ```OK-GER13```
 - [ ] ```OK-GER14```
 - [x] ```OK-GER15```
