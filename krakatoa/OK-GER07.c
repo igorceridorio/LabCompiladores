@@ -17,19 +17,7 @@ typedef
 _class_A *new_A(void);
 
 void _A_m(_class_A *this) {
-   int _i;
-   boolean _b;
-   printf("%d ", 6);
-   _i = 1;
-   while (_i <= 5) {
-      printf("%d ", _i);
-      _i = _i + 1;
-   }
-   _b = false;
-   while (_b != true) {
-      printf("%d ", 6);
-      _b = !_b;
-   }
+   printf("%d ", 0);
 }
 
 Func VTclass_A[] = {
@@ -54,9 +42,9 @@ _class_Program *new_Program(void);
 void _Program_run(_class_Program *this) {
    _class_A *_a;
    puts("");
-   puts("Ok-ger04");
+   puts("Ok-ger07");
    puts("The output should be :");
-   puts("6 1 2 3 4 5 6");
+   puts("0");
    _a = new_A();
    ((void (*)(_class_A *)) _a->vt[0])((_class_A*) _a);
 }

@@ -40,10 +40,12 @@ public class LocalVariableList extends Statement {
 		// gera o codigo para as variaveis locais
 		for (Variable var : localList) {
 			if(var != null) {
-				if(var.getType() != Type.stringType) {
-					pw.printlnIdent(var.getType().getCname() + " *_" + var.getName() + ";");
-				} else {
+				// caso a variavel seja int ou boolean
+				if(var.getType() == Type.intType || var.getType() == Type.booleanType) {
 					pw.printlnIdent(var.getType().getCname() + " _" + var.getName() + ";");
+				} else {
+					// caso a variavel seja string ou instancia de classe
+					pw.printlnIdent(var.getType().getCname() + " *_" + var.getName() + ";");
 				}
 			}
 		}

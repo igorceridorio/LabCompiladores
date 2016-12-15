@@ -88,7 +88,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [ ] ```StatementAssert```
 - [x] ```StatementList```
 - [x] ```UnaryExpr```
-- [ ] ```Variable```
+- [x] ```Variable```
 - [x] ```VariableExpr```
 - [ ] ```VariableList```
 - [x] ```WhileStatement```
@@ -99,10 +99,10 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```OK-GER01```
 - [x] ```OK-GER02```
 - [x] ```OK-GER03```
-- [ ] ```OK-GER04```
-- [ ] ```OK-GER05```
-- [ ] ```OK-GER06```
-- [ ] ```OK-GER07```
+- [x] ```OK-GER04```
+- [ ] ```OK-GER05 - problemas na fase 1```
+- [x] ```OK-GER06```
+- [x] ```OK-GER07```
 - [ ] ```OK-GER08```
 - [ ] ```OK-GER09```
 - [ ] ```OK-GER10```

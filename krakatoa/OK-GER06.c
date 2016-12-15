@@ -18,18 +18,22 @@ _class_A *new_A(void);
 
 void _A_m(_class_A *this) {
    int _i;
-   boolean _b;
-   printf("%d ", 6);
+   int _j;
+   int _k;
+   printf("%d ", 7);
    _i = 1;
-   while (_i <= 5) {
-      printf("%d ", _i);
-      _i = _i + 1;
-   }
-   _b = false;
-   while (_b != true) {
-      printf("%d ", 6);
-      _b = !_b;
-   }
+   _j = _i + 1;
+   _k = _j + 1;
+   printf("%d ", _i);
+   printf("%d ", _j);
+   printf("%d ", _k);
+   _i = ((((3 + 1) * 3) / 2) / 2) + 1;
+   printf("%d ", _i);
+   _i = ((100 - 95) * 2) - 5;
+   printf("%d ", _i);
+   _i = (100 - (45 * 2)) - 4;
+   printf("%d ", _i);
+   printf("%d ", 7);
 }
 
 Func VTclass_A[] = {
@@ -54,9 +58,9 @@ _class_Program *new_Program(void);
 void _Program_run(_class_Program *this) {
    _class_A *_a;
    puts("");
-   puts("Ok-ger04");
+   puts("Ok-ger06");
    puts("The output should be :");
-   puts("6 1 2 3 4 5 6");
+   puts("7 1 2 3 4 5 6 7");
    _a = new_A();
    ((void (*)(_class_A *)) _a->vt[0])((_class_A*) _a);
 }

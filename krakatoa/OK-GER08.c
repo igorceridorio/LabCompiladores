@@ -16,24 +16,25 @@ typedef
 
 _class_A *new_A(void);
 
-void _A_m(_class_A *this) {
-   int _i;
-   boolean _b;
-   printf("%d ", 6);
-   _i = 1;
-   while (_i <= 5) {
-      printf("%d ", _i);
-      _i = _i + 1;
-   }
-   _b = false;
-   while (_b != true) {
-      printf("%d ", 6);
-      _b = !_b;
-   }
+void _A_m1(_class_A *this, int n) {
+   printf("%d ", 1);
+   printf("%d ", _n);
+}
+
+void _A_m2(_class_A *this, int n) {
+   printf("%d ", 2);
+   printf("%d ", _n);
+}
+
+void _A_m3(_class_A *this, int n) {
+   printf("%d ", 3);
+   printf("%d ", _n);
 }
 
 Func VTclass_A[] = {
-   (void(*)()) _A_m
+   (void(*)()) _A_m1;
+   (void(*)()) _A_m2;
+   (void(*)()) _A_m3
 };
 
 _class_A *new_A() {
@@ -54,11 +55,13 @@ _class_Program *new_Program(void);
 void _Program_run(_class_Program *this) {
    _class_A *_a;
    puts("");
-   puts("Ok-ger04");
+   puts("Ok-ger08");
    puts("The output should be :");
-   puts("6 1 2 3 4 5 6");
+   puts("1 1 2 2 3 3");
    _a = new_A();
-   ((void (*)(_class_A *)) _a->vt[0])((_class_A*) _a);
+   ((void (*)(_class_A *, int n)) _a->vt[0])((_class_A*) _a, 1);
+   ((void (*)(_class_A *, int n)) _a->vt[0])((_class_A*) _a, 2);
+   ((void (*)(_class_A *, int n)) _a->vt[0])((_class_A*) _a, 3);
 }
 
 Func VTclass_Program[] = {
