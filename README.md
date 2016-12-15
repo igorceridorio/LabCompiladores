@@ -73,7 +73,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```MemberList```
 - [x] ```MessageSendStatement```
 - [x] ```MessageSendToSelf```
-- [ ] ```MessageSendToSuper```
+- [x] ```MessageSendToSuper```
 - [x] ```MessageSendToVariable```
 - [ ] ```MethodDec```
 - [ ] ```NullExpr```
@@ -83,7 +83,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```ParenthesisExpr```
 - [ ] ```Program```
 - [x] ```ReadStatement```
-- [ ] ```ReturnStatement```
+- [x] ```ReturnStatement```
 - [x] ```SignalExpr```
 - [ ] ```StatementAssert```
 - [x] ```StatementList```
@@ -110,7 +110,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [ ] ```OK-GER12 - problemas na fase 1```
 - [ ] ```OK-GER13```
 - [ ] ```OK-GER14```
-- [ ] ```OK-GER15 - problemas na fase 1```
+- [x] ```OK-GER15```
 - [ ] ```OK-GER16```
 - [ ] ```OK-GER17```
 - [ ] ```OK-GER18```
