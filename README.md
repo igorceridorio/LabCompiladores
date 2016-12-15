@@ -69,8 +69,8 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [x] ```LiteralInt```
 - [x] ```LiteralString```
 - [ ] ```LocalVariableList```
-- [ ] ```Member```
-- [ ] ```MemberList```
+- [x] ```Member```
+- [x] ```MemberList```
 - [ ] ```MessageSendStatement```
 - [ ] ```MessageSendToSelf```
 - [ ] ```MessageSendToSuper```
@@ -78,7 +78,7 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [ ] ```MethodDec```
 - [ ] ```NullExpr```
 - [ ] ```NullStatement```
-- [ ] ```ObjectCreation```
+- [x] ```ObjectCreation```
 - [ ] ```ParamList```
 - [x] ```ParenthesisExpr```
 - [ ] ```Program```

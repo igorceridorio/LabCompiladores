@@ -191,7 +191,7 @@ public class KraClass extends Type {
 	   if (superclass != null) {
 		   superclass.instanceVariableList.genC(pw, superclass.getName());
 	   } else if (instanceVariableList.getSize() != 0) {
-		   instanceVariableList.genC(pw, this.getName());
+		   instanceVariableList.genC(pw, this.getName()); 
 	   }
 	   
 	   pw.sub();

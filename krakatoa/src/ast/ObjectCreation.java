@@ -18,7 +18,7 @@ public class ObjectCreation extends Expr{
 	
 	@Override
 	public void genC(PW pw, boolean putParenthesis, String className) {
-		
+		pw.print("new_" + newObject.getName() + "()");
 	}
 
 	@Override

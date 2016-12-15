@@ -41,9 +41,9 @@ public class LocalVariableList extends Statement {
 		for (Variable var : localList) {
 			if(var != null) {
 				if(var.getType() != Type.stringType) {
-					pw.printlnIdent(var.getType().getCname() + " _" + var.getName() + ";");
+					pw.printlnIdent(var.getType().getCname() + " *_" + var.getName() + ";");
 				} else {
-					pw.printlnIdent(var.getType().getCname() + "_" + var.getName() + ";");
+					pw.printlnIdent(var.getType().getCname() + " _" + var.getName() + ";");
 				}
 			}
 		}

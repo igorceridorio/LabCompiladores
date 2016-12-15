@@ -14,7 +14,7 @@ public class MessageSendStatement extends Statement {
 	@Override
 	public void genC( PW pw, String className ) {
 		pw.printIdent("");
-		// messageSend.genC(pw, className);
+		messageSend.genC(pw, false, className);
 		pw.println(";");
 	}
 

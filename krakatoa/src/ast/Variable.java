@@ -5,6 +5,9 @@ package ast;
 
 public class Variable {
 
+    private String name;
+    private Type type;
+	
     public Variable( String name, Type type ) {
         this.name = name;
         this.type = type;
@@ -21,9 +24,6 @@ public class Variable {
     public Type getType() {
         return type;
     }
-
-    private String name;
-    private Type type;
     
     public void genC(PW pw) {
     	String varType = this.type.getCname();

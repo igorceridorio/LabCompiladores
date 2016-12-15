@@ -24,6 +24,9 @@ public class MessageSendToSelf extends MessageSend {
     }
     
     public void genC( PW pw, boolean putParenthesis, String className ) {
+    	
+    	
+    	
     }
     
     public void genKra(PW pw, boolean ident) {	
