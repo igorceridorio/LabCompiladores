@@ -44,16 +44,27 @@ public class Compiler {
 				metaobjectCallList.add(metaobjectCall());
 			}
 			
+//			try {
+//				kraClassList.add(classDec());
+//			} catch(Exception e) {
+//				e.printStackTrace();
+//			}
+			
 			kraClassList.add(classDec());
 			
 			while (lexer.token != Symbol.EOF) {
 				if (lexer.token != Symbol.CLASS) {
 					signalError.showError("Expected class declaration");
 				}
-		
 				
 				kraClassList.add(classDec());
 				
+//				try {
+//					kraClassList.add(classDec());
+//				} catch(Exception e) {
+//					e.printStackTrace();
+//				}
+//				
 			}
 			
 			if ( lexer.token != Symbol.EOF ) {
