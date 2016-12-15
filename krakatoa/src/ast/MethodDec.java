@@ -15,6 +15,7 @@ public class MethodDec {
 	private ParamList formalParamDec;
 	private StatementList statementList;
 	private boolean hasReturn;
+	private KraClass kraClass;
 	
 	public MethodDec(Symbol qualifier, Type returnType, String methodName) {
 		this.qualifier = qualifier;
@@ -35,6 +36,14 @@ public class MethodDec {
 	
 	public String getName() {
 		return this.methodName;
+	}
+	
+	public void setKraClass(KraClass k) {
+		this.kraClass = k;
+	}
+	
+	public KraClass getKraClass() {
+		return this.kraClass;
 	}
 	
 	public void setFormalParamDec(ParamList formalParamDec) {

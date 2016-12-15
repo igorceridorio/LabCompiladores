@@ -14,6 +14,10 @@ public class MethodDecList {
 		methodDecList = new ArrayList<MethodDec>();
 	}
 	
+	public ArrayList<MethodDec> getMethodDecList() {
+		return methodDecList;
+	}
+	
 	public int getSize() {
 		return methodDecList.size();
 	}
