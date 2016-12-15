@@ -134,7 +134,7 @@ public class KraClass extends Type {
 	   
 	   if(this.publicMethodList != null) {
 		   for(int i=0; i < this.publicMethodList.getSize(); i++) {
-			   if(this.publicMethodList.getElement(i).equals(methodName) && this.publicMethodList.getElement(i).getClass().getName().equals(className)) {
+			   if(this.publicMethodList.getElement(i).getName().equals(methodName) && this.getName().equals(className)) {
 				   return i;
 			   }
 		   }
@@ -215,7 +215,7 @@ public class KraClass extends Type {
 		   MethodDec currentMethod = this.publicMethodList.getElement(i);
 		   pw.printIdent("(void(*)()) _" + this.getName() + "_" + currentMethod.getName());
 		   if(i+1 != this.publicMethodList.getSize()) {
-			   pw.println(";");
+			   pw.println(",");
 		   } else {
 			   pw.println("");
 		   }

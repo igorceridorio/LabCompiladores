@@ -38,7 +38,7 @@ public class ParamList {
     
     	// gera o codigo da lista de parametros
     	for(Variable var: paramList) {
-    		pw.print(var.getType().getCname() + " " + var.getName());
+    		pw.print(var.getType().getCname() + " _" + var.getName());
     		if(var != paramList.get(getSize() - 1)) {
     			pw.print(", ");
     		}

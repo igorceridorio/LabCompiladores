@@ -103,14 +103,14 @@ Coding Project. Compilers Lab course - 2016. Federal University of São Carlos -
 - [ ] ```OK-GER05 - problemas na fase 1```
 - [x] ```OK-GER06```
 - [x] ```OK-GER07```
-- [ ] ```OK-GER08```
-- [ ] ```OK-GER09```
-- [ ] ```OK-GER10```
-- [ ] ```OK-GER11```
-- [ ] ```OK-GER12```
+- [x] ```OK-GER08```
+- [ ] ```OK-GER09 - problemas na fase 1```
+- [ ] ```OK-GER10 - problemas na fase 1```
+- [ ] ```OK-GER11 - problemas na fase 1```
+- [ ] ```OK-GER12 - problemas na fase 1```
 - [ ] ```OK-GER13```
 - [ ] ```OK-GER14```
-- [ ] ```OK-GER15```
+- [ ] ```OK-GER15 - problemas na fase 1```
 - [ ] ```OK-GER16```
 - [ ] ```OK-GER17```
 - [ ] ```OK-GER18```
