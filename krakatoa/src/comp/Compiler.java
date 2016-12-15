@@ -1453,7 +1453,7 @@ public class Compiler {
 				// only 'this'
 				// retorne um objeto da ASA que representa 'this'
 				// confira se não estamos em um método estático
-				return new MessageSendToSelf(null, null, null, currentClass);
+				return new MessageSendToSelf(null, null, null, currentClass, currentClass);
 			}
 			else {
 				lexer.nextToken();
@@ -1472,17 +1472,17 @@ public class Compiler {
 					
 					msg = currentClass.searchMethod(id, false, true);
 					if (msg != null) {
-						return new MessageSendToSelf(null, msg, exprList, msg.getType());
+						return new MessageSendToSelf(null, msg, exprList, msg.getType(), currentClass);
 					} else {
 						msg = currentClass.searchMethod(id, true, true);
 						if (msg != null) {
-							return new MessageSendToSelf(null, msg, exprList, msg.getType());
+							return new MessageSendToSelf(null, msg, exprList, msg.getType(), currentClass);
 						} else {
 							signalError.showError("undefined method '" + id + "' in class '" + currentClass.getName() + "'");
 						}
 					}
 					
-					return new MessageSendToSelf(null, msg, exprList, null);
+					return new MessageSendToSelf(null, msg, exprList, null, currentClass);
 					
 				}
 				else if ( lexer.token == Symbol.DOT ) {
@@ -1509,7 +1509,7 @@ public class Compiler {
 					if (v == null) {
 						signalError.showError("instance variable '" + id + "' has not been declared");
 					} else {
-						return new MessageSendToSelf(new Variable(id, v.getType()), null, null, v.getType());
+						return new MessageSendToSelf(new Variable(id, v.getType()), null, null, v.getType(), currentClass);
 					}
 				}
 			}
